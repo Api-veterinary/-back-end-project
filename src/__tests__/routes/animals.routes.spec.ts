@@ -93,6 +93,7 @@ describe("Testing animals/medicine routes", () => {
     const owner = await request(app).patch(path).send();
     const response = await request(app)
       .post(animalRoutes)
+
       .send(mockedAnimalUpdate);
 
     expect(response.body).toHaveProperty("id");
