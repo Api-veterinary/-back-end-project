@@ -11,11 +11,13 @@ import {
   OneToMany,
   ManyToMany,
   ManyToOne,
+  BeforeUpdate,
 } from "typeorm";
 import { Address } from "../address/address.entity";
 import { Consults } from "../consults/consults.entity";
 import { ProcedureSchedule } from "../procedure_schedule/procedure_schedule.entity";
 import { Users } from "../users/users.entity";
+import { Vaccines } from "../vaccines/vaccines.entity";
 
 @Entity("animals")
 export class Animals {
@@ -31,11 +33,17 @@ export class Animals {
   @Column({ length: 120 })
   password: string;
 
+  @BeforeInsert()
   @CreateDateColumn()
   createdAt: Date;
 
+  @BeforeUpdate()
   @UpdateDateColumn()
   updatedAt: Date;
+
+  @ManyToOne(() => Vaccines, (vaccines) => vaccines.animals)
+  @JoinColumn()
+  vaccines: Vaccines;
 
   @OneToOne(() => Address)
   @JoinColumn()
