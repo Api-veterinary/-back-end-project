@@ -35,4 +35,12 @@ describe("Testing users routes", () => {
     expect(response.body.email).toEqual(mockedUserRequest.email);
     expect(response.status).toBe(201);
   });
+
+  test("Should not be to create a user with used email", async () => {
+    const response = await request(app).post(baseUrl).send(mockedUserRequest);
+
+    expect(response.body).not.toHaveProperty("id");
+    expect(response.body).not.toHaveProperty("name");
+    expect(response.status).toBe(409);
+  });
 });

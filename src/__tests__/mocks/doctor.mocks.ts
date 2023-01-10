@@ -1,5 +1,5 @@
 import { IDoctorRequest } from "../../interfaces/doctor.interface";
-import { IUserResponse } from "../../interfaces/users.Interface";
+import { IUserLogin, IUserResponse } from "../../interfaces/users.Interface";
 
 export const mockedDoctorRequest: IDoctorRequest = {
   name: "mockedName",
@@ -15,11 +15,11 @@ export const mockedDoctorRequest: IDoctorRequest = {
   },
 };
 
-export const mockedUserResponse: IUserResponse = {
+export const mockedDoctorRequestCrmv: IDoctorRequest = {
   name: "mockedName",
-  email: "mockedEmail@MediaList.com",
-  createdAt: new Date(),
-  updatedAt: new Date(),
+  crmv: "65735283",
+  email: "mockedDoctorEmailCrmv@MediaList.com",
+  password: "string",
   address: {
     district: "mockedDistrict",
     zipCode: "09807879",
@@ -27,4 +27,9 @@ export const mockedUserResponse: IUserResponse = {
     city: "mockedCity",
     state: "mockedState",
   },
+};
+
+export const mockedDoctorLogin: IUserLogin = {
+  email: "mockedDoctorEmail@MediaList.com",
+  password: "string",
 };

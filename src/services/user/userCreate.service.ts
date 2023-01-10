@@ -9,7 +9,11 @@ export const userCreateService = async (userData: IUserRequest) => {
   const userRepository = AppDataSource.getRepository(Users);
   const addressRepository = AppDataSource.getRepository(Address);
 
-  if (userData.email in userRepository) {
+  const exists = await userRepository.exist({
+    where: { email: userData.email },
+  });
+
+  if (exists) {
     throw new AppError("User, already registered", 409);
   }
 
@@ -17,7 +21,6 @@ export const userCreateService = async (userData: IUserRequest) => {
   const address = await addressRepository.save(newAddress);
 
   const user = await userRepository.save({ ...userData, address: address });
-  console.log(user);
 
   const userWithoutPassord = await userWithoutPasswordSchema.validate(user, {
     stripUnknown: true,

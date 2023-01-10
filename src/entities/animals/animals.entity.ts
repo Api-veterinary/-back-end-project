@@ -1,4 +1,3 @@
-import { hashSync } from "bcryptjs";
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -13,9 +12,9 @@ import {
 } from "typeorm";
 import { Animal_types } from "../animalTypes/animalTypes.entity";
 import { Consults } from "../consults/consults.entity";
+import { Medicine } from "../medicines/medicines.enttity";
 import { ProcedureSchedule } from "../procedure_schedule/procedure_schedule.entity";
 import { Users } from "../users/users.entity";
-import { Vaccines } from "../vaccines/vaccines.entity";
 
 @Entity("animals")
 export class Animals {
@@ -46,17 +45,11 @@ export class Animals {
   @UpdateDateColumn()
   last_visit: Date;
 
-  @ManyToOne(() => Vaccines, (vaccines) => vaccines.animals)
+  @OneToMany(() => Medicine, (vaccines) => vaccines.animals)
   @JoinColumn()
-  vaccines: Vaccines;
+  vaccines: Medicine[];
 
-  @OneToMany(
-    () => ProcedureSchedule,
-    (procedureSchedule) => procedureSchedule.doctor
-  )
-  procedures_schedules: ProcedureSchedule[];
-
-  @OneToMany(() => Consults, (consults) => consults.doctor)
+  @OneToMany(() => Consults, (consults) => consults.animal)
   @JoinColumn()
   consults: Consults[];
 

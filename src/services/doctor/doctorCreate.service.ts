@@ -17,7 +17,6 @@ export const doctorCreateService = async (userData: IUserRequest) => {
   const address = await addressRepository.save(newAddress);
 
   const user = await doctorRepository.save({ ...userData, address: address });
-  console.log(user);
 
   const userWithoutPassord = await doctorWithoutPasswordSchema.validate(user, {
     stripUnknown: true,

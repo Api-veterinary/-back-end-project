@@ -2,7 +2,10 @@ import { DataSource } from "typeorm";
 import app from "../../app";
 import AppDataSource from "../../data-source";
 import request from "supertest";
-import { mockedDoctorRequest } from "../mocks/doctor.mocks";
+import {
+  mockedDoctorRequest,
+  mockedDoctorRequestCrmv,
+} from "../mocks/doctor.mocks";
 
 describe("Testing doctors routes", () => {
   let connection: DataSource;
@@ -20,7 +23,7 @@ describe("Testing doctors routes", () => {
     await connection.destroy();
   });
 
-  test("Should be to create a doctor", async () => {
+  test("Should be able to create a doctor", async () => {
     const response = await request(app).post(baseUrl).send(mockedDoctorRequest);
 
     expect(response.body).toHaveProperty("id");
@@ -34,5 +37,31 @@ describe("Testing doctors routes", () => {
     expect(response.body.name).toEqual(mockedDoctorRequest.name);
     expect(response.body.email).toEqual(mockedDoctorRequest.email);
     expect(response.status).toBe(201);
+  });
+
+  test("Should not be able to create a doctor with same email", async () => {
+    const response = await request(app).post(baseUrl).send(mockedDoctorRequest);
+
+    expect(response.body).toHaveProperty("message");
+    expect(response.body).not.toHaveProperty("id");
+    expect(response.status).toBe(400);
+  });
+
+  test("Should not be able to create a doctor with same crmv", async () => {
+    const response = await request(app)
+      .post(baseUrl)
+      .send(mockedDoctorRequestCrmv);
+
+    expect(response.body).toHaveProperty("message");
+    expect(response.body).not.toHaveProperty("id");
+    expect(response.status).toBe(400);
+  });
+
+  test("Should not be able to create a doctor without crmv", async () => {
+    const response = await request(app).post(baseUrl).send(mockedDoctorRequest);
+
+    expect(response.body).toHaveProperty("message");
+    expect(response.body).not.toHaveProperty("id");
+    expect(response.status).toBe(400);
   });
 });
