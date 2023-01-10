@@ -22,8 +22,7 @@ const ensureAuthMiddleware = async (
     }
 
     req.user = {
-      id: decoded.sub as number,
-      isAdmin: decoded.type,
+      id: decoded.sub as number
     };
 
     return next();
