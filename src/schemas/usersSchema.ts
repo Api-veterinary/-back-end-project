@@ -1,5 +1,6 @@
 import * as yup from "yup";
 import { SchemaOf } from "yup";
+
 import { IUserRequest, IUserUpdate } from "../interfaces/users.Interface";
 import { addressSchema } from "./address/addresSchema";
 
@@ -8,6 +9,7 @@ export const userSchema: SchemaOf<IUserRequest> = yup.object().shape({
   email: yup.string().email().required().max(70),
   password: yup.string().required().max(120),
   address: yup.object().required(),
+
 });
 
 export const userUpdateSchema: SchemaOf<IUserUpdate> = yup.object().shape({
@@ -34,3 +36,4 @@ export const doctorWithoutPasswordSchema = yup.object().shape({
   name: yup.string().notRequired(),
   id: yup.string().required(),
 });
+
