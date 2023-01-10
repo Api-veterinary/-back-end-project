@@ -6,14 +6,12 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   BeforeInsert,
-  OneToOne,
   JoinColumn,
   OneToMany,
-  ManyToMany,
   ManyToOne,
   BeforeUpdate,
 } from "typeorm";
-import { Address } from "../address/address.entity";
+import { Animal_types } from "../animalTypes/animalTypes.entity";
 import { Consults } from "../consults/consults.entity";
 import { ProcedureSchedule } from "../procedure_schedule/procedure_schedule.entity";
 import { Users } from "../users/users.entity";
@@ -27,27 +25,30 @@ export class Animals {
   @Column({ length: 70 })
   name: string;
 
-  @Column({ unique: true, length: 70 })
-  email: string;
+  @Column()
+  weigth: string;
 
-  @Column({ length: 120 })
-  password: string;
+  @Column()
+  size: string;
+
+  @ManyToOne(() => Animal_types, (animal_types) => animal_types.animals)
+  @JoinColumn()
+  type: string;
+
+  @Column({ type: "date" })
+  birth_date: string;
 
   @BeforeInsert()
   @CreateDateColumn()
-  createdAt: Date;
+  first_visit: Date;
 
   @BeforeUpdate()
   @UpdateDateColumn()
-  updatedAt: Date;
+  last_visit: Date;
 
   @ManyToOne(() => Vaccines, (vaccines) => vaccines.animals)
   @JoinColumn()
   vaccines: Vaccines;
-
-  @OneToOne(() => Address)
-  @JoinColumn()
-  address: Address;
 
   @OneToMany(
     () => ProcedureSchedule,
@@ -62,9 +63,4 @@ export class Animals {
   @ManyToOne(() => Users, (users) => users.animals)
   @JoinColumn()
   owner_id: Users;
-
-  @BeforeInsert()
-  hashPassword() {
-    this.password = hashSync(this.password, 10);
-  }
 }

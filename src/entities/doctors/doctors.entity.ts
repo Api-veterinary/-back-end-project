@@ -30,7 +30,7 @@ export class Doctors {
   password: string;
 
   @Column({ nullable: false })
-  crmmv: number;
+  crmv: number;
 
   @BeforeInsert()
   @CreateDateColumn()
