@@ -23,5 +23,5 @@ export const animalsWithoutPasswordSchema = yup.object().shape({
     weight: yup.string().required(), 
     size: yup.string().required(), 
     vaccines: yup.string().required(),
-    last_visit: yup.date()
+    last_visit: yup.date().required()
   });
