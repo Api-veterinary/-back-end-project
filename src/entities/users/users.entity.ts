@@ -9,6 +9,7 @@ import {
   OneToOne,
   JoinColumn,
   OneToMany,
+  BeforeUpdate,
 } from "typeorm";
 import { Address } from "../address/address.entity";
 import { Animals } from "../animals/animals.entity";
@@ -27,9 +28,11 @@ export class Users {
   @Column({ length: 120 })
   password: string;
 
+  @BeforeInsert()
   @CreateDateColumn()
   createdAt: Date;
 
+  @BeforeUpdate()
   @UpdateDateColumn()
   updatedAt: Date;
 

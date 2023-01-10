@@ -9,6 +9,7 @@ import {
   OneToOne,
   JoinColumn,
   OneToMany,
+  BeforeUpdate,
 } from "typeorm";
 import { Address } from "../address/address.entity";
 import { Consults } from "../consults/consults.entity";
@@ -28,9 +29,14 @@ export class Doctors {
   @Column({ length: 120 })
   password: string;
 
+  @Column({ nullable: false })
+  crmmv: number;
+
+  @BeforeInsert()
   @CreateDateColumn()
   createdAt: Date;
 
+  @BeforeUpdate()
   @UpdateDateColumn()
   updatedAt: Date;
 
