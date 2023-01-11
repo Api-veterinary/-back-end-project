@@ -23,14 +23,14 @@ export class Doctors {
   @Column({ length: 70 })
   name: string;
 
-  @Column({ unique: true, length: 70 })
+  @Column({ unique: true, length: 70, nullable: false })
   email: string;
 
-  @Column({ length: 120 })
+  @Column({ length: 120, nullable: false })
   password: string;
 
   @Column({ nullable: false })
-  crmmv: number;
+  crmv: number;
 
   @BeforeInsert()
   @CreateDateColumn()

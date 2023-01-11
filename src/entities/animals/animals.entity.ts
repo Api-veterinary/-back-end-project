@@ -1,4 +1,3 @@
-import { hashSync } from "bcryptjs";
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -6,18 +5,16 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   BeforeInsert,
-  OneToOne,
   JoinColumn,
   OneToMany,
-  ManyToMany,
   ManyToOne,
   BeforeUpdate,
 } from "typeorm";
-import { Address } from "../address/address.entity";
+import { AnimalSizes } from "../animalSizes/animal_sizes.entity";
+import { Animal_types } from "../animalTypes/animalTypes.entity";
 import { Consults } from "../consults/consults.entity";
-import { ProcedureSchedule } from "../procedure_schedule/procedure_schedule.entity";
 import { Users } from "../users/users.entity";
-import { Vaccines } from "../vaccines/vaccines.entity";
+import { VaccinesAplication } from "../vaccines_aplied/vaccinesAplied.entity";
 
 @Entity("animals")
 export class Animals {
@@ -27,44 +24,39 @@ export class Animals {
   @Column({ length: 70 })
   name: string;
 
-  @Column({ unique: true, length: 70 })
-  email: string;
+  @Column()
+  weigth: string;
 
-  @Column({ length: 120 })
-  password: string;
+  @ManyToOne(() => AnimalSizes, (animal_sizes) => animal_sizes.animals)
+  size: AnimalSizes;
+
+  @ManyToOne(() => Animal_types, (animal_types) => animal_types.animals)
+  @JoinColumn()
+  type: string;
+
+  @Column({ type: "date" })
+  birth_date: string;
 
   @BeforeInsert()
   @CreateDateColumn()
-  createdAt: Date;
+  first_visit: Date;
 
   @BeforeUpdate()
   @UpdateDateColumn()
-  updatedAt: Date;
-
-  @ManyToOne(() => Vaccines, (vaccines) => vaccines.animals)
-  @JoinColumn()
-  vaccines: Vaccines;
-
-  @OneToOne(() => Address)
-  @JoinColumn()
-  address: Address;
+  last_visit: Date;
 
   @OneToMany(
-    () => ProcedureSchedule,
-    (procedureSchedule) => procedureSchedule.doctor
+    () => VaccinesAplication,
+    (vaccines_aplied) => vaccines_aplied.vaccine
   )
-  procedures_schedules: ProcedureSchedule[];
+  @JoinColumn()
+  vaccines: VaccinesAplication[];
 
-  @OneToMany(() => Consults, (consults) => consults.doctor)
+  @OneToMany(() => Consults, (consults) => consults.animal)
   @JoinColumn()
   consults: Consults[];
 
   @ManyToOne(() => Users, (users) => users.animals)
   @JoinColumn()
-  owner_id: Users;
-
-  @BeforeInsert()
-  hashPassword() {
-    this.password = hashSync(this.password, 10);
-  }
+  owner: Users;
 }
