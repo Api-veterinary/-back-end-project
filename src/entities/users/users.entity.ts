@@ -22,10 +22,10 @@ export class Users {
   @Column({ length: 70 })
   name: string;
 
-  @Column({ unique: true, length: 70 })
+  @Column({ unique: true, length: 70, nullable: false })
   email: string;
 
-  @Column({ length: 120 })
+  @Column({ length: 120, nullable: false })
   password: string;
 
   @BeforeInsert()
@@ -40,7 +40,7 @@ export class Users {
   @JoinColumn()
   address: Address;
 
-  @OneToMany(() => Animals, (animals) => animals.owner_id)
+  @OneToMany(() => Animals, (animals) => animals.owner)
   animals: Animals[];
 
   @BeforeInsert()
