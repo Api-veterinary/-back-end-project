@@ -40,7 +40,7 @@ export class Users {
   @JoinColumn()
   address: Address;
 
-  @OneToMany(() => Animals, (animals) => animals.owner_id)
+  @OneToMany(() => Animals, (animals) => animals.owner)
   animals: Animals[];
 
   @BeforeInsert()

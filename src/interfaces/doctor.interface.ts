@@ -1,9 +1,11 @@
+import { IAddressRequest } from "./address.interface";
+
 export interface IDoctorRequest {
   name: string;
   email: string;
   password: string;
   crmv: string;
-  address: object;
+  address: IAddressRequest;
 }
 
 export interface IDoctorResponse {

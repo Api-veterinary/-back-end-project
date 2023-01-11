@@ -8,4 +8,6 @@ export const addressSchema: SchemaOf<IAddressRequest> = yup.object().shape({
   state: yup.string().required(),
   number: yup.string().required(),
   zipCode: yup.string().required(),
+  street: yup.string().required(),
+  complement: yup.string().required(),
 });

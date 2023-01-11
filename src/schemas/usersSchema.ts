@@ -7,7 +7,17 @@ export const userSchema: SchemaOf<IUserRequest> = yup.object().shape({
   name: yup.string().required().max(70),
   email: yup.string().email().required().max(70),
   password: yup.string().required().max(120),
-  address: yup.object().required(),
+  address: yup
+    .object({
+      district: yup.string(),
+      zipCode: yup.string(),
+      number: yup.string(),
+      city: yup.string(),
+      state: yup.string(),
+      street: yup.string(),
+      complement: yup.string(),
+    })
+    .required(),
 });
 
 export const userUpdateSchema: SchemaOf<IUserUpdate> = yup.object().shape({

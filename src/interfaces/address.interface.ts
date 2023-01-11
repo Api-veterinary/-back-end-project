@@ -4,4 +4,6 @@ export interface IAddressRequest {
   number: string;
   city: string;
   state: string;
+  street: string;
+  complement: string;
 }

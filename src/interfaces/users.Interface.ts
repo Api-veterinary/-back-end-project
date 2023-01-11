@@ -1,8 +1,10 @@
+import { IAddressRequest } from "./address.interface";
+
 export interface IUserRequest {
   name: string;
   email: string;
   password: string;
-  address: object;
+  address: IAddressRequest;
 }
 
 export interface IUserResponse {

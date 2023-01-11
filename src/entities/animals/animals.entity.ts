@@ -10,11 +10,11 @@ import {
   ManyToOne,
   BeforeUpdate,
 } from "typeorm";
+import { AnimalSizes } from "../animalSizes/animal_sizes.entity";
 import { Animal_types } from "../animalTypes/animalTypes.entity";
 import { Consults } from "../consults/consults.entity";
-import { Medicine } from "../medicines/medicines.enttity";
-import { ProcedureSchedule } from "../procedure_schedule/procedure_schedule.entity";
 import { Users } from "../users/users.entity";
+import { VaccinesAplication } from "../vaccines_aplied/vaccinesAplied.entity";
 
 @Entity("animals")
 export class Animals {
@@ -27,8 +27,8 @@ export class Animals {
   @Column()
   weigth: string;
 
-  @Column()
-  size: string;
+  @ManyToOne(() => AnimalSizes, (animal_sizes) => animal_sizes.animals)
+  size: AnimalSizes;
 
   @ManyToOne(() => Animal_types, (animal_types) => animal_types.animals)
   @JoinColumn()
@@ -45,9 +45,12 @@ export class Animals {
   @UpdateDateColumn()
   last_visit: Date;
 
-  @OneToMany(() => Medicine, (vaccines) => vaccines.animals)
+  @OneToMany(
+    () => VaccinesAplication,
+    (vaccines_aplied) => vaccines_aplied.vaccine
+  )
   @JoinColumn()
-  vaccines: Medicine[];
+  vaccines: VaccinesAplication[];
 
   @OneToMany(() => Consults, (consults) => consults.animal)
   @JoinColumn()
@@ -55,5 +58,5 @@ export class Animals {
 
   @ManyToOne(() => Users, (users) => users.animals)
   @JoinColumn()
-  owner_id: Users;
+  owner: Users;
 }

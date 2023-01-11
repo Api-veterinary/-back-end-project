@@ -2,7 +2,7 @@ import { DataSource, Repository, TableForeignKey } from "typeorm";
 import app from "../../app";
 import AppDataSource from "../../data-source";
 import request from "supertest";
-import { mockedMedicine } from "../mocks/medice.mocks";
+import { mockedMedicine } from "../mocks/medicine.mocks";
 import { mockedDoctorLogin, mockedDoctorRequest } from "../mocks/doctor.mocks";
 
 describe("Testing medicine routes", () => {

@@ -5,7 +5,7 @@ import request from "supertest";
 import { mockedUserRequest } from "../mocks/user.mocks";
 import { mockedAnimalRequest, mockedAnimalUpdate } from "../mocks/animal.mocks";
 import { animal_type } from "../mocks/animal_type.mocks";
-import { mockedMedicine } from "../mocks/medice.mocks";
+import { mockedMedicine } from "../mocks/medicine.mocks";
 import { mockedDoctorLogin, mockedDoctorRequest } from "../mocks/doctor.mocks";
 
 describe("Testing animals/medicine routes", () => {

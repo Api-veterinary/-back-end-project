@@ -50,7 +50,7 @@ export class Doctors {
   )
   procedures_schedules: ProcedureSchedule[];
 
-  @OneToMany(() => Consults, (consults) => consults.doctor_id)
+  @OneToMany(() => Consults, (consults) => consults.doctor)
   @JoinColumn()
   consults: Consults[];
 

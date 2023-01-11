@@ -8,6 +8,8 @@ export const mockedUserRequest: IUserRequest = {
     district: "mockedDistrict",
     zipCode: "09807879",
     number: "320",
+    complement: "ap 02 bl 01",
+    street: "mockedStreet",
     city: "mockedCity",
     state: "mockedState",
   },

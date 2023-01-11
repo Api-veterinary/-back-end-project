@@ -26,9 +26,9 @@ export class Consults {
 
   @ManyToOne(() => Doctors, (doctors) => doctors.consults)
   @JoinColumn()
-  doctor_id: Doctors;
+  doctor: Doctors;
 
   @OneToOne(() => Treatment)
   @JoinColumn()
-  treatment_id: Treatment;
+  treatment: Treatment;
 }

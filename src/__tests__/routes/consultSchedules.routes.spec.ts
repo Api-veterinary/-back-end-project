@@ -6,7 +6,7 @@ import { mockedUserRequest } from "../mocks/user.mocks";
 import { mockedDoctorRequest } from "../mocks/doctor.mocks";
 import { mockedAnimalRequest } from "../mocks/animal.mocks";
 import { mockedConsult } from "../mocks/consults.mocks";
-import { mockedMedicine } from "../mocks/medice.mocks";
+import { mockedMedicine } from "../mocks/medicine.mocks";
 import { animal_type } from "../mocks/animal_type.mocks";
 
 describe("Testing consults routes", () => {

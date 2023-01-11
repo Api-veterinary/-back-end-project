@@ -12,6 +12,8 @@ export const mockedDoctorRequest: IDoctorRequest = {
     number: "320",
     city: "mockedCity",
     state: "mockedState",
+    street: "mockedStreet",
+    complement: "ap 1201",
   },
 };
 
@@ -26,6 +28,8 @@ export const mockedDoctorRequestCrmv: IDoctorRequest = {
     number: "320",
     city: "mockedCity",
     state: "mockedState",
+    street: "mockedStreet",
+    complement: "ap 1201",
   },
 };
 
