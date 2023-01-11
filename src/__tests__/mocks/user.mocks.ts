@@ -11,7 +11,7 @@ export const mockedUserRequest: IUserRequest = {
     complement: "ap 02 bl 01",
     street: "mockedStreet",
     city: "mockedCity",
-    state: "mockedState",
+    state: "PR",
   },
 };
 
@@ -25,6 +25,6 @@ export const mockedUserResponse: IUserResponse = {
     zipCode: "09807879",
     number: "320",
     city: "mockedCity",
-    state: "mockedState",
+    state: "PR",
   },
 };

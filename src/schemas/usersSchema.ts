@@ -1,13 +1,13 @@
 import * as yup from "yup";
 import { SchemaOf } from "yup";
-import { IUserRequest, IUserUpdate} from "../interfaces/users.Interface";
-
+import { IUserRequest, IUserUpdate } from "../interfaces/users.Interface";
+import { addressSchema } from "./address/addresSchema";
 
 export const userSchema: SchemaOf<IUserRequest> = yup.object().shape({
-name: yup.string().required().max(70),
+  name: yup.string().required().max(70),
   email: yup.string().email().required().max(70),
   password: yup.string().required().max(120),
-  address: yup.object().required()
+  address: addressSchema,
 });
 
 export const userUpdateSchema: SchemaOf<IUserUpdate> = yup.object().shape({
@@ -23,4 +23,3 @@ export const userWithoutPasswordSchema = yup.object().shape({
   createdAt: yup.date().notRequired(),
   updatedAt: yup.date().notRequired(),
 });
-
