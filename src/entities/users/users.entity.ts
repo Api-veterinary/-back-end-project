@@ -22,10 +22,10 @@ export class Users {
   @Column({ length: 70 })
   name: string;
 
-  @Column({ unique: true, length: 70, nullable: false })
+  @Column({ unique: true, length: 70 })
   email: string;
 
-  @Column({ length: 120, nullable: false })
+  @Column({ length: 120 })
   password: string;
 
   @BeforeInsert()

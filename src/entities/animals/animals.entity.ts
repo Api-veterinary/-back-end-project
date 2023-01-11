@@ -1,3 +1,4 @@
+import { hashSync } from "bcryptjs";
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -5,16 +6,18 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   BeforeInsert,
+  OneToOne,
   JoinColumn,
   OneToMany,
+  ManyToMany,
   ManyToOne,
   BeforeUpdate,
 } from "typeorm";
-import { Animal_types } from "../animalTypes/animalTypes.entity";
+import { Address } from "../address/address.entity";
 import { Consults } from "../consults/consults.entity";
-import { Medicine } from "../medicines/medicines.enttity";
 import { ProcedureSchedule } from "../procedure_schedule/procedure_schedule.entity";
 import { Users } from "../users/users.entity";
+import { Vaccines } from "../vaccines/vaccines.entity";
 
 @Entity("animals")
 export class Animals {
@@ -24,36 +27,44 @@ export class Animals {
   @Column({ length: 70 })
   name: string;
 
-  @Column()
-  weigth: string;
+  @Column({ unique: true, length: 70 })
+  email: string;
 
-  @Column()
-  size: string;
-
-  @ManyToOne(() => Animal_types, (animal_types) => animal_types.animals)
-  @JoinColumn()
-  type: string;
-
-  @Column({ type: "date" })
-  birth_date: string;
+  @Column({ length: 120 })
+  password: string;
 
   @BeforeInsert()
   @CreateDateColumn()
-  first_visit: Date;
+  createdAt: Date;
 
   @BeforeUpdate()
   @UpdateDateColumn()
-  last_visit: Date;
+  updatedAt: Date;
 
-  @OneToMany(() => Medicine, (vaccines) => vaccines.animals)
+  @ManyToOne(() => Vaccines, (vaccines) => vaccines.animals)
   @JoinColumn()
-  vaccines: Medicine[];
+  vaccines: Vaccines;
 
-  @OneToMany(() => Consults, (consults) => consults.animal)
+  @OneToOne(() => Address)
+  @JoinColumn()
+  address: Address;
+
+  @OneToMany(
+    () => ProcedureSchedule,
+    (procedureSchedule) => procedureSchedule.doctor
+  )
+  procedures_schedules: ProcedureSchedule[];
+
+  @OneToMany(() => Consults, (consults) => consults.doctor)
   @JoinColumn()
   consults: Consults[];
 
   @ManyToOne(() => Users, (users) => users.animals)
   @JoinColumn()
   owner_id: Users;
+
+  @BeforeInsert()
+  hashPassword() {
+    this.password = hashSync(this.password, 10);
+  }
 }
