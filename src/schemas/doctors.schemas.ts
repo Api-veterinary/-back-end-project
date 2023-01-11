@@ -4,7 +4,7 @@ export const doctorSchema = yup.object().shape({
   name: yup.string().required(),
   email: yup.string().email().required(),
   password: yup.string().required(),
-  crmmv: yup.number().notRequired(),
+  crmv: yup.number().notRequired(),
   address: yup
     .object()
     .required()
@@ -14,6 +14,8 @@ export const doctorSchema = yup.object().shape({
       number: yup.string().notRequired(),
       city: yup.string(),
       state: yup.string().max(2),
+      street: yup.string().required(),
+      complement: yup.string().required(),
     }),
 });
 
@@ -21,7 +23,7 @@ export const doctorWithoutPasswordSchema = yup.object().shape({
   id: yup.string().notRequired(),
   name: yup.string().notRequired(),
   email: yup.string().email().notRequired(),
-  crmmv: yup.number().notRequired(),
+  crmv: yup.number().notRequired(),
   createdAt: yup.date().notRequired(),
   updatedAt: yup.date().notRequired(),
   address: yup
@@ -33,5 +35,7 @@ export const doctorWithoutPasswordSchema = yup.object().shape({
       number: yup.string().notRequired(),
       city: yup.string(),
       state: yup.string().max(2),
+      street: yup.string().required(),
+      complement: yup.string().required(),
     }),
 });
