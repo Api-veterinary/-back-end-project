@@ -10,7 +10,7 @@ import { animals_TypeSchema } from "../schemas/animals_types/animal_type.schema"
 
 const animalTypesRoutes = Router();
 
-animalTypesRoutes.post("",validateSchemaMiddleware(animals_TypeSchema),ensureAuthMiddleware,
+animalTypesRoutes.post("",ensureAuthMiddleware,validateSchemaMiddleware(animals_TypeSchema),
 ensureDoctorMiddleware, createAnimals_TypesController);
 
 //O :id é o id do type

@@ -4,6 +4,7 @@ import AppError from "../../errors/appError";
 import { IAnimals_TypesRequest } from "../../interfaces/animals_types.interface";
 
 export const createAnimals_TypesService = async (data : IAnimals_TypesRequest): Promise<Animal_types> => {
+
   const animals_TypesRepository = AppDataSource.getRepository(Animal_types);
 
   const animals_TypesExist = await animals_TypesRepository.findOneBy({
