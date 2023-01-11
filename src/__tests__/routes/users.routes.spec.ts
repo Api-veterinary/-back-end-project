@@ -21,7 +21,7 @@ describe("Testing users routes", () => {
     await connection.destroy();
   });
 
-  test("Should be to create a user", async () => {
+  test("Should be able to create a user", async () => {
     const response = await request(app).post(baseUrl).send(mockedUserRequest);
 
     expect(response.body).toHaveProperty("id");
