@@ -14,6 +14,12 @@ export class Address {
   @Column()
   number: string;
 
+  @Column()
+  street: string;
+
+  @Column()
+  complement: string;
+
   @Column({ length: 90, nullable: false })
   city: string;
 

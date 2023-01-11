@@ -1,27 +1,18 @@
 import { IAddressRequest } from "./address.interface";
 
-export interface IUserRequest {
+export interface IDoctorRequest {
   name: string;
   email: string;
   password: string;
+  crmv: string;
   address: IAddressRequest;
 }
 
-export interface IUserResponse {
+export interface IDoctorResponse {
   name: string;
   email: string;
   createdAt: Date;
   updatedAt: Date;
   address: object;
-}
-
-export interface IUserLogin {
-  email: string;
-  password: string;
-}
-
-export interface IUserUpdate {
-  name?: string;
-  email?: string;
-  password?: string;
+  crmv: string;
 }
