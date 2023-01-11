@@ -4,6 +4,7 @@ import AppDataSource from "../../data-source";
 import request from "supertest";
 import { mockedMedicine } from "../mocks/medicine.mocks";
 import { mockedDoctorLogin, mockedDoctorRequest } from "../mocks/doctor.mocks";
+import { mockedUserLogin } from "../mocks/user.mocks";
 
 describe("Testing medicine routes", () => {
   let connection: DataSource;
@@ -40,7 +41,13 @@ describe("Testing medicine routes", () => {
   });
 
   test("Should not be able to create a medicine without doctor permission", async () => {
-    const response = await request(app).post(baseUrl).send(mockedMedicine);
+    const userLoginResponse = await request(app)
+      .post("/login")
+      .send(mockedUserLogin);
+    const response = await request(app)
+      .post(baseUrl)
+      .set("Authorization", `Bearer ${userLoginResponse.body.token}`)
+      .send(mockedMedicine);
 
     expect(response.body).not.toHaveProperty("id");
     expect(response.body).not.toHaveProperty("name");
