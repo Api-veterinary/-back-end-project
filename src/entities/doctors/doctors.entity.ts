@@ -23,14 +23,14 @@ export class Doctors {
   @Column({ length: 70 })
   name: string;
 
-  @Column({ unique: true, length: 70, nullable: false })
+  @Column({ unique: true, length: 70 })
   email: string;
 
-  @Column({ length: 120, nullable: false })
+  @Column({ length: 120 })
   password: string;
 
   @Column({ nullable: false })
-  crmv: number;
+  crmmv: number;
 
   @BeforeInsert()
   @CreateDateColumn()
@@ -50,7 +50,7 @@ export class Doctors {
   )
   procedures_schedules: ProcedureSchedule[];
 
-  @OneToMany(() => Consults, (consults) => consults.doctor_id)
+  @OneToMany(() => Consults, (consults) => consults.doctor)
   @JoinColumn()
   consults: Consults[];
 

@@ -6,7 +6,6 @@ import {
   OneToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
-import { Animals } from "../animals/animals.entity";
 import { Doctors } from "../doctors/doctors.entity";
 import { Treatment } from "../treatment/treatment.entity";
 
@@ -15,20 +14,17 @@ export class Consults {
   @PrimaryGeneratedColumn("uuid")
   id: string;
 
-  @Column({ type: "date", nullable: false })
+  @Column({ length: 120, nullable: false })
   date: string;
 
-  @Column({ type: "time" })
-  hour: string;
-
-  @ManyToOne(() => Animals, (animals) => animals.consults)
-  animal: Animals;
+  @Column()
+  animal: string;
 
   @ManyToOne(() => Doctors, (doctors) => doctors.consults)
   @JoinColumn()
-  doctor_id: Doctors;
+  doctor: Doctors;
 
   @OneToOne(() => Treatment)
   @JoinColumn()
-  treatment_id: Treatment;
+  treatment: Treatment;
 }
