@@ -4,7 +4,6 @@ import { createAnimals_TypesService } from "../../services/animals_types/createA
 
 export const createAnimals_TypesController = async (req: Request, res: Response) => {
 
-  console.log(req.body)
   const data : IAnimals_TypesRequest = req.body;
   const newAnimals = await createAnimals_TypesService(data);
 

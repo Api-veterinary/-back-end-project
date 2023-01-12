@@ -28,7 +28,7 @@ export class Consults {
   @JoinColumn()
   doctor: Doctors;
 
-  @OneToOne(() => Treatment)
+  @OneToOne(() => Treatment, (treatment) => treatment.consults)
   @JoinColumn()
   treatment: Treatment;
 }

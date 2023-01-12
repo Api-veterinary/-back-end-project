@@ -19,7 +19,14 @@ doctorsRoutes.post(
   ensureCrmvAvailabilityMiddleware,
   createDoctorController
 );
-doctorsRoutes.patch("/:id", ensureDoctorExists, updateDoctorController);
+
+doctorsRoutes.patch(
+  "/:id",
+  ensureDoctorExists
+  ensureAuthMiddleware,
+  ensureDoctorMiddleware,
+  updateDoctorController
+);
 
 doctorsRoutes.get(
   "",
@@ -28,6 +35,13 @@ doctorsRoutes.get(
   getDoctorController
 );
 
-doctorsRoutes.delete("/:id", ensureAuthMiddleware, ensureDoctorExists, deleteDoctorController);
+doctorsRoutes.delete(
+  "/:id",
+  ensureDoctorExists
+  ensureAuthMiddleware,
+  ensureDoctorMiddleware,
+  deleteDoctorController
+);
+
 
 export default doctorsRoutes;
