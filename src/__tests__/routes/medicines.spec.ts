@@ -44,7 +44,6 @@ describe("Testing medicine routes", () => {
     const userLoginResponse = await request(app)
       .post("/login")
       .send(mockedUserLogin);
-
     const response = await request(app)
       .post(baseUrl)
       .set("Authorization", `Bearer ${userLoginResponse.body.token}`)
