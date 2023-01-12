@@ -4,7 +4,7 @@ import AppDataSource from "../../data-source";
 import request from "supertest";
 import { mockedMedicine } from "../mocks/medicine.mocks";
 import { mockedDoctorLogin, mockedDoctorRequest } from "../mocks/doctor.mocks";
-import { mockedUserLogin } from "../mocks/user.mocks";
+import { mockedUserLogin, mockedUserRequest } from "../mocks/user.mocks";
 
 describe("Testing medicine routes", () => {
   let connection: DataSource;

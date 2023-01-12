@@ -10,6 +10,7 @@ import {
   JoinColumn,
   OneToMany,
   BeforeUpdate,
+  DeleteDateColumn,
 } from "typeorm";
 import { Address } from "../address/address.entity";
 import { Consults } from "../consults/consults.entity";
@@ -40,6 +41,9 @@ export class Doctors {
   @UpdateDateColumn()
   updatedAt: Date;
 
+  @DeleteDateColumn()
+  delete_date: Date;
+
   @OneToOne(() => Address)
   @JoinColumn()
   address: Address;
@@ -53,9 +57,4 @@ export class Doctors {
   @OneToMany(() => Consults, (consults) => consults.doctor)
   @JoinColumn()
   consults: Consults[];
-
-  @BeforeInsert()
-  hashPassword() {
-    this.password = hashSync(this.password, 10);
-  }
 }

@@ -18,7 +18,7 @@ export class VaccinesAplication {
   @JoinTable()
   vaccine: Medicine[];
 
-  @ManyToOne(() => Animals, (animals) => animals.vaccines)
+  @ManyToOne(() => Animals, (animals) => animals.vaccines_aplications)
   animal: Animals;
 
   @Column({ type: "date" })

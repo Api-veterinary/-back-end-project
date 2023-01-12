@@ -3,7 +3,7 @@ import app from "../../app";
 import AppDataSource from "../../data-source";
 import request from "supertest";
 import { Users } from "../../entities/users/users.entity";
-import { mockedUserRequest, mockedUserResponse } from "../mocks/user.mocks";
+import { mockedUserRequest, mockedUserRequestNoEmail, mockedUserResponse } from "../mocks/user.mocks";
 
 describe("Testing users routes", () => {
   let connection: DataSource;
@@ -42,5 +42,13 @@ describe("Testing users routes", () => {
     expect(response.body).not.toHaveProperty("id");
     expect(response.body).not.toHaveProperty("name");
     expect(response.status).toBe(409);
+  });
+
+  test("Should not be to create a user without email", async () => {
+    const response = await request(app).post(baseUrl).send(mockedUserRequestNoEmail);
+
+    expect(response.body).not.toHaveProperty("id");
+    expect(response.body).not.toHaveProperty("name");
+    expect(response.status).toBe(400);
   });
 });
