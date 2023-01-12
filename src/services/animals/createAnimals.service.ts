@@ -2,7 +2,6 @@ import AppDataSource from "../../data-source";
 import { Animals } from "../../entities/animals/animals.entity";
 import { AnimalSizes } from "../../entities/animalSizes/animal_sizes.entity";
 import { Animal_types } from "../../entities/animalTypes/animalTypes.entity";
-import { Doctors } from "../../entities/doctors/doctors.entity";
 import { Medicine } from "../../entities/medicines/medicines.enttity";
 import { Users } from "../../entities/users/users.entity";
 import { VaccinesAplication } from "../../entities/vaccines_aplied/vaccinesAplied.entity";
@@ -25,7 +24,6 @@ export const createAnimalsService = async (data) => {
   const size = await sizeRepository.findOneBy({ size: data.size });
   const type: any = await typeRepository.findOneBy({ type: data.type });
 
-  console.log(size);
   if (size === null) {
     throw new AppError("Porte: Pequeno, Médio, Grande", 400);
   }

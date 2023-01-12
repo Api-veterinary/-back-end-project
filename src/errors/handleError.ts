@@ -12,7 +12,7 @@ const handleError = async (
       message: error.message,
     });
   }
-  console.log("oi");
+  
   console.log(error);
 
   return res.status(500).json({

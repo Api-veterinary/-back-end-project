@@ -14,10 +14,8 @@ const ensureDoctorMiddleware = async (
     id: req.user.id,
   });
 
-  const doctorCrmv = doctor.crmv;
-
-  if (!doctorCrmv) {
-    return res.status(403).json({ message: "You are not a Doctor" });
+  if (!doctor) {
+    return res.status(400).json({ message: "You are not a Doctor" });
   }
   next();
 };
