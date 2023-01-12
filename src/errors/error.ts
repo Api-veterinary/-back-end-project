@@ -1,7 +1,15 @@
 import { Request, Response, NextFunction } from "express";
-import AppError from "./appError";
+export class AppError extends Error {
+  statusCode: number;
 
-const handleError = async (
+  constructor(message: string, statusCode = 400) {
+    super();
+    this.message = message;
+    this.statusCode = statusCode;
+  }
+}
+
+export const handleError = async (
   error: Error,
   req: Request,
   res: Response,
@@ -12,12 +20,9 @@ const handleError = async (
       message: error.message,
     });
   }
-  console.log("oi");
-  console.log(error);
 
+  console.log(error);
   return res.status(500).json({
     message: "Internal server error",
   });
 };
-
-export default handleError;

@@ -9,6 +9,7 @@ import {
   OneToMany,
   ManyToOne,
   BeforeUpdate,
+  DeleteDateColumn,
 } from "typeorm";
 import { AnimalSizes } from "../animalSizes/animal_sizes.entity";
 import { Animal_types } from "../animalTypes/animalTypes.entity";
@@ -32,7 +33,7 @@ export class Animals {
 
   @ManyToOne(() => Animal_types, (animal_types) => animal_types.animals)
   @JoinColumn()
-  type: string;
+  type: Animal_types;
 
   @Column({ type: "date" })
   birth_date: string;
@@ -45,12 +46,15 @@ export class Animals {
   @UpdateDateColumn()
   last_visit: Date;
 
+  @DeleteDateColumn()
+  delete_date: Date;
+
   @OneToMany(
     () => VaccinesAplication,
-    (vaccines_aplied) => vaccines_aplied.vaccine
+    (vaccines_aplied) => vaccines_aplied.animal
   )
   @JoinColumn()
-  vaccines: VaccinesAplication[];
+  vaccines_aplications: VaccinesAplication[];
 
   @OneToMany(() => Consults, (consults) => consults.animal)
   @JoinColumn()

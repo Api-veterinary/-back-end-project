@@ -14,7 +14,7 @@ const updateDoctorService = async (body: IDoctorUpdate, doctorID: string) => {
   const updateDoctor = doctorRepo.create({
     ...userToUpdate,
     ...body,
-    ...body.address
+    ...body.address,
   });
 
   await doctorRepo.save(updateDoctor);

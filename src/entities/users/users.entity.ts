@@ -10,6 +10,7 @@ import {
   JoinColumn,
   OneToMany,
   BeforeUpdate,
+  DeleteDateColumn,
 } from "typeorm";
 import { Address } from "../address/address.entity";
 import { Animals } from "../animals/animals.entity";
@@ -25,7 +26,7 @@ export class Users {
   @Column({ unique: true, length: 70, nullable: false })
   email: string;
 
-  @Column({ length: 120, nullable: false })
+  @Column({ length: 120 })
   password: string;
 
   @BeforeInsert()
@@ -36,15 +37,13 @@ export class Users {
   @UpdateDateColumn()
   updatedAt: Date;
 
+  @DeleteDateColumn()
+  delete_date: Date;
+
   @OneToOne(() => Address)
   @JoinColumn()
   address: Address;
 
   @OneToMany(() => Animals, (animals) => animals.owner)
   animals: Animals[];
-
-  @BeforeInsert()
-  hashPassword() {
-    this.password = hashSync(this.password, 10);
-  }
 }
