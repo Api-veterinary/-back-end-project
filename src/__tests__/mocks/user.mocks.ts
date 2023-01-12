@@ -1,4 +1,8 @@
-import { IUserRequest, IUserResponse } from "../../interfaces/users.Interface";
+import {
+  IUserLogin,
+  IUserRequest,
+  IUserResponse,
+} from "../../interfaces/users.Interface";
 
 export const mockedUserRequest: IUserRequest = {
   name: "mockedName",
@@ -27,4 +31,9 @@ export const mockedUserResponse: IUserResponse = {
     city: "mockedCity",
     state: "PR",
   },
+};
+
+export const mockedUserLogin: IUserLogin = {
+  email: "mockedEmaill@MediaList.com",
+  password: "string",
 };
