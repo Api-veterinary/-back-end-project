@@ -79,12 +79,6 @@ export const createAnimalsService = async (data) => {
     aplications,
   });
 
-  const teste = await animalsRepository.find({
-    where: { id: animal.id },
-    relations: ["owner", "type", "size"],
-  });
-  console.log(teste);
-
   const animalsWithoutPassord = await createAnimalsSchema.validate(newAnimal, {
     stripUnknown: true,
   });
