@@ -10,16 +10,19 @@ import ensureCrmvAvailabilityMiddleware from "../middlewares/ensureCrmvAvailabil
 import ensureAuthMiddleware from "../middlewares/ensureAuth.middleware";
 import ensureDoctorMiddleware from "../middlewares/ensureDoctor.middleware";
 import ensureDoctorExists from "../middlewares/ensureDoctorExists.middleware";
+import ensureDataIsValidMiddleware from "../middlewares/ensureDataIsValid.middleware";
+import {doctorSchema, doctorUpdateSchema} from "../schemas/doctors.schemas"
 
 const doctorsRoutes = Router();
 
 doctorsRoutes.post(
   "",
+  ensureDataIsValidMiddleware(doctorSchema),
   ensureEmailAvailabilityMiddleware,
   ensureCrmvAvailabilityMiddleware,
   createDoctorController
 );
-doctorsRoutes.patch("/:id", ensureDoctorExists, updateDoctorController);
+doctorsRoutes.patch("/:id", ensureDataIsValidMiddleware(doctorUpdateSchema),ensureDoctorExists, updateDoctorController);
 
 doctorsRoutes.get(
   "",
