@@ -4,7 +4,7 @@ export const doctorSchema = yup.object().shape({
   name: yup.string().required(),
   email: yup.string().email().required(),
   password: yup.string().required(),
-  crmmv: yup.number().notRequired(),
+  crmv: yup.number().notRequired(),
   address: yup
     .object()
     .required()
@@ -21,7 +21,7 @@ export const doctorWithoutPasswordSchema = yup.object().shape({
   id: yup.string().notRequired(),
   name: yup.string().notRequired(),
   email: yup.string().email().notRequired(),
-  crmmv: yup.number().notRequired(),
+  crmv: yup.number().notRequired(),
   createdAt: yup.date().notRequired(),
   updatedAt: yup.date().notRequired(),
   address: yup

@@ -10,6 +10,7 @@ import {
   JoinColumn,
   OneToMany,
   BeforeUpdate,
+  DeleteDateColumn,
 } from "typeorm";
 import { Address } from "../address/address.entity";
 import { Consults } from "../consults/consults.entity";
@@ -39,6 +40,9 @@ export class Doctors {
   @BeforeUpdate()
   @UpdateDateColumn()
   updatedAt: Date;
+
+  @DeleteDateColumn()
+  delete_date: Date;
 
   @OneToOne(() => Address)
   @JoinColumn()
