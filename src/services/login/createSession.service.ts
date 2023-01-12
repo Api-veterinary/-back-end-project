@@ -19,7 +19,6 @@ const createSessionService = async ({
 
   if (user) {
     const passwordMatch = await compare(password, user.password);
-    console.log(passwordMatch);
 
     if (!passwordMatch) {
       throw new AppError("User or password invalid", 403);

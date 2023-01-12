@@ -18,6 +18,7 @@ describe("Testing medicine routes", () => {
       });
 
     await request(app).post("/doctors").send(mockedDoctorRequest);
+    await request(app).post("/users").send(mockedUserRequest);
   });
 
   afterAll(async () => {
