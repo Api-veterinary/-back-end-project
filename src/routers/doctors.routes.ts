@@ -9,6 +9,7 @@ import ensureEmailAvailabilityMiddleware from "../middlewares/ensureEmailAvailab
 import ensureCrmvAvailabilityMiddleware from "../middlewares/ensureCrmvAvailability.middleware";
 import ensureAuthMiddleware from "../middlewares/ensureAuth.middleware";
 import ensureDoctorMiddleware from "../middlewares/ensureDoctor.middleware";
+import ensureDoctorExists from "../middlewares/ensureDoctorExists.middleware";
 
 const doctorsRoutes = Router();
 
@@ -18,7 +19,7 @@ doctorsRoutes.post(
   ensureCrmvAvailabilityMiddleware,
   createDoctorController
 );
-doctorsRoutes.patch("/:id", updateDoctorController);
+doctorsRoutes.patch("/:id", ensureDoctorExists, updateDoctorController);
 
 doctorsRoutes.get(
   "",
@@ -27,6 +28,6 @@ doctorsRoutes.get(
   getDoctorController
 );
 
-doctorsRoutes.delete("/:id", deleteDoctorController);
+doctorsRoutes.delete("/:id", ensureAuthMiddleware, ensureDoctorExists, deleteDoctorController);
 
 export default doctorsRoutes;
