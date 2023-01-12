@@ -14,6 +14,8 @@ export const doctorSchema = yup.object().shape({
       number: yup.string().notRequired(),
       city: yup.string(),
       state: yup.string().max(2),
+      street: yup.string().required(),
+      complement: yup.string().required(),
     }),
 });
 
@@ -33,5 +35,7 @@ export const doctorWithoutPasswordSchema = yup.object().shape({
       number: yup.string().notRequired(),
       city: yup.string(),
       state: yup.string().max(2),
+      street: yup.string().required(),
+      complement: yup.string().required(),
     }),
 });

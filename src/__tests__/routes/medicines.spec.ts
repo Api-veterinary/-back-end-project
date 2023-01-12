@@ -5,7 +5,6 @@ import request from "supertest";
 import { mockedMedicine } from "../mocks/medicine.mocks";
 import { mockedDoctorLogin, mockedDoctorRequest } from "../mocks/doctor.mocks";
 import { mockedUserLogin, mockedUserRequest } from "../mocks/user.mocks";
-
 describe("Testing medicine routes", () => {
   let connection: DataSource;
   const baseUrl: string = "/medicine";
@@ -44,7 +43,6 @@ describe("Testing medicine routes", () => {
     const userLoginResponse = await request(app)
       .post("/login")
       .send(mockedUserLogin);
-
     const response = await request(app)
       .post(baseUrl)
       .set("Authorization", `Bearer ${userLoginResponse.body.token}`)
