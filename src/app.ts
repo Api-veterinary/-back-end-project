@@ -9,7 +9,9 @@ import consultsRoutes from "./routers/consults.routes";
 import animalTypesRoutes from "./routers/animals_types.routes";
 import loginRoutes from "./routers/login.routes";
 import { animalSizesRoutes } from "./routers/animals_sizes.routes";
+
 import treatmentRoutes from "./routers/treatment.routes";
+
 
 const app = express();
 app.use(express.json());
@@ -23,6 +25,7 @@ app.use("/animal_types", animalTypesRoutes);
 app.use("/login", loginRoutes);
 app.use("/animal_sizes", animalSizesRoutes);
 app.use("/treatment", treatmentRoutes);
+
 
 app.use(handleError);
 
