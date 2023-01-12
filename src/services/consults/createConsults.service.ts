@@ -5,6 +5,7 @@ import { Doctors } from "../../entities/doctors/doctors.entity";
 import { Medicine } from "../../entities/medicines/medicines.enttity";
 import { Procedure } from "../../entities/procedure/procedure.entity";
 import { Treatment } from "../../entities/treatment/treatment.entity";
+import AppError from "../../errors/appError";
 import { IConsultsRequest } from "../../interfaces/consults.interface";
 
 const createConsultsService = async (consultsData) => {
@@ -41,9 +42,17 @@ const createConsultsService = async (consultsData) => {
     id: consultsData.doctor,
   });
 
+  if (!doctor) {
+    throw new AppError("Doctor not found", 404);
+  }
+
   const animal = await animalRepository.findOneBy({
     id: consultsData.animal,
   });
+
+  if (!animal) {
+    throw new AppError("Animal not found", 404);
+  }
 
   const createConsults = consultsRepository.create(consultsData);
 
