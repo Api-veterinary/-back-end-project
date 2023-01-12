@@ -20,7 +20,7 @@ const getDoctorController = async (request: Request, response: Response) => {
 
 const updateDoctorController = async (request: Request, response: Response) => {
   const dataDoctor: IDoctorUpdate = request.body;
-  const updatedDoctor = await updateDoctorService(dataDoctor, request.user.id)
+  const updatedDoctor = await updateDoctorService(dataDoctor, request.user.id);
   return response.status(201).json(updatedDoctor);
 };
 
@@ -31,4 +31,9 @@ const deleteDoctorController = async (request: Request, response: Response) => {
   return response.status(204).json(deletedDoctor);
 };
 
-export { createDoctorController, updateDoctorController, getDoctorController, deleteDoctorController };
+export {
+  createDoctorController,
+  updateDoctorController,
+  getDoctorController,
+  deleteDoctorController,
+};

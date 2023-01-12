@@ -19,6 +19,20 @@ export const mockedUserRequest: IUserRequest = {
   },
 };
 
+export const mockedUserRequestNoEmail: Omit<IUserRequest, "email"> = {
+  name: "mockedName",
+  password: "string",
+  address: {
+    district: "mockedDistrict",
+    zipCode: "09807879",
+    number: "320",
+    complement: "ap 02 bl 01",
+    street: "mockedStreet",
+    city: "mockedCity",
+    state: "PR",
+  },
+};
+
 export const mockedUserResponse: IUserResponse = {
   name: "mockedName",
   email: "mockedEmail@MediaList.com",

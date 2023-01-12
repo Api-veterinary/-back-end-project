@@ -46,9 +46,4 @@ export class Users {
 
   @OneToMany(() => Animals, (animals) => animals.owner)
   animals: Animals[];
-
-  @BeforeInsert()
-  hashPassword() {
-    this.password = hashSync(this.password, 10);
-  }
 }
