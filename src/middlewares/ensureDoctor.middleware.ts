@@ -15,7 +15,7 @@ const ensureDoctorMiddleware = async (
   });
 
   if (!doctor) {
-    return res.status(400).json({ message: "You are not a Doctor" });
+    return res.status(403).json({ message: "You are not a Doctor" });
   }
   next();
 };
