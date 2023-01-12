@@ -8,7 +8,7 @@ import { Users } from "../../entities/users/users.entity";
 import { VaccinesAplication } from "../../entities/vaccines_aplied/vaccinesAplied.entity";
 import AppError from "../../errors/appError";
 
-import { animalsWithoutPasswordSchema } from "../../schemas/animalsSchema";
+import { createAnimalsSchema } from "../../schemas/animalsSchema";
 
 export const createAnimalsService = async (data) => {
   const vaccinesRepository = AppDataSource.getRepository(VaccinesAplication);
@@ -70,30 +70,21 @@ export const createAnimalsService = async (data) => {
     })
   );
 
+  console.log(aplications);
+
   const vaccinatedAnimal = await animalsRepository.findOne({
     where: { id: animal.id },
     relations: ["owner", "type", "size"],
   });
-
-  console.log(vaccinatedAnimal);
 
   const newAnimal = await animalsRepository.save({
     ...vaccinatedAnimal,
     aplications,
   });
 
-  const teste = await animalsRepository.find({
-    where: { id: animal.id },
-    relations: ["owner", "type", "size"],
+  const animalsWithoutPassord = await createAnimalsSchema.validate(newAnimal, {
+    stripUnknown: true,
   });
-  console.log(teste);
-
-  const animalsWithoutPassord = await animalsWithoutPasswordSchema.validate(
-    newAnimal,
-    {
-      stripUnknown: true,
-    }
-  );
 
   return animalsWithoutPassord;
 };
