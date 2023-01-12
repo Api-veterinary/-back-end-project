@@ -2,7 +2,6 @@ import AppDataSource from "../../data-source";
 import { Animals } from "../../entities/animals/animals.entity";
 import { AnimalSizes } from "../../entities/animalSizes/animal_sizes.entity";
 import { Animal_types } from "../../entities/animalTypes/animalTypes.entity";
-import { Doctors } from "../../entities/doctors/doctors.entity";
 import { Medicine } from "../../entities/medicines/medicines.enttity";
 import { Users } from "../../entities/users/users.entity";
 import { VaccinesAplication } from "../../entities/vaccines_aplied/vaccinesAplied.entity";
@@ -76,11 +75,6 @@ export const createAnimalsService = async (data) => {
   const newAnimal = await animalsRepository.save({
     ...vaccinatedAnimal,
     aplications,
-  });
-
-  const teste = await animalsRepository.find({
-    where: { id: animal.id },
-    relations: ["owner", "type", "size"],
   });
 
   const animalsWithoutPassord = await createAnimalsSchema.validate(newAnimal, {
