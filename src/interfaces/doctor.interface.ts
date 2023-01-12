@@ -1,4 +1,4 @@
-import { IAddressRequest } from "./address.interface";
+import { IAddressRequest, IAddressUpdate } from "./address.interface";
 
 export interface IDoctorRequest {
   name: string;
@@ -19,7 +19,7 @@ export interface IDoctorResponse {
 
 export interface IDoctorUpdate {
   email?: string;
-  address?: object;
+  address?: IAddressUpdate;
   createdAt?: Date;
   updatedAt?: Date;
 }
