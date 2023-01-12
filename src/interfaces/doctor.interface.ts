@@ -16,3 +16,10 @@ export interface IDoctorResponse {
   address: object;
   crmv: string;
 }
+
+export interface IDoctorUpdate {
+  email?: string;
+  address?: object;
+  createdAt?: Date;
+  updatedAt?: Date;
+}
