@@ -4,6 +4,7 @@ export const createTreatmentSchema = yup.object().shape({
   name: yup.string().required(),
   description: yup.string().required(),
   doctor_id: yup.string().required(),
+  consult_id: yup.string().required(),
   medicines: yup.array(yup.string()).required(),
   procedures: yup.array(
     yup
@@ -17,4 +18,55 @@ export const createTreatmentSchema = yup.object().shape({
       })
       .required()
   ),
+});
+
+export const responseCreateTreatmentSchema = yup.object().shape({
+  medicines: yup
+    .array(
+      yup.object().shape({
+        id: yup.string().notRequired(),
+        name: yup.string().notRequired(),
+        class: yup.string().notRequired(),
+        description: yup.string().notRequired(),
+      })
+    )
+    .notRequired(),
+  procedures: yup.array(
+    yup
+      .object()
+      .shape({
+        id: yup.string().notRequired(),
+        date: yup.string().notRequired(),
+        hour: yup.string().notRequired(),
+        procedure: yup
+          .object()
+          .shape({
+            id: yup.string().notRequired(),
+            name: yup.string().notRequired(),
+            type: yup.string().notRequired(),
+            description: yup.string().notRequired(),
+          })
+          .notRequired(),
+        doctor: yup.object().shape({
+          id: yup.string().notRequired(),
+          name: yup.string().notRequired(),
+          email: yup.string().email().notRequired(),
+          crmv: yup.number().notRequired(),
+          createdAt: yup.date().notRequired(),
+          updatedAt: yup.date().notRequired(),
+        }),
+      })
+      .notRequired()
+  ),
+  consults: yup
+    .object()
+    .shape({
+      id: yup.string().notRequired(),
+      date: yup.string().notRequired(),
+      hour: yup.string().notRequired(),
+    })
+    .notRequired(),
+  description: yup.string().notRequired(),
+  id: yup.string().notRequired(),
+  name: yup.string().notRequired(),
 });

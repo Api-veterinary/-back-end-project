@@ -20,6 +20,7 @@ doctorsRoutes.post(
 );
 doctorsRoutes.patch(
   "/:id",
+  ensureDoctorExists,
   ensureAuthMiddleware,
   ensureDoctorMiddleware,
   updateDoctorController
@@ -34,6 +35,7 @@ doctorsRoutes.get(
 
 doctorsRoutes.delete(
   "/:id",
+  ensureDoctorExists,
   ensureAuthMiddleware,
   ensureDoctorMiddleware,
   deleteDoctorController
