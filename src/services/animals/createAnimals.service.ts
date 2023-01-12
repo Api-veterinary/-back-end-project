@@ -25,7 +25,6 @@ export const createAnimalsService = async (data) => {
   const size = await sizeRepository.findOneBy({ size: data.size });
   const type: any = await typeRepository.findOneBy({ type: data.type });
 
-  console.log(size);
   if (size === null) {
     throw new AppError("Porte: Pequeno, Médio, Grande", 400);
   }
@@ -83,7 +82,6 @@ export const createAnimalsService = async (data) => {
     where: { id: animal.id },
     relations: ["owner", "type", "size"],
   });
-  console.log(teste);
 
   const animalsWithoutPassord = await createAnimalsSchema.validate(newAnimal, {
     stripUnknown: true,
