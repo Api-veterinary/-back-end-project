@@ -1,3 +1,4 @@
+import { hashSync } from "bcryptjs";
 import AppDataSource from "../../data-source";
 import { Address } from "../../entities/address/address.entity";
 import { Doctors } from "../../entities/doctors/doctors.entity";
@@ -14,6 +15,8 @@ const createDoctorService = async (doctorData: IDoctorRequest) => {
   await addressRepository.save(address);
 
   const doctor = doctorRepository.create(doctorData);
+
+  doctor.password = hashSync(doctorData.password, 10);
 
   const newDoctor = await doctorRepository.save({
     ...doctor,

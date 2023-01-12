@@ -7,6 +7,7 @@ import { animalsRoute } from "./routers/animals.routes";
 import medicineRoutes from "./routers/medicine.routes";
 import consultsRoutes from "./routers/consults.routes";
 import animalTypesRoutes from "./routers/animals_types.routes";
+import { animalSizesRoutes } from "./routers/animals_sizes.routes";
 
 const app = express();
 app.use(express.json());
@@ -17,6 +18,7 @@ app.use("/animals", animalsRoute);
 app.use("/medicine", medicineRoutes);
 app.use("/consults", consultsRoutes);
 app.use("/animal_types", animalTypesRoutes);
+app.use("/animal_sizes", animalSizesRoutes);
 
 app.use(handleError);
 
