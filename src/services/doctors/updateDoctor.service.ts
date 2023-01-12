@@ -4,7 +4,7 @@ import { IDoctorUpdate } from "../../interfaces/doctor.interface";
 import { doctorWithoutPasswordSchema } from "../../schemas/doctors.schemas";
 
 const updateDoctorService = async (body: IDoctorUpdate, doctorID: string) => {
-  const doctorRepo = await AppDataSource.getRepository(Doctors);
+  const doctorRepo = AppDataSource.getRepository(Doctors);
 
   const userToUpdate = await doctorRepo.findOne({
     where: { id: "doctorID" },
