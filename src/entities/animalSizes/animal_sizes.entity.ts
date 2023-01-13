@@ -9,6 +9,9 @@ export class AnimalSizes {
   @Column()
   size: string;
 
+  @Column({ default: true })
+  isActive: boolean;
+
   @OneToMany(() => Animals, (animals) => animals.size)
   animals: Animals[];
 }
