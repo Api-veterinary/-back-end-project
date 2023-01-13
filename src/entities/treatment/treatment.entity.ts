@@ -29,7 +29,8 @@ export class Treatment {
 
   @OneToMany(
     () => ProcedureSchedule,
-    (procedureSchedule) => procedureSchedule.treatment
+    (procedureSchedule) => procedureSchedule.treatment,
+    { onDelete: "CASCADE" }
   )
   @JoinColumn()
   procedures: ProcedureSchedule[];

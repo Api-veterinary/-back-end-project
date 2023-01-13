@@ -1,6 +1,8 @@
 import { Request, Response } from "express";
 import createConsultsService from "../../services/consults/createConsults.service";
 import deleteConsultsService from "../../services/consults/deleteConsults.service";
+import getConsultByIdService from "../../services/consults/getConsultById.service";
+import listConsultService from "../../services/consults/listConsults.service";
 import updateConsultsService from "../../services/consults/updateConsults.service";
 
 const createConsultsController = async (
@@ -31,8 +33,24 @@ const deleteConsultsController = async (
   return response.status(204).json({});
 };
 
+const getConsultByIdController = async (
+  request: Request,
+  response: Response
+) => {
+  const id: string = request.params.id;
+  const consult = await getConsultByIdService(id);
+  return response.status(200).json(consult);
+};
+
+const listConsultsController = async (request: Request, response: Response) => {
+  const list = await listConsultService();
+  return response.status(200).json(list);
+};
+
 export {
   createConsultsController,
   deleteConsultsController,
   updateConsultsController,
+  getConsultByIdController,
+  listConsultsController,
 };
