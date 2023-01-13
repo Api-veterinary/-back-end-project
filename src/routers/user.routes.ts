@@ -7,9 +7,15 @@ import {
 } from "../controllers/userControllers/user.controllers";
 import ensureAuthMiddleware from "../middlewares/ensureAuth.middleware";
 import ensureDoctorMiddleware from "../middlewares/ensureDoctor.middleware";
+import ensureDataIsValidMiddleware from "../middlewares/ensureDataIsValid.middleware";
+import { userSchema } from "../schemas/users/users.schema";
 const userRoutes = Router();
 
-userRoutes.post("", userCreateController);
+userRoutes.post(
+  "",
+  ensureDataIsValidMiddleware(userSchema),
+  userCreateController
+);
 
 userRoutes.get("", ensureAuthMiddleware, getUserController);
 

@@ -11,7 +11,7 @@ import { mockedDoctorLogin, mockedDoctorRequest } from "../mocks/doctor.mocks";
 describe("Testing animals/medicine routes", () => {
   let connection: DataSource;
   const animalRoutes: string = "/animals";
-  const medicineRoute: string = "/medicines";
+  const medicineRoute: string = "/medicine";
   const typeRoute: string = "/animal_types";
   let typeID = "";
   let vaccineID = "";
@@ -64,7 +64,7 @@ describe("Testing animals/medicine routes", () => {
 
     const response = await request(app)
       .post(medicineRoute)
-      .set("Authorization", `Bearer ${doctor_token}`)
+      .set("Authorization", `Bearer ${doctorLoginResponse.body.token}`)
       .send(mockedMedicine);
 
     vaccineID = response.body.id;

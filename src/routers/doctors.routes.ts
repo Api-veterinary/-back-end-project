@@ -9,7 +9,6 @@ import ensureEmailAvailabilityMiddleware from "../middlewares/ensureEmailAvailab
 import ensureCrmvAvailabilityMiddleware from "../middlewares/ensureCrmvAvailability.middleware";
 import ensureAuthMiddleware from "../middlewares/ensureAuth.middleware";
 import ensureDoctorMiddleware from "../middlewares/ensureDoctor.middleware";
-import ensureDoctorExists from "../middlewares/ensureDoctorExists.middleware";
 import ensureDataIsValidMiddleware from "../middlewares/ensureDataIsValid.middleware";
 import {
   doctorSchema,
@@ -28,9 +27,9 @@ doctorsRoutes.post(
 
 doctorsRoutes.patch(
   "/:id",
-  ensureDoctorExists,
   ensureAuthMiddleware,
   ensureDoctorMiddleware,
+  ensureDataIsValidMiddleware(doctorUpdateSchema),
   updateDoctorController
 );
 
@@ -43,7 +42,6 @@ doctorsRoutes.get(
 
 doctorsRoutes.delete(
   "/:id",
-  ensureDoctorExists,
   ensureAuthMiddleware,
   ensureDoctorMiddleware,
   deleteDoctorController

@@ -5,6 +5,7 @@ import request from "supertest";
 import {
   mockedDoctorRequest,
   mockedDoctorRequestCrmv,
+  mockedDoctorRequestWithoutCrmv,
 } from "../mocks/doctor.mocks";
 
 describe("Testing doctors routes", () => {
@@ -44,7 +45,7 @@ describe("Testing doctors routes", () => {
 
     expect(response.body).toHaveProperty("message");
     expect(response.body).not.toHaveProperty("id");
-    expect(response.status).toBe(400);
+    expect(response.status).toBe(409);
   });
 
   test("Should not be able to create a doctor with same crmv", async () => {
@@ -54,11 +55,13 @@ describe("Testing doctors routes", () => {
 
     expect(response.body).toHaveProperty("message");
     expect(response.body).not.toHaveProperty("id");
-    expect(response.status).toBe(400);
+    expect(response.status).toBe(409);
   });
 
   test("Should not be able to create a doctor without crmv", async () => {
-    const response = await request(app).post(baseUrl).send(mockedDoctorRequest);
+    const response = await request(app)
+      .post(baseUrl)
+      .send(mockedDoctorRequestWithoutCrmv);
 
     expect(response.body).toHaveProperty("message");
     expect(response.body).not.toHaveProperty("id");

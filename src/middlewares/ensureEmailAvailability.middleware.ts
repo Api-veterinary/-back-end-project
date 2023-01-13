@@ -18,7 +18,7 @@ const ensureEmailAvailabilityMiddleware = async (
 
   if (userAlreadyExists) {
     return res
-      .status(400)
+      .status(409)
       .json({ message: "This email adress is already being used" });
   }
   next();
