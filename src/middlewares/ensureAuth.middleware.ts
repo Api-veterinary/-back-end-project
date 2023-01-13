@@ -1,17 +1,17 @@
-import { Request,NextFunction } from "express";
+import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 import "dotenv/config";
-import { AppError } from "../errors/error";
-
+import AppError from "../errors/appError";
 
 const ensureAuthMiddleware = async (
   req: Request,
+  res: Response,
   next: NextFunction
 ) => {
   let token = req.headers.authorization;
 
   if (!token) {
-    throw new AppError("Token invalid", 401);
+    throw new AppError("Invalid token", 401);
   }
 
   token = token.split(" ")[1];
@@ -22,7 +22,7 @@ const ensureAuthMiddleware = async (
     }
 
     req.user = {
-      id: decoded.sub
+      id: decoded.sub,
     };
 
     return next();

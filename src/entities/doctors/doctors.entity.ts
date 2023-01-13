@@ -10,6 +10,7 @@ import {
   JoinColumn,
   OneToMany,
   BeforeUpdate,
+  DeleteDateColumn,
 } from "typeorm";
 import { Address } from "../address/address.entity";
 import { Consults } from "../consults/consults.entity";
@@ -23,14 +24,14 @@ export class Doctors {
   @Column({ length: 70 })
   name: string;
 
-  @Column({ unique: true, length: 70 })
+  @Column({ unique: true, length: 70, nullable: false })
   email: string;
 
-  @Column({ length: 120 })
+  @Column({ length: 120, nullable: false })
   password: string;
 
   @Column({ nullable: false })
-  crmmv: number;
+  crmv: number;
 
   @BeforeInsert()
   @CreateDateColumn()
@@ -39,6 +40,9 @@ export class Doctors {
   @BeforeUpdate()
   @UpdateDateColumn()
   updatedAt: Date;
+
+  @DeleteDateColumn()
+  delete_date: Date;
 
   @OneToOne(() => Address)
   @JoinColumn()
@@ -53,9 +57,4 @@ export class Doctors {
   @OneToMany(() => Consults, (consults) => consults.doctor)
   @JoinColumn()
   consults: Consults[];
-
-  @BeforeInsert()
-  hashPassword() {
-    this.password = hashSync(this.password, 10);
-  }
 }

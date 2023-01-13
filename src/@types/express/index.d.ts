@@ -9,6 +9,7 @@ declare global {
       user: {
         id: string
       };
+      validatedBody: validatedData
     }
   }
 }

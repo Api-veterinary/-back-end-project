@@ -2,9 +2,13 @@ import {
   Column,
   Entity,
   JoinColumn,
+  JoinTable,
+  ManyToMany,
   OneToMany,
+  OneToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
+import { Consults } from "../consults/consults.entity";
 import { Medicine } from "../medicines/medicines.enttity";
 import { ProcedureSchedule } from "../procedure_schedule/procedure_schedule.entity";
 
@@ -19,14 +23,18 @@ export class Treatment {
   @Column()
   description: string;
 
-  @OneToMany(() => Medicine, (medicine) => medicine.treatment)
-  @JoinColumn()
+  @ManyToMany(() => Medicine)
+  @JoinTable()
   medicines: Medicine[];
 
   @OneToMany(
     () => ProcedureSchedule,
-    (procedureSchedule) => procedureSchedule.treatment
+    (procedureSchedule) => procedureSchedule.treatment,
+    { onDelete: "CASCADE" }
   )
   @JoinColumn()
   procedures: ProcedureSchedule[];
+
+  @OneToOne(() => Consults, (consults) => consults.treatment)
+  consults: Consults;
 }
