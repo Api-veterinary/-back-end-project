@@ -35,9 +35,14 @@ export const responseCreateTreatmentSchema = yup.object().shape({
     yup
       .object()
       .shape({
-        id: yup.string().notRequired(),
-        date: yup.string().notRequired(),
-        hour: yup.string().notRequired(),
+        doctor: yup.object().shape({
+          id: yup.string().notRequired(),
+          name: yup.string().notRequired(),
+          email: yup.string().email().notRequired(),
+          crmv: yup.number().notRequired(),
+          createdAt: yup.date().notRequired(),
+          updatedAt: yup.date().notRequired(),
+        }),
         procedure: yup
           .object()
           .shape({
@@ -47,14 +52,9 @@ export const responseCreateTreatmentSchema = yup.object().shape({
             description: yup.string().notRequired(),
           })
           .notRequired(),
-        doctor: yup.object().shape({
-          id: yup.string().notRequired(),
-          name: yup.string().notRequired(),
-          email: yup.string().email().notRequired(),
-          crmv: yup.number().notRequired(),
-          createdAt: yup.date().notRequired(),
-          updatedAt: yup.date().notRequired(),
-        }),
+        id: yup.string().notRequired(),
+        date: yup.string().notRequired(),
+        hour: yup.string().notRequired(),
       })
       .notRequired()
   ),
