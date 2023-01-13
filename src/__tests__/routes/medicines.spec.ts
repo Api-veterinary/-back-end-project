@@ -54,4 +54,27 @@ describe("Testing medicine routes", () => {
     expect(response.body).not.toHaveProperty("name");
     expect(response.status).toBe(400);
   });
+
+  test("DELETE /medicine/:id -  Must be able to delete medicine", async () => {
+    await request(app).post("/medicine").send(mockedMedicine);
+
+    const doctorLoginResponse = await request(app)
+      .post("/login")
+      .send(mockedDoctorLogin);
+    const MedicineTobeDeleted = await request(app)
+      .get("/medicine")
+      .set("Authorization", `Bearer ${doctorLoginResponse.body.token}`);
+
+    const response = await request(app)
+      .delete(`/medicine/${MedicineTobeDeleted.body[0].id}`)
+      .set("Authorization", `Bearer ${doctorLoginResponse.body.token}`);
+    const findMedicine = await request(app)
+      .get("/medicine")
+      .set("Authorization", `Bearer ${doctorLoginResponse.body.token}`);
+
+    const comparision = MedicineTobeDeleted.body[0] !== findMedicine.body[0];
+
+    expect(response.status).toBe(204);
+    expect(comparision).toBe(true);
+  });
 });

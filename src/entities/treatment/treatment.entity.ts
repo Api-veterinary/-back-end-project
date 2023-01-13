@@ -5,8 +5,10 @@ import {
   JoinTable,
   ManyToMany,
   OneToMany,
+  OneToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
+import { Consults } from "../consults/consults.entity";
 import { Medicine } from "../medicines/medicines.enttity";
 import { ProcedureSchedule } from "../procedure_schedule/procedure_schedule.entity";
 
@@ -31,4 +33,7 @@ export class Treatment {
   )
   @JoinColumn()
   procedures: ProcedureSchedule[];
+
+  @OneToOne(() => Consults, (consults) => consults.treatment)
+  consults: Consults;
 }

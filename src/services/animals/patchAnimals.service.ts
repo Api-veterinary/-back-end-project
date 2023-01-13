@@ -23,7 +23,6 @@ export const patchAnimalsService = async (newAnimalData, animalID: string) => {
     },
   });
 
-  console.log(exist);
 
   const oldVaccines = exist.vaccines_aplications;
 

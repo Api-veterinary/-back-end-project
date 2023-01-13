@@ -13,6 +13,7 @@ import ensureDoctorExists from "../middlewares/ensureDoctorExists.middleware";
 import ensureDataIsValidMiddleware from "../middlewares/ensureDataIsValid.middleware";
 import {doctorSchema, doctorUpdateSchema} from "../schemas/doctors.schemas"
 
+
 const doctorsRoutes = Router();
 
 doctorsRoutes.post(
@@ -22,7 +23,16 @@ doctorsRoutes.post(
   ensureCrmvAvailabilityMiddleware,
   createDoctorController
 );
-doctorsRoutes.patch("/:id", ensureDataIsValidMiddleware(doctorUpdateSchema),ensureDoctorExists, updateDoctorController);
+
+doctorsRoutes.patch(
+  "/:id",
+  ensureDataIsValidMiddleware(doctorUpdateSchema),
+  ensureDoctorExists,
+  ensureAuthMiddleware,
+  ensureDoctorMiddleware,
+  updateDoctorController
+);
+
 
 doctorsRoutes.get(
   "",
@@ -31,6 +41,12 @@ doctorsRoutes.get(
   getDoctorController
 );
 
-doctorsRoutes.delete("/:id", ensureAuthMiddleware, ensureDoctorExists, deleteDoctorController);
+doctorsRoutes.delete(
+  "/:id",
+  ensureDoctorExists,
+  ensureAuthMiddleware,
+  ensureDoctorMiddleware,
+  deleteDoctorController
+);
 
 export default doctorsRoutes;

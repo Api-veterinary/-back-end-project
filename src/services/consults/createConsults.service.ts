@@ -15,29 +15,6 @@ const createConsultsService = async (consultsData) => {
   const doctorsRepository = AppDataSource.getRepository(Doctors);
   const animalRepository = AppDataSource.getRepository(Animals);
 
-  if (
-    consultsData.treatment_name ||
-    consultsData.treatment_description ||
-    consultsData.procedures
-  ) {
-    var newProcedure = await proceduresRepository
-      .createQueryBuilder()
-      .insert()
-      .values(consultsData.procedures)
-      .returning("*")
-      .execute();
-
-    const description = consultsData.treatment_description;
-    const name = consultsData.treatment_name;
-    const createTreatment = treatmentRepository.create({
-      description: description,
-      name: name,
-      procedures: newProcedure.raw,
-    });
-
-    var newTreatment = await treatmentRepository.save(createTreatment);
-  }
-
   const doctor = await doctorsRepository.findOneBy({
     id: consultsData.doctor,
   });
@@ -59,7 +36,6 @@ const createConsultsService = async (consultsData) => {
   const newConsults = await consultsRepository.save({
     ...createConsults,
     animal: animal,
-    treatment: { ...newTreatment, procedures: newProcedure.raw },
     doctor: doctor,
   });
 
