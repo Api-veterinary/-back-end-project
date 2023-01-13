@@ -6,7 +6,7 @@ import { Procedure } from "../../entities/procedure/procedure.entity";
 import { ProcedureSchedule } from "../../entities/procedure_schedule/procedure_schedule.entity";
 import { Treatment } from "../../entities/treatment/treatment.entity";
 import AppError from "../../errors/appError";
-import { responseCreateTreatmentSchema } from "../../schemas/treatmentSchema";
+import { responseCreateTreatmentSchema } from "../../schemas/treatment/treatment.schema";
 
 const createTreatmentService = async (data) => {
   const treatmentRepository = AppDataSource.getRepository(Treatment);

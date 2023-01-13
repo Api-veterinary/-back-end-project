@@ -1,22 +1,40 @@
 import AppDataSource from "../../data-source";
 import { Address } from "../../entities/address/address.entity";
 import { Doctors } from "../../entities/doctors/doctors.entity";
+import AppError from "../../errors/appError";
 import { IDoctorUpdate } from "../../interfaces/doctor.interface";
-import {
-  doctorUpdateSchema,
-  doctorWithoutPasswordSchema,
-} from "../../schemas/doctors.schemas";
+import { doctorUpdateSchema } from "../../schemas/doctors/doctors.schemas";
 
 const updateDoctorService = async (body: IDoctorUpdate, doctorID: string) => {
   const doctorRepo = AppDataSource.getRepository(Doctors);
   const addressRepo = AppDataSource.getRepository(Address);
+  var address = {};
 
   if (Object.keys(body).includes("address")) {
-    const address = await addressRepo.findOneBy({ id: body.address.id });
+    if (!body.address.id) {
+      throw new AppError("Imposible to update user addres without address id");
+    }
+    const addressFind = await addressRepo.findOneBy({ id: body.address.id });
 
-    addressRepo.save({ ...body.address });
+    address = await addressRepo.save({ ...addressFind, ...body.address });
 
     delete body.address;
+  }
+
+  if (Object.keys(body).includes("email")) {
+    const doctor = await doctorRepo.findOneBy({ email: body.email });
+    if (doctor.id !== doctorID) {
+      throw new AppError("email already on use", 409);
+    }
+
+    if (Object.keys(body).includes("password")) {
+      if (doctor.id !== doctorID) {
+        throw new AppError(
+          "You don't own this user, can't change password",
+          400
+        );
+      }
+    }
   }
 
   await doctorRepo.save({ id: doctorID, ...body });

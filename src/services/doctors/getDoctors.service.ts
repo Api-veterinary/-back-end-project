@@ -1,6 +1,9 @@
 import AppDataSource from "../../data-source";
 import { Doctors } from "../../entities/doctors/doctors.entity";
-import { doctorWithoutPasswordSchema } from "../../schemas/doctors.schemas";
+import {
+  doctorWithoutPasswordSchema,
+  getDoctorsSchema,
+} from "../../schemas/doctors/doctors.schemas";
 
 const getDoctorsService = async () => {
   const doctorsRepo = AppDataSource.getRepository(Doctors);
@@ -9,10 +12,13 @@ const getDoctorsService = async () => {
     relations: {
       address: true,
     },
-    withDeleted: true,
   });
 
-  return doctors;
+  const doctorWithoutPassord = await getDoctorsSchema.validate(doctors, {
+    stripUnknown: true,
+  });
+
+  return doctorWithoutPassord;
 };
 
 export default getDoctorsService;
