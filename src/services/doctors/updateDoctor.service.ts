@@ -8,7 +8,7 @@ import { doctorUpdateSchema } from "../../schemas/doctors/doctors.schemas";
 const updateDoctorService = async (body: IDoctorUpdate, doctorID: string) => {
   const doctorRepo = AppDataSource.getRepository(Doctors);
   const addressRepo = AppDataSource.getRepository(Address);
-  var address = {};
+  let address = {};
 
   if (Object.keys(body).includes("address")) {
     if (!body.address.id) {

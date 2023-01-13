@@ -1,4 +1,4 @@
-import { IAddressRequest } from "./address.interface";
+import { IAddressRequest, IAddressUpdate } from "./address.interface";
 
 export interface IUserRequest {
   name: string;
@@ -24,4 +24,5 @@ export interface IUserUpdate {
   name?: string;
   email?: string;
   password?: string;
+  address?: IAddressUpdate;
 }

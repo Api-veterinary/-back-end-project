@@ -1,7 +1,7 @@
 import AppDataSource from "../../data-source";
 import { Consults } from "../../entities/consults/consults.entity";
 import AppError from "../../errors/appError";
-import { responseGetConsultsSchema } from "../../schemas/consultsSchema";
+import { responseGetConsultsSchema } from "../../schemas/consults/consults.schema";
 
 const getConsultByIdService = async (id: string) => {
   const consultsRepository = AppDataSource.getRepository(Consults);

@@ -20,19 +20,7 @@ export const userWithoutPasswordSchema = yup.object().shape({
 });
 
 export const userUpdateSchema = yup.object().shape({
-  addres: yup
-    .object()
-    .notRequired()
-    .shape({
-      zipCode: yup.string().max(8),
-      complement: yup.string(),
-      number: yup.string().notRequired(),
-      street: yup.string(),
-      district: yup.string(),
-      city: yup.string(),
-      state: yup.string().max(2),
-      id: yup.string(),
-    }),
+  address: addressSchema,
   delete_date: yup.string().nullable(),
   updatedAt: yup.date().notRequired(),
   createdAt: yup.date().notRequired(),
