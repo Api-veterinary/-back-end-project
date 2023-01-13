@@ -37,3 +37,19 @@ export const mockedDoctorLogin: IUserLogin = {
   email: "mockedDoctorEmail@MediaList.com",
   password: "string",
 };
+
+export const mockedDoctorRequestWithoutCrmv: IDoctorRequest = {
+  name: "mockedName",
+  crmv: "",
+  email: "mockedDoctorEmail@MediaList.com",
+  password: "string",
+  address: {
+    district: "mockedDistrict",
+    zipCode: "09807879",
+    number: "320",
+    city: "mockedCity",
+    state: "PR",
+    street: "mockedStreet",
+    complement: "ap 1201",
+  },
+};

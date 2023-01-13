@@ -1,4 +1,9 @@
-import { DataSource, Repository, TableForeignKey } from "typeorm";
+import {
+  DataSource,
+  Repository,
+  TableForeignKey,
+  UsingJoinColumnOnlyOnOneSideAllowedError,
+} from "typeorm";
 import app from "../../app";
 import AppDataSource from "../../data-source";
 import request from "supertest";
@@ -116,7 +121,6 @@ describe("Testing medicine routes", () => {
   });
 
   test("PATCH /medicine/:id -  should be able to update medicine", async () => {
-    await request(app).post("/medicine").send(mockedMedicine);
     await request(app).post("/doctors").send(mockedDoctorRequest);
 
     const newValues = { name: "TesteName", class: "TesteClass" };
@@ -125,12 +129,19 @@ describe("Testing medicine routes", () => {
       .post("/login")
       .send(mockedDoctorLogin);
 
+    const medicine = await request(app)
+      .post(baseUrl)
+      .set("Authorization", `Bearer ${doctorLoginResponse.body.token}`)
+      .send(mockedMedicine);
+
     const medicineTobeUpdate = await request(app)
       .get("/medicine")
       .set("Authorization", `Bearer ${doctorLoginResponse.body.token}`);
 
+    const medicineTobeUpdateID = medicineTobeUpdate.body[0].id;
+
     const response = await request(app)
-      .delete(`/medicine/${medicineTobeUpdate.body[0].id}`)
+      .patch(`/medicine/${medicineTobeUpdateID}`)
       .set("Authorization", `Bearer ${doctorLoginResponse.body.token}`)
       .send(newValues);
 
