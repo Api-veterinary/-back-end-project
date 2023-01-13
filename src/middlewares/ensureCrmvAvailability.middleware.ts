@@ -18,7 +18,7 @@ const ensureCrmvAvailabilityMiddleware = async (
 
   if (crmvAlreadyExists) {
     return res
-      .status(400)
+      .status(409)
       .json({ message: "This crmv adress is already being used" });
   }
   next();
