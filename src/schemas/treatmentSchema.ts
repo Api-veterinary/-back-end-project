@@ -70,3 +70,8 @@ export const responseCreateTreatmentSchema = yup.object().shape({
   id: yup.string().notRequired(),
   name: yup.string().notRequired(),
 });
+
+export const updatetreatmentProcedureSchema = yup.object().shape({
+  date: yup.string().notRequired(),
+  hour: yup.string().notRequired(),
+});

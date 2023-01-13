@@ -6,8 +6,6 @@ import { Procedure } from "../../entities/procedure/procedure.entity";
 import { ProcedureSchedule } from "../../entities/procedure_schedule/procedure_schedule.entity";
 import { Treatment } from "../../entities/treatment/treatment.entity";
 import AppError from "../../errors/appError";
-import { ITewatmentRequest } from "../../interfaces/Procedure_Schedule";
-import { doctorWithoutPasswordSchema } from "../../schemas/doctors.schemas";
 import { responseCreateTreatmentSchema } from "../../schemas/treatmentSchema";
 
 const createTreatmentService = async (data) => {
@@ -79,30 +77,6 @@ const createTreatmentService = async (data) => {
     where: { treatment: newTreatment },
     relations: { doctor: true, procedure: true },
   });
-
-  // const doctorWithoutPassord = await doctorWithoutPasswordSchema.validate(
-  //   doctor,
-  //   {
-  //     stripUnknown: true,
-  //   }
-  // );
-
-  //   const doctorWithoutPassord = await Promise.all(
-  //     findProcedureSchedule.map(async (el) => {
-  //       console.log(el.doctor);
-
-  //       const validatedDoctor = await doctorWithoutPasswordSchema.validate(
-  //         el.doctor,
-  //         {
-  //           stripUnknown: true,
-  //         }
-  //       );
-  //       console.log(validatedDoctor);
-  //       //   return validatedDoctor;
-  //     })
-  //   );
-
-  //   console.log(doctorWithoutPassord);
 
   const res = {
     ...newTreatment,
