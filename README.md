@@ -46,7 +46,7 @@ A URL base da aplicação:
 
 Diagrama ER da API definindo bem as relações entre as tabelas do banco de dados.
 
-![DER](https://dbdiagram.io/d/63bc5cd46afaa541e5d152e9)
+- [DER](https://dbdiagram.io/d/63bc5cd46afaa541e5d152e9)
 
 ---
 
@@ -88,6 +88,6 @@ yarn typeorm migration:run -d src/data-source.ts
 
 Documentação com todos Endpoints:
 
-(colocar doc insomnia)
+- [APIveterinary](https://lucasr29.github.io/APIdocs/#req_46f658a54cc846b88789035f96d562cf)
 
 ---
