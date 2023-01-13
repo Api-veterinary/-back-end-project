@@ -29,7 +29,7 @@ consultsRoutes.delete("/:id", ensureAuthMiddleware, deleteConsultsController);
 //O :id é o id da consulta
 consultsRoutes.patch(
   "/:id",
-  ensureAuthMiddleware,
+
   validateSchemaMiddleware(updateConsultsSchema),
   updateConsultsController
 );
