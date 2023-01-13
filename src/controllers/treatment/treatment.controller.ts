@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import createTreatmentService from "../../services/treatment/createTreatment.service";
 import deleteTreatmentService from "../../services/treatment/deleteTreatment.service";
+import updatetreatmentService from "../../services/treatment/updateTreatment.service";
 import updatetreatmentProcedureService from "../../services/treatment/updateTreatmentProcedure.service";
 
 const createTreatmentController = async (
@@ -31,8 +32,19 @@ const updateTreatmentProcedureController = async (
   return response.status(201).json(newTreatment);
 };
 
+const updatetreatmentController = async (
+  request: Request,
+  response: Response
+) => {
+  const data = request.body;
+  const id = request.params.id;
+  const newTreatment = await updatetreatmentService(id, data);
+  return response.status(201).json(newTreatment);
+};
+
 export {
   createTreatmentController,
   deleteTreatmentController,
   updateTreatmentProcedureController,
+  updatetreatmentController,
 };
