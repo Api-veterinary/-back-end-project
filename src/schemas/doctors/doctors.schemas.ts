@@ -44,18 +44,18 @@ export const doctorWithoutPasswordSchema = yup.object().shape({
 
 export const doctorUpdateSchema = yup.object().shape({
   address: yup
-    .object()
-    .notRequired()
-    .shape({
-      zipCode: yup.string().max(8),
-      complement: yup.string(),
-      number: yup.string().notRequired(),
-      street: yup.string(),
-      district: yup.string(),
-      city: yup.string(),
-      state: yup.string().max(2),
-      id: yup.string(),
-    }),
+    .object({
+      zipCode: yup.string().max(8).nullable(),
+      complement: yup.string().nullable(),
+      number: yup.string().nullable(),
+      street: yup.string().nullable(),
+      district: yup.string().nullable(),
+      city: yup.string().nullable(),
+      state: yup.string().max(2).nullable(),
+      id: yup.string().nullable(),
+    })
+    .nullable()
+    .notRequired(),
   delete_date: yup.string().nullable(),
   updatedAt: yup.date().notRequired(),
   createdAt: yup.date().notRequired(),
@@ -64,3 +64,5 @@ export const doctorUpdateSchema = yup.object().shape({
   crmv: yup.number().notRequired(),
   id: yup.string().notRequired(),
 });
+
+export const getDoctorsSchema = yup.array(doctorUpdateSchema);

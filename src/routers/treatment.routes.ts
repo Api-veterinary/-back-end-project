@@ -5,7 +5,7 @@ import {
   updateTreatmentProcedureController,
 } from "../controllers/treatment/treatment.controller";
 import ensureDataIsValidMiddleware from "../middlewares/ensureDataIsValid.middleware";
-import { createTreatmentSchema } from "../schemas/treatmentSchema";
+import { createTreatmentSchema } from "../schemas/treatment/treatment.schema";
 import updatetreatmentProcedureService from "../services/treatment/updateTreatmentProcedure.service";
 
 const treatmentRoutes = Router();
