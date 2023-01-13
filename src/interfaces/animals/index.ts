@@ -17,3 +17,8 @@ export interface IVaccinesRequest {
 export interface IAnimal_typesRequest {
   type: string;
 }
+
+
+export interface IAnimal_sizeRequest {
+  size: string;
+}
