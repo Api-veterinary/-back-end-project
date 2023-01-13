@@ -1,8 +1,8 @@
 import { Router } from "express";
-import { createAnimalsController } from "../controllers/animals/createAnimals.controller";
-import { deleteAnimalsController } from "../controllers/animals/deleteAnimals.controller";
-import { getAnimalsController } from "../controllers/animals/getAnimals.controller";
-import { patchAnimalsController } from "../controllers/animals/patchAnimals.controller";
+import { createAnimalsController } from "../controllers/animals/animals.controller";
+import { deleteAnimalsController } from "../controllers/animals/animals.controller";
+import { getAnimalsController } from "../controllers/animals/animals.controller";
+import { patchAnimalsController } from "../controllers/animals/animals.controller";
 import { getAnimalsService } from "../services/animals/getAnimals.service";
 
 export const animalsRoute = Router();

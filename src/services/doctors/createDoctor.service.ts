@@ -3,7 +3,7 @@ import AppDataSource from "../../data-source";
 import { Address } from "../../entities/address/address.entity";
 import { Doctors } from "../../entities/doctors/doctors.entity";
 import { IDoctorRequest } from "../../interfaces/doctors";
-import { doctorWithoutPasswordSchema } from "../../schemas/doctors.schemas";
+import { doctorWithoutPasswordSchema } from "../../schemas/doctors/doctors.schemas";
 
 const createDoctorService = async (doctorData: IDoctorRequest) => {
   const doctorRepository = AppDataSource.getRepository(Doctors);

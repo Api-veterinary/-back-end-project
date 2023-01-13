@@ -11,7 +11,7 @@ import validateSchemaMiddleware from "../middlewares/validadeschema.middleware";
 import {
   createConsultsSchema,
   updateConsultsSchema,
-} from "../schemas/consultsSchema";
+} from "../schemas/consults/consults.schema";
 
 const consultsRoutes = Router();
 

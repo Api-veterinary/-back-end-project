@@ -1,11 +1,11 @@
 import { Request, response, Response } from "express";
 //import { instanceToPlain } from "class-transformer";
-import { IDoctorUpdate } from "../interfaces/doctor.interface";
-import { IDoctorRequest } from "../interfaces/doctors";
-import createDoctorService from "../services/doctors/createDoctor.service";
-import deleteDoctorService from "../services/doctors/deleteDoctors.service";
-import getDoctorsService from "../services/doctors/getDoctors.service";
-import updateDoctorService from "../services/doctors/updateDoctor.service";
+import { IDoctorUpdate } from "../../interfaces/doctor.interface";
+import { IDoctorRequest } from "../../interfaces/doctors";
+import createDoctorService from "../../services/doctors/createDoctor.service";
+import deleteDoctorService from "../../services/doctors/deleteDoctors.service";
+import getDoctorsService from "../../services/doctors/getDoctors.service";
+import updateDoctorService from "../../services/doctors/updateDoctor.service";
 
 const createDoctorController = async (request: Request, response: Response) => {
   const dataDoctor: IDoctorRequest = request.body;

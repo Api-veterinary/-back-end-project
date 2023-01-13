@@ -8,7 +8,9 @@ import {
 import ensureAuthMiddleware from "../middlewares/ensureAuth.middleware";
 import ensureDataIsValidMiddleware from "../middlewares/ensureDataIsValid.middleware";
 import ensureDoctorMiddleware from "../middlewares/ensureDoctor.middleware";
-import { createTreatmentSchema } from "../schemas/treatmentSchema";
+import { createTreatmentSchema } from "../schemas/treatment/treatment.schema";
+import updatetreatmentProcedureService from "../services/treatment/updateTreatmentProcedure.service";
+
 
 const treatmentRoutes = Router();
 
