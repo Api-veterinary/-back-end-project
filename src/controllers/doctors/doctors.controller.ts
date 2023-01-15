@@ -20,15 +20,16 @@ const getDoctorController = async (request: Request, response: Response) => {
 
 const updateDoctorController = async (request: Request, response: Response) => {
   const dataDoctor: IDoctorUpdate = request.body;
+  const doctorId : string = request.params.id;
   const updatedDoctor = await updateDoctorService(
     dataDoctor,
-    request.params.id
+    doctorId
   );
   return response.status(201).json(updatedDoctor);
 };
 
 const deleteDoctorController = async (request: Request, response: Response) => {
-  const doctorId = request.params.id;
+  const doctorId : string = request.params.id;
   const deletedDoctor = await deleteDoctorService(doctorId);
 
   return response.status(204).json(deletedDoctor);

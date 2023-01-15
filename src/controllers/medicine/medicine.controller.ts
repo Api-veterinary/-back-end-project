@@ -1,11 +1,12 @@
 import { Request, Response } from "express";
+import { IMEdicineRequest } from "../../interfaces/Procedure_Schedule";
 import { createMedicineService } from "../../services/medicine/createMedicine.service";
 import deleteMedicineService from "../../services/medicine/deleteMedicine.service";
 import listMedicineService from "../../services/medicine/listMedicine.service";
 import updateMedicineService from "../../services/medicine/updateMedicine.service";
 
 const createMedicineController = async (req: Request, res: Response) => {
-  const data = req.body;
+  const data : IMEdicineRequest = req.body;
   const newProcedure = await createMedicineService(data);
   return res.status(201).json(newProcedure);
 };

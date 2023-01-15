@@ -6,6 +6,7 @@ import { Medicine } from "../../entities/medicines/medicines.enttity";
 import { Users } from "../../entities/users/users.entity";
 import { VaccinesAplication } from "../../entities/vaccines_aplied/vaccinesAplied.entity";
 import AppError from "../../errors/appError";
+import { IAnimalsRequest } from "../../interfaces/animals";
 import { createAnimalsSchema } from "../../schemas/animals/animals.schema";
 
 export const createAnimalsService = async (data) => {

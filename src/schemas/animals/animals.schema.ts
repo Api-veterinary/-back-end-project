@@ -1,4 +1,5 @@
 import * as yup from "yup";
+
 const vaccinesAplicationsSchema = yup.array(
   yup.object({
     date_aplied: yup.string(),
