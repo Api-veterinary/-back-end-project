@@ -1,4 +1,6 @@
 import { Request, Response } from "express";
+
+import { IAnimalsRequest } from "../../interfaces/animals";
 import AppError from "../../errors/appError";
 import {
   clearAllAnimalVaccinesService,
@@ -11,8 +13,10 @@ import { getAnimalsService } from "../../services/animals/getAnimals.service";
 import { patchAnimalsService } from "../../services/animals/patchAnimals.service";
 
 export const getAnimalsController = async (req: Request, res: Response) => {
+
   const data = req.params.id;
   let animalData = {};
+
 
   if (data) {
     animalData = await getAnimalByIdService(data);
@@ -21,10 +25,11 @@ export const getAnimalsController = async (req: Request, res: Response) => {
   }
 
   return res.status(200).json(animalData);
+
 };
 
 export const createAnimalsController = async (req: Request, res: Response) => {
-  const data = req.body;
+  const data : IAnimalsRequest = req.body;
 
   const animalData = await createAnimalsService(data);
 
@@ -32,16 +37,16 @@ export const createAnimalsController = async (req: Request, res: Response) => {
 };
 
 export const deleteAnimalsController = async (req: Request, res: Response) => {
-  const data = req.params.id;
+  const id : string = req.params.id;
 
-  await deleteAnimalsService(data);
+  await deleteAnimalsService(id);
 
   return res.status(200).send();
 };
 
 export const patchAnimalsController = async (req: Request, res: Response) => {
-  const data = req.body;
-  const id = req.params.id;
+  const data : IAnimalsRequest = req.body;
+  const id : string = req.params.id;
 
   const newAnimalData = await patchAnimalsService(data, id);
 

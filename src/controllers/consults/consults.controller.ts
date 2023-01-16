@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { IConsultsRequest } from "../../interfaces/consults.interface";
 import createConsultsService from "../../services/consults/createConsults.service";
 import deleteConsultsService from "../../services/consults/deleteConsults.service";
 import getConsultByIdService from "../../services/consults/getConsultById.service";
@@ -9,7 +10,7 @@ const createConsultsController = async (
   request: Request,
   response: Response
 ) => {
-  const consultsData = request.body;
+  const consultsData : IConsultsRequest = request.body;
   const newConsults = await createConsultsService(consultsData);
   return response.status(201).json(newConsults);
 };
@@ -18,8 +19,8 @@ const updateConsultsController = async (
   request: Request,
   response: Response
 ) => {
-  const id = request.params.id;
-  const data = request.body;
+  const id : string = request.params.id;
+  const data : IConsultsRequest  = request.body;
   const updatedConsults = await updateConsultsService(data, id);
   return response.status(200).json(updatedConsults);
 };

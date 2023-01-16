@@ -17,7 +17,7 @@ const deleteTreatmentController = async (
   request: Request,
   response: Response
 ) => {
-  const treatmentId = request.params.id;
+  const treatmentId : string = request.params.id;
   await deleteTreatmentService(treatmentId);
   return response.status(204).json({});
 };
@@ -27,7 +27,7 @@ const updateTreatmentProcedureController = async (
   response: Response
 ) => {
   const data = request.body;
-  const id = request.params.id;
+  const id : string = request.params.id;
   const newTreatment = await updatetreatmentProcedureService(id, data);
   return response.status(201).json(newTreatment);
 };
@@ -37,7 +37,7 @@ const updatetreatmentController = async (
   response: Response
 ) => {
   const data = request.body;
-  const id = request.params.id;
+  const id : string = request.params.id;
   const newTreatment = await updatetreatmentService(id, data);
   return response.status(201).json(newTreatment);
 };

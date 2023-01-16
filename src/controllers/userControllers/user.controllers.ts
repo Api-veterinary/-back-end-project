@@ -35,7 +35,7 @@ export const deleteUserController = async (
   request: Request,
   response: Response
 ) => {
-  const userId = request.params.id;
+  const userId : string = request.params.id;
   const deletedUser = await deleteUserService(userId);
 
   return response.status(204).json(deletedUser);
