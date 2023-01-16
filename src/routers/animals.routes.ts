@@ -10,7 +10,6 @@ import { patchAnimalsController } from "../controllers/animals/animals.controlle
 import ensureAuthMiddleware from "../middlewares/ensureAuth.middleware";
 import ensureDoctorMiddleware from "../middlewares/ensureDoctor.middleware";
 import { ensureVaccinesAreUnique } from "../middlewares/ensureVaccinesAreUnique.middleware";
-import { getAnimalsService } from "../services/animals/getAnimals.service";
 
 export const animalsRoute = Router();
 
