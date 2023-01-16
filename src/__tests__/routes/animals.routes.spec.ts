@@ -81,8 +81,8 @@ describe("Testing animals/medicine routes", () => {
       .send(mockedMedicine);
     const newMockAnimal = {
       ...mockedAnimalRequest,
-      vaccines: [vaccine.body.id],
-      owner: owner.body.id,
+      vaccines: [{ vaccineID, date: "2020-05-17" }],
+      owner_id: owner.body.id,
     };
     const response = await request(app).post(animalRoutes).send(newMockAnimal);
 

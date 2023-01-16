@@ -22,6 +22,8 @@ export const createAnimalsService = async (data) => {
     owner = await userRepository.findOneBy({ id: data.owner });
   }
   const size = await sizeRepository.findOneBy({ size: data.size });
+
+  console.log(data.size);
   const type: any = await typeRepository.findOneBy({ type: data.type });
 
   if (size === null) {
