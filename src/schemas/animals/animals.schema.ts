@@ -1,19 +1,24 @@
 import * as yup from "yup";
 
 const vaccinesAplicationsSchema = yup.array(
-  yup.object({
-    date_aplied: yup.string(),
-    vaccine: yup
-      .array(
-        yup.object({
-          id: yup.string(),
-          name: yup.string(),
-          class: yup.string(),
-          description: yup.string(),
-        })
-      )
-      .nullable(),
-  })
+  yup
+    .object({
+      date_aplied: yup.string(),
+      id: yup.string(),
+      vaccine: yup
+        .array(
+          yup
+            .object({
+              id: yup.string(),
+              name: yup.string(),
+              class: yup.string(),
+              description: yup.string(),
+            })
+            .nullable()
+        )
+        .nullable(),
+    })
+    .nullable()
 );
 
 export const animalsSchema = yup.object().shape({

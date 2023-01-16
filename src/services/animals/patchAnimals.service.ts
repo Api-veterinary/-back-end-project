@@ -4,14 +4,28 @@ import { Animals } from "../../entities/animals/animals.entity";
 import { AnimalSizes } from "../../entities/animalSizes/animal_sizes.entity";
 import { Animal_types } from "../../entities/animalTypes/animalTypes.entity";
 import { Medicine } from "../../entities/medicines/medicines.enttity";
+import { Users } from "../../entities/users/users.entity";
 import { VaccinesAplication } from "../../entities/vaccines_aplied/vaccinesAplied.entity";
 import AppError from "../../errors/appError";
-import { animal_type } from "../../__tests__/mocks/animal_type.mocks";
 
 export const patchAnimalsService = async (newAnimalData, animalID: string) => {
   const animalsRepository = AppDataSource.getRepository(Animals);
   const vaccinesRepository = AppDataSource.getRepository(VaccinesAplication);
   const medicineRepository = AppDataSource.getRepository(Medicine);
+  const userRepo = AppDataSource.getRepository(Users);
+
+  if (Object.keys(newAnimalData).includes("owner")) {
+    const user = await userRepo.findOneBy({ id: newAnimalData.owner });
+
+    console.log(user);
+
+    if (user === null) {
+      throw new AppError("owner not registered");
+    }
+
+    newAnimalData.owner = user;
+  }
+
   const exist = await animalsRepository.findOne({
     where: { id: animalID },
     relations: {
@@ -23,19 +37,18 @@ export const patchAnimalsService = async (newAnimalData, animalID: string) => {
     },
   });
 
+  if (exist === null) {
+    throw new AppError("animal not registered", 400);
+  }
 
   const oldVaccines = exist.vaccines_aplications;
-
-  if (exist === null) {
-    throw new AppError("Animal não existe", 400);
-  }
 
   if (Object.keys(newAnimalData).includes("size")) {
     const sizeRepo = AppDataSource.getRepository(AnimalSizes);
     const exists = await sizeRepo.findOneBy({ size: newAnimalData.size });
 
     if (exist === null) {
-      throw new AppError("Opções de tamanho: Pequeno, Médio, Grande");
+      throw new AppError("size not registered");
     } else {
       newAnimalData.size = exists;
     }
@@ -46,9 +59,7 @@ export const patchAnimalsService = async (newAnimalData, animalID: string) => {
     const exists = await typeRepo.findOneBy({ type: newAnimalData.type });
 
     if (exist === null) {
-      throw new AppError(
-        "Tipo de animal indisponível, tente: Cachorro, Gato, Ave...."
-      );
+      throw new AppError("animal type not registered.");
     } else {
       newAnimalData.type = exists;
     }
