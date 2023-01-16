@@ -29,13 +29,9 @@ describe("Testing animals/medicine routes", () => {
     await request(app).post("/doctors").send(mockedDoctorRequest);
     await request(app).post("/users").send(mockedUserRequest);
 
-    const docLoginRes = await request(app)
-      .post("/login")
-      .send(mockedDoctorLogin);
+    let docLoginRes = await request(app).post("/login").send(mockedDoctorLogin);
 
-    const userLoginRes = await request(app)
-      .post("/login")
-      .send(mockedUserLogin);
+    let userLoginRes = await request(app).post("/login").send(mockedUserLogin);
 
     user_token = userLoginRes.body.token;
     doctor_token = docLoginRes.body.token;
@@ -78,11 +74,15 @@ describe("Testing animals/medicine routes", () => {
 
   test("Should be able to create a animal", async () => {
     const owner = await request(app).post("/users").send(mockedUserRequest);
+    let docLoginRes = await request(app).post("/login").send(mockedDoctorLogin);
+    let vaccine = await request(app)
+      .post("/medicine")
+      .set("Authorization", `Bearer ${docLoginRes.body.token}`)
+      .send(mockedMedicine);
     const newMockAnimal = {
       ...mockedAnimalRequest,
-      vaccines: [vaccineID],
-      type: typeID,
-      owner_id: owner.body.id,
+      vaccines: [vaccine.body.id],
+      owner: owner.body.id,
     };
     const response = await request(app).post(animalRoutes).send(newMockAnimal);
 

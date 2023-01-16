@@ -4,7 +4,7 @@ export interface IDoctorRequest {
   name: string;
   email: string;
   password: string;
-  crmv: number;
+  crmv: string;
   address: IAddressRequest;
 }
 
@@ -14,7 +14,7 @@ export interface IDoctorResponse {
   createdAt: Date;
   updatedAt: Date;
   address: object;
-  crmv: string;
+  crmv: number;
 }
 
 export interface IDoctorUpdate {
