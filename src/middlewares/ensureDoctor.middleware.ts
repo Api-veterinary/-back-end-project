@@ -11,7 +11,7 @@ export const ensureDoctorMiddleware = async (
   console.log(req.body);
   const doctorRepository = AppDataSource.getRepository(Doctors);
 
-  const doctor = await doctorRepository.findOne({
+  const doctor = await doctorRepository.exist({
     where: { id: req.user.id },
   });
 

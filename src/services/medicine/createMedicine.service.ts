@@ -1,6 +1,6 @@
 import { AppDataSource } from "../../data-source";
 import { Medicine } from "../../entities/medicines/medicines.enttity";
-import { IMedicineRequest } from "../../interfaces/Procedure_Schedule";
+import { IMedicineRequest } from "../../interfaces/procedureSchedule";
 
 export const createMedicineService = async (
   data: IMedicineRequest

@@ -29,6 +29,8 @@ export class ProcedureSchedule {
   @JoinColumn()
   doctor: Doctors;
 
-  @ManyToOne(() => Treatment, (treatment) => treatment.procedures)
+  @ManyToOne(() => Treatment, (treatment) => treatment.procedures, {
+    nullable: true,
+  })
   treatment: Treatment;
 }
