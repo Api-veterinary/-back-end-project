@@ -1,22 +1,38 @@
 import * as yup from "yup";
+import { SchemaOf } from "yup";
+import { IConsultRequest } from "../../interfaces/consults";
+import { IDoctorResponse } from "../../interfaces/doctor.interface";
 import { addressConsultsSchema, addressSchema } from "../address/addres.schema";
+import { doctorWithoutPasswordSchema } from "../doctors/doctors.schemas";
 import { userWithoutPasswordSchema } from "../users/users.schema";
+import {
+  animalsSchema,
+  vaccinesAplicationsSchema,
+} from "../animals/animals.schema";
+import { IOwnerResponse } from "../../interfaces/users.Interface";
+import { IAnimals, IAnimalsResponse } from "../../interfaces/animals";
+import { IMedicineUpdate } from "../../interfaces/medicines";
+import { IProcedureScheduleResponse } from "../../interfaces/Procedure_Schedule";
 
-export const createConsultsSchema = yup.object().shape({
-  date: yup.string().required(),
-  hour: yup.string().required(),
-  doctor: yup.string().required(),
-  animal: yup.string().required(),
-});
+export const createConsultsSchema: SchemaOf<IConsultRequest> = yup
+  .object()
+  .shape({
+    date: yup.string().required(),
+    hour: yup.string().required(),
+    doctor: yup.string().required(),
+    animal: yup.string().required(),
+  });
 
-export const updateConsultsSchema = yup.object().shape({
-  date: yup.string().notRequired(),
-  hour: yup.string().notRequired(),
-  doctor: yup.string().notRequired(),
-  animal: yup.string().notRequired(),
-});
+export const updateConsultsSchema: SchemaOf<IConsultRequest> = yup
+  .object()
+  .shape({
+    date: yup.string().notRequired(),
+    hour: yup.string().notRequired(),
+    doctor: yup.string().notRequired(),
+    animal: yup.string().notRequired(),
+  });
 
-const doctorConsultsSchema = yup
+const doctorConsultsSchema: SchemaOf<IDoctorResponse> = yup
   .object()
   .shape({
     crmv: yup.number().notRequired(),
@@ -26,23 +42,35 @@ const doctorConsultsSchema = yup
   })
   .notRequired();
 
-const ownerSchema = yup.object().shape({
+const ownerSchema: SchemaOf<IOwnerResponse> = yup.object().shape({
   address: addressConsultsSchema.nullable(),
   email: yup.string().email(),
   name: yup.string(),
   id: yup.string(),
 });
 
-const animalConsultsSchema = yup.object().shape({
-  owner: ownerSchema.nullable(),
-  last_visit: yup.date().required(),
-  weigth: yup.string().nullable(),
-  birth_date: yup.date().nullable(),
-  name: yup.string().nullable(),
-  id: yup.string().required(),
+const animalConsultsSchema: SchemaOf<IAnimals> = yup.object().shape({
+  owner: ownerSchema.nullable().notRequired(),
+  breed: yup.string().nullable().notRequired(),
+  type: yup
+    .object()
+    .nullable()
+    .notRequired()
+    .shape({ id: yup.string(), type: yup.string() }),
+  size: yup
+    .object()
+    .nullable()
+    .notRequired()
+    .shape({ id: yup.string(), size: yup.string() }),
+  last_visit: yup.date().notRequired(),
+  weigth: yup.string().nullable().notRequired(),
+  birth_date: yup.date().nullable().notRequired(),
+  name: yup.string().nullable().notRequired(),
+  id: yup.string().notRequired(),
+  vaccines_aplications: vaccinesAplicationsSchema.nullable().notRequired(),
 });
 
-const medicineSchema = yup.array(
+const medicineSchema: SchemaOf<IMedicineUpdate[]> = yup.array(
   yup.object({
     id: yup.string().nullable(),
     name: yup.string().nullable(),
@@ -51,7 +79,7 @@ const medicineSchema = yup.array(
   })
 );
 
-const procedureSchema = yup.array(
+const procedureSchema: SchemaOf<IProcedureScheduleResponse[]> = yup.array(
   yup.object({
     procedure: yup.object({
       description: yup.string().nullable(),
@@ -66,34 +94,30 @@ const procedureSchema = yup.array(
   })
 );
 
-const treatmentSchema = yup.object({
-  medicines: medicineSchema,
-  procedures: procedureSchema,
-  description: yup.string().nullable(),
-  name: yup.string().nullable(),
-  id: yup.string().nullable(),
+const treatmentSchema = yup
+  .object({
+    medicines: medicineSchema,
+    procedures: procedureSchema,
+    description: yup.string().nullable(),
+    name: yup.string().nullable(),
+    id: yup.string().nullable(),
+  })
+  .nullable();
+
+export const responseCreateConsultsSchema = yup.object().shape({
+  date: yup.string().notRequired(),
+  hour: yup.string().notRequired(),
+  doctor: doctorWithoutPasswordSchema,
+  animal: animalsSchema,
+  id: yup.string(),
 });
 
 export const responseGetAllConsultsSchema = yup.array(
   yup.object().shape({
     treatment: treatmentSchema,
-    animal: yup.object().shape({
-      owner: userWithoutPasswordSchema.nullable(),
-      last_visit: yup.date().required(),
-      weigth: yup.string().nullable(),
-      birth_date: yup.date().nullable(),
-      name: yup.string().nullable(),
-      id: yup.string().required(),
-    }),
-    doctor: yup
-      .object()
-      .shape({
-        id: yup.string().notRequired(),
-        name: yup.string().notRequired(),
-        email: yup.string().email().notRequired(),
-        crmv: yup.number().notRequired(),
-      })
-      .notRequired(),
+    animal: animalConsultsSchema,
+    medicines: medicineSchema,
+    doctor: doctorConsultsSchema,
     hour: yup.string().notRequired(),
     date: yup.string().notRequired(),
     id: yup.string().notRequired(),

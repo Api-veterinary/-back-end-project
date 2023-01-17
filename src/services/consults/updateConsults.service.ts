@@ -3,11 +3,11 @@ import { Animals } from "../../entities/animals/animals.entity";
 import { Consults } from "../../entities/consults/consults.entity";
 import { Doctors } from "../../entities/doctors/doctors.entity";
 import { AppError } from "../../errors/appError";
-import { IConsultUpdate } from "../../interfaces/consults/index";
+import { IConsultRequest } from "../../interfaces/consults/index";
 import { responseUpdateConsults } from "../../schemas/consults/consults.schema";
 
 export const updateConsultsService = async (
-  data: IConsultUpdate,
+  data: IConsultRequest,
   id: string
 ) => {
   const consultsRepository = AppDataSource.getRepository(Consults);

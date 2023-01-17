@@ -8,26 +8,27 @@ import {
 import { IVaccinesAplications } from "../../interfaces/vaccines";
 import { ICreateVaccines } from "../../interfaces/animals/index";
 
-const vaccinesAplicationsSchema: SchemaOf<IVaccinesAplications[]> = yup.array(
-  yup
-    .object({
-      date: yup.string().required(),
-      id: yup.array(yup.string()).required(),
-      vaccine: yup
-        .array(
-          yup
-            .object({
-              id: yup.string(),
-              name: yup.string(),
-              class: yup.string(),
-              description: yup.string(),
-            })
-            .nullable()
-        )
-        .nullable(),
-    })
-    .nullable()
-);
+export const vaccinesAplicationsSchema: SchemaOf<IVaccinesAplications[]> =
+  yup.array(
+    yup
+      .object({
+        date: yup.string().required(),
+        id: yup.array(yup.string()).required(),
+        vaccine: yup
+          .array(
+            yup
+              .object({
+                id: yup.string(),
+                name: yup.string(),
+                class: yup.string(),
+                description: yup.string(),
+              })
+              .nullable()
+          )
+          .nullable(),
+      })
+      .nullable()
+  );
 
 export const animalsSchema: SchemaOf<IAnimals> = yup.object().shape({
   vaccines_aplications: vaccinesAplicationsSchema.nullable(),

@@ -18,3 +18,18 @@ export interface IMedicineRequest {
   name: string;
   class: string;
 }
+
+export interface IProcedureResponse {
+  description: string;
+  type: string;
+  name: string;
+  id: string;
+}
+
+export interface IProcedureScheduleResponse {
+  description: string;
+  hour: string;
+  date: string;
+  id: string;
+  procedure: IProcedureResponse;
+}
