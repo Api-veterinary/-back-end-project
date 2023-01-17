@@ -2,10 +2,7 @@ import AppDataSource from "../../data-source";
 import { AnimalSizes } from "../../entities/animalSizes/animal_sizes.entity";
 import AppError from "../../errors/appError";
 
-const deleteAnimalSizeService = async (
-  animalsize: string,
-  animalSizeId: string
-) => {
+const deleteAnimalSizeService = async (animalSizeId: string) => {
   const animalSizeRepository = AppDataSource.getRepository(AnimalSizes);
 
   await animalSizeRepository

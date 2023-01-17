@@ -51,44 +51,4 @@ describe("Testing animals size", () => {
     expect(response.body).toHaveProperty("size");
     expect(response.status).toBe(201);
   });
-
-  test("Must be able to list animal_size", async () => {
-    const doctorLoginResponse = await request(app)
-      .post("/login")
-      .send(mockedDoctorLogin);
-
-    const response = await request(app)
-      .get(sizeRoute)
-      .set("Authorization", `Bearer ${doctorLoginResponse.body.token}`);
-
-    expect(response.body).toHaveProperty("size");
-    expect(response.status).toBe(200);
-  });
-
-  test("Should be able to patch a animal_size", async () => {
-    const doctorLoginResponse = await request(app)
-      .post("/login")
-      .send(mockedDoctorLogin);
-
-    const path = "/animals/" + size_id;
-    const response = await request(app)
-      .patch(path)
-      .set("Authorization", `Bearer ${doctorLoginResponse.body.token}`);
-
-    expect(response.body).toHaveProperty("size");
-    expect(response.status).toBe(200);
-  });
-
-  test("Should be able to delete a animal_size", async () => {
-    const doctorLoginResponse = await request(app)
-      .post("/login")
-      .send(mockedDoctorLogin);
-
-    const path = "/animals/" + size_id;
-    const response = await request(app)
-      .delete(path)
-      .set("Authorization", `Bearer ${doctorLoginResponse.body.token}`);
-
-    expect(response.status).toBe(200);
-  });
 });

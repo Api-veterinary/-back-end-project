@@ -6,17 +6,12 @@ import { mockedUserRequest } from "../mocks/user.mocks";
 import { mockedDoctorLogin, mockedDoctorRequest } from "../mocks/doctor.mocks";
 import { mockedAnimalRequest } from "../mocks/animal.mocks";
 import { mockedConsult } from "../mocks/consults.mocks";
-import { mockedMedicine } from "../mocks/medicine.mocks";
-import { animal_type } from "../mocks/animal_type.mocks";
 
 describe("Testing consults routes", () => {
   let connection: DataSource;
   const baseUrl: string = "/consults";
-  let owner = null;
-  let doctor = null;
-  let animal = null;
-  let vaccine = null;
-  let type = null;
+  let doctor = "";
+  let animal = "";
 
   beforeAll(async () => {
     await AppDataSource.initialize()
@@ -25,27 +20,21 @@ describe("Testing consults routes", () => {
         console.log("Error during Data Source initialization", err);
       });
 
-    doctor = await request(app).post("/doctors").send(mockedDoctorRequest);
-    owner = await request(app).post("/users").send(mockedUserRequest);
-    let doctorLoginResponse = await request(app)
-      .post("/login")
-      .send(mockedDoctorLogin);
-    vaccine = await request(app)
-      .post("/medicine")
-      .set("Authorization", `Bearer ${doctorLoginResponse.body.token}`)
-      .send(mockedMedicine);
-    type = await request(app)
-      .post("/animal_types")
-      .set("Authorization", `Bearer ${doctorLoginResponse.body.token}`)
-      .send(animal_type);
-    animal = await request(app)
-      .post("/animals")
-      .send({
-        ...mockedAnimalRequest,
-        vaccines_aplications: [vaccine.body.id],
-        consults: [],
-        owner: owner.body.id,
-      });
+    const doctorData = await request(app)
+      .post("/doctors")
+      .send(mockedDoctorRequest);
+
+    const animalData = await request(app).post("/animals").send({
+      name: "Dog",
+      birth_date: "05/05/2005",
+      type: "cachorro",
+      weigth: "5kg",
+      size: "pequeno",
+      owner: "385760d6-77f6-4776-9b79-2d255bb892ea",
+      vaccines: [],
+    });
+    animal = animalData.body.id;
+    doctor = doctorData.body.id;
     await request(app).post("/animals").send(mockedAnimalRequest);
   });
 
@@ -62,8 +51,8 @@ describe("Testing consults routes", () => {
       .set("Authorization", `Bearer ${doctorLoginResponse.body.token}`)
       .send({
         ...mockedConsult,
-        doctor: doctor.body.id,
-        animal: animal.body.id,
+        doctor: doctor,
+        animal: animal,
       });
 
     expect(response.body).toHaveProperty("id");
@@ -89,7 +78,7 @@ describe("Testing consults routes", () => {
       .set("Authorization", `Bearer ${doctorLoginResponse.body.token}`)
       .send({
         ...mockedConsult,
-        doctor_id: doctor.body.id,
+        doctor_id: doctor,
       });
 
     expect(response.body).toHaveProperty("id");
@@ -115,7 +104,7 @@ describe("Testing consults routes", () => {
       .set("Authorization", `Bearer ${doctorLoginResponse.body.token}`)
       .send({
         ...mockedConsult,
-        animal_id: animal.body.id,
+        animal_id: animal,
       });
 
     expect(response.body).toHaveProperty("id");
