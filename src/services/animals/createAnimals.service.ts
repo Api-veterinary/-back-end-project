@@ -7,7 +7,7 @@ import { Users } from "../../entities/users/users.entity";
 import { VaccinesAplication } from "../../entities/vaccinesAplied/vaccinesAplied.entity";
 import { AppError } from "../../errors/appError";
 import { IAnimalsRequest } from "../../interfaces/animals";
-import { createAnimalsSchema } from "../../schemas/animals/animals.schema";
+import { createAnimalsResponseSchema } from "../../schemas/animals/animals.schema";
 
 export const createAnimalsService = async (data: IAnimalsRequest) => {
   const vaccinesRepository = AppDataSource.getRepository(VaccinesAplication);
@@ -87,9 +87,12 @@ export const createAnimalsService = async (data: IAnimalsRequest) => {
     aplications,
   });
 
-  const animalsWithoutPassord = await createAnimalsSchema.validate(newAnimal, {
-    stripUnknown: true,
-  });
+  const animalsWithoutPassord = await createAnimalsResponseSchema.validate(
+    newAnimal,
+    {
+      stripUnknown: true,
+    }
+  );
 
   return animalsWithoutPassord;
 };

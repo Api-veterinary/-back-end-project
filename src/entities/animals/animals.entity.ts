@@ -38,15 +38,18 @@ export class Animals {
   @Column({ type: "date" })
   birth_date: string;
 
+  @Column()
+  breed: string;
+
   @BeforeInsert()
-  @CreateDateColumn()
+  @CreateDateColumn({ type: "date" })
   first_visit: Date;
 
   @BeforeUpdate()
-  @UpdateDateColumn()
+  @UpdateDateColumn({ type: "date" })
   last_visit: Date;
 
-  @DeleteDateColumn()
+  @DeleteDateColumn({ type: "date" })
   delete_date: Date;
 
   @OneToMany(

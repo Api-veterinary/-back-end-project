@@ -4,9 +4,26 @@ import {
   deleteAnimalSizeController,
   getAnimalSizeController,
 } from "../controllers/animalSize/animalSizes.controller";
+import { ensureAuthMiddleware } from "../middlewares/ensureAuth.middleware";
+import { ensureDoctorMiddleware } from "../middlewares/ensureDoctor.middleware";
 
 export const animalSizesRoutes = Router();
 
-animalSizesRoutes.get("", getAnimalSizeController);
-animalSizesRoutes.post("", createAnimalSizeController);
-animalSizesRoutes.delete("/:id", deleteAnimalSizeController);
+animalSizesRoutes.get(
+  "",
+  ensureAuthMiddleware,
+  ensureDoctorMiddleware,
+  getAnimalSizeController
+);
+animalSizesRoutes.post(
+  "",
+  ensureAuthMiddleware,
+  ensureDoctorMiddleware,
+  createAnimalSizeController
+);
+animalSizesRoutes.delete(
+  "/:id",
+  ensureAuthMiddleware,
+  ensureDoctorMiddleware,
+  deleteAnimalSizeController
+);

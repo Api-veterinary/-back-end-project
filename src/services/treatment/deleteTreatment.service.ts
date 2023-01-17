@@ -1,9 +1,11 @@
 import { AppDataSource } from "../../data-source";
+import { Consults } from "../../entities/consults/consults.entity";
+import { Procedure } from "../../entities/procedure/procedure.entity";
 import { Treatment } from "../../entities/treatment/treatment.entity";
 import { AppError } from "../../errors/appError";
 
 export const deleteTreatmentService = async (
-  treatmentId: string
+  treatmentId: any
 ): Promise<void> => {
   const treatmentRepository = AppDataSource.getRepository(Treatment);
 

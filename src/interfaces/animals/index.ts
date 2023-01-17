@@ -9,8 +9,7 @@ export interface IAnimalsRequest {
   breed: string;
   weight: string;
   size: string;
-  vaccines: [Promise<ICreateVaccines>];
-  last_visit: string;
+  vaccines: [ICreateVaccines];
 }
 
 export interface IAnimalUpdate {
@@ -21,7 +20,7 @@ export interface IAnimalUpdate {
   breed?: string;
   weight?: string;
   size?: any;
-  vaccines?: [Promise<ICreateVaccines>];
+  vaccines?: [ICreateVaccines];
 }
 
 interface ICreateVaccines {
