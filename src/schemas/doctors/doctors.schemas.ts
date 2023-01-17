@@ -24,13 +24,13 @@ export const doctorWithoutPasswordSchema = yup.object().shape({
     .object()
     .notRequired()
     .shape({
-      zipCode: yup.string().max(8),
-      state: yup.string().max(2),
-      city: yup.string(),
-      complement: yup.string().required(),
-      district: yup.string(),
+      zipCode: yup.string().max(8).notRequired(),
+      state: yup.string().max(2).notRequired(),
+      city: yup.string().notRequired(),
+      complement: yup.string().notRequired(),
+      district: yup.string().notRequired(),
       number: yup.string().notRequired(),
-      street: yup.string().required(),
+      street: yup.string().notRequired(),
       id: yup.string(),
     }),
   delete_date: yup.string().nullable(),

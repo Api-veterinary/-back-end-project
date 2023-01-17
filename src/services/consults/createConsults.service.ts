@@ -3,6 +3,7 @@ import { Animals } from "../../entities/animals/animals.entity";
 import { Consults } from "../../entities/consults/consults.entity";
 import { Doctors } from "../../entities/doctors/doctors.entity";
 import { AppError } from "../../errors/appError";
+import { responseCreateConsultsSchema } from "../../schemas/consults/consults.schema";
 
 export const createConsultsService = async (consultsData) => {
   const consultsRepository = AppDataSource.getRepository(Consults);
@@ -33,5 +34,11 @@ export const createConsultsService = async (consultsData) => {
     doctor: doctor,
   });
 
-  return newConsults;
+  const validatedData = await responseCreateConsultsSchema.validate(
+    newConsults,
+    {
+      stripUnknown: true,
+    }
+  );
+  return validatedData;
 };
