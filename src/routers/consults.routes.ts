@@ -15,7 +15,6 @@ import {
 
 const consultsRoutes = Router();
 
-//precisa do login, para confirmar a autenticação pelo token
 consultsRoutes.post(
   "",
   ensureAuthMiddleware,
@@ -23,10 +22,8 @@ consultsRoutes.post(
   createConsultsController
 );
 
-//O :id é o id da consulta
 consultsRoutes.delete("/:id", ensureAuthMiddleware, deleteConsultsController);
 
-//O :id é o id da consulta
 consultsRoutes.patch(
   "/:id",
   ensureAuthMiddleware,
@@ -34,7 +31,6 @@ consultsRoutes.patch(
   updateConsultsController
 );
 
-//O :id é o id da consulta
 consultsRoutes.get("/:id", ensureAuthMiddleware, getConsultByIdController);
 
 consultsRoutes.get("", ensureAuthMiddleware, listConsultsController);
