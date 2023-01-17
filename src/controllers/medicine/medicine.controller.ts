@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { IMedicineRequest } from "../../interfaces/Procedure_Schedule";
+import { IMedicineRequest } from "../../interfaces/procedureSchedule";
 import { createMedicineService } from "../../services/medicine/createMedicine.service";
 import { deleteMedicineService } from "../../services/medicine/deleteMedicine.service";
 import { listMedicineService } from "../../services/medicine/listMedicine.service";

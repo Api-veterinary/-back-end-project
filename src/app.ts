@@ -11,6 +11,8 @@ import loginRoutes from "./routers/login.routes";
 import { animalSizesRoutes } from "./routers/animalsSizes.routes";
 
 import treatmentRoutes from "./routers/treatment.routes";
+import { proceduresRoutes } from "./routers/procedures.routes";
+import { proceduresSchedulesRoutes } from "./routers/procedureSchedule.routes";
 
 export const app = express();
 app.use(express.json());
@@ -24,6 +26,8 @@ app.use("/animalTypes", animalTypesRoutes);
 app.use("/login", loginRoutes);
 app.use("/animalSizes", animalSizesRoutes);
 app.use("/treatment", treatmentRoutes);
+app.use("/procedures", proceduresRoutes);
+app.use("/proceduresSchedules", proceduresSchedulesRoutes);
 
 app.use(handleError);
 

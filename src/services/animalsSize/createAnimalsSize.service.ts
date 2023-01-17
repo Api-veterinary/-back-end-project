@@ -5,9 +5,9 @@ import { AppError } from "../../errors/appError";
 export const createAnimalSizeService = async (animalSize: string) => {
   const animalSizeRepo = AppDataSource.getRepository(AnimalSizes);
 
-  const exist = await animalSizeRepo.findOneBy({ size: animalSize });
+  const exist = await animalSizeRepo.exist({ where: { size: animalSize } });
 
-  if (exist !== null) {
+  if (exist) {
     throw new AppError("size already exist");
   }
 
