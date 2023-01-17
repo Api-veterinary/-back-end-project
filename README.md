@@ -88,6 +88,6 @@ yarn typeorm migration:run -d src/data-source.ts
 
 Documentação com todos Endpoints:
 
-- [APIveterinary](https://lucasr29.github.io/APIdocs/#req_46f658a54cc846b88789035f96d562cf)
+- [APIveterinary](https://api-veterinary.github.io/back-end-project/)
 
 ---
