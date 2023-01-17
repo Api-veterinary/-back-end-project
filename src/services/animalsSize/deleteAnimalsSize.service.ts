@@ -1,8 +1,7 @@
-import AppDataSource from "../../data-source";
+import { AppDataSource } from "../../data-source";
 import { AnimalSizes } from "../../entities/animalSizes/animal_sizes.entity";
-import AppError from "../../errors/appError";
 
-const deleteAnimalSizeService = async (
+export const deleteAnimalSizeService = async (
   animalsize: string,
   animalSizeId: string
 ) => {
@@ -13,6 +12,6 @@ const deleteAnimalSizeService = async (
     .delete()
     .where({ id: animalSizeId })
     .execute();
-};
 
-export default deleteAnimalSizeService;
+  return;
+};

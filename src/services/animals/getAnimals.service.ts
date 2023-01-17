@@ -1,7 +1,5 @@
-import AppDataSource from "../../data-source";
+import { AppDataSource } from "../../data-source";
 import { Animals } from "../../entities/animals/animals.entity";
-import { VaccinesAplication } from "../../entities/vaccines_aplied/vaccinesAplied.entity";
-import { IAnimalsRequest } from "../../interfaces/animals";
 import { getAnimalsSchema } from "../../schemas/animals/animals.schema";
 
 export const getAnimalsService = async () => {
@@ -13,7 +11,7 @@ export const getAnimalsService = async () => {
       size: true,
       type: true,
       vaccines_aplications: {
-        vaccine: true,
+        medicines: true,
       },
     },
   });

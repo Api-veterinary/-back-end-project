@@ -10,11 +10,11 @@ export interface IProcedureScheduleRequest {
 export interface ITewatmentRequest {
   name: string;
   description: string;
-  medicines_id: IMEdicineRequest;
+  medicines_id: IMedicineRequest;
   procedures_id: IProcedureScheduleRequest;
 }
 
-export interface IMEdicineRequest {
+export interface IMedicineRequest {
   name: string;
   class: string;
 }

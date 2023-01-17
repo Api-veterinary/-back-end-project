@@ -1,9 +1,9 @@
-import AppDataSource from "../../data-source";
+import { AppDataSource } from "../../data-source";
 import { Medicine } from "../../entities/medicines/medicines.enttity";
 import { Treatment } from "../../entities/treatment/treatment.entity";
-import AppError from "../../errors/appError";
+import { AppError } from "../../errors/appError";
 
-const updatetreatmentService = async (treatmentId: string, data) => {
+export const updateTreatmentService = async (treatmentId: string, data) => {
   const treatmentRepository = AppDataSource.getRepository(Treatment);
   const medicineRepository = AppDataSource.getRepository(Medicine);
 
@@ -43,5 +43,3 @@ const updatetreatmentService = async (treatmentId: string, data) => {
 
   return newTreatment;
 };
-
-export default updatetreatmentService;

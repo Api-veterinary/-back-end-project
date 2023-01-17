@@ -1,14 +1,14 @@
-import AppDataSource from "../../data-source";
+import { AppDataSource } from "../../data-source";
 import { Consults } from "../../entities/consults/consults.entity";
 import { Doctors } from "../../entities/doctors/doctors.entity";
 import { Medicine } from "../../entities/medicines/medicines.enttity";
 import { Procedure } from "../../entities/procedure/procedure.entity";
-import { ProcedureSchedule } from "../../entities/procedure_schedule/procedure_schedule.entity";
+import { ProcedureSchedule } from "../../entities/procedureSchedule/procedureSchedule.entity";
 import { Treatment } from "../../entities/treatment/treatment.entity";
-import AppError from "../../errors/appError";
+import { AppError } from "../../errors/appError";
 import { responseCreateTreatmentSchema } from "../../schemas/treatment/treatment.schema";
 
-const createTreatmentService = async (data) => {
+export const createTreatmentService = async (data) => {
   const treatmentRepository = AppDataSource.getRepository(Treatment);
   const proceduresRepository = AppDataSource.getRepository(Procedure);
   const proceduresScheduleRepository =
@@ -16,6 +16,8 @@ const createTreatmentService = async (data) => {
   const medicineRepository = AppDataSource.getRepository(Medicine);
   const doctorRepository = AppDataSource.getRepository(Doctors);
   const consultRepository = AppDataSource.getRepository(Consults);
+
+  console.log(data);
 
   const doctor = await doctorRepository.findOneBy({ id: data.doctor_id });
 
@@ -89,5 +91,3 @@ const createTreatmentService = async (data) => {
 
   return validatedData;
 };
-
-export default createTreatmentService;

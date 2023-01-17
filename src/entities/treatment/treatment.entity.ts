@@ -10,7 +10,7 @@ import {
 } from "typeorm";
 import { Consults } from "../consults/consults.entity";
 import { Medicine } from "../medicines/medicines.enttity";
-import { ProcedureSchedule } from "../procedure_schedule/procedure_schedule.entity";
+import { ProcedureSchedule } from "../procedureSchedule/procedureSchedule.entity";
 
 @Entity("treatment")
 export class Treatment {

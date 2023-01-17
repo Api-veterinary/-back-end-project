@@ -1,24 +1,42 @@
+import { FindOperator } from "typeorm";
+import { Users } from "../../entities/users/users.entity";
+
 export interface IAnimalsRequest {
-  owner_id: string;
+  owner: string;
   name: string;
   birth_date: string;
-  type: IAnimal_typesRequest;
+  type: string;
   breed: string;
   weight: string;
   size: string;
-  vaccines: IVaccinesRequest;
+  vaccines: [Promise<ICreateVaccines>];
   last_visit: string;
+}
+
+export interface IAnimalUpdate {
+  owner?: any;
+  name?: string;
+  birth_date?: string;
+  type?: any;
+  breed?: string;
+  weight?: string;
+  size?: any;
+  vaccines?: [Promise<ICreateVaccines>];
+}
+
+interface ICreateVaccines {
+  id: Array<string>;
+  date: string;
 }
 
 export interface IVaccinesRequest {
   name: string;
   class: string;
 }
-export interface IAnimal_typesRequest {
+export interface IAnimalTypesRequest {
   type: string;
 }
 
-
-export interface IAnimal_sizeRequest {
+export interface IAnimalSizeRequest {
   size: string;
 }

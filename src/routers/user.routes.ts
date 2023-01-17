@@ -5,15 +5,15 @@ import {
   updateUserController,
   userCreateController,
 } from "../controllers/userControllers/user.controllers";
-import ensureAuthMiddleware from "../middlewares/ensureAuth.middleware";
-import ensureDoctorMiddleware from "../middlewares/ensureDoctor.middleware";
-import ensureDataIsValidMiddleware from "../middlewares/ensureDataIsValid.middleware";
+import { ensureAuthMiddleware } from "../middlewares/ensureAuth.middleware";
+import { ensureDataIsValidMiddleware } from "../middlewares/ensureDataIsValid.middleware";
 import { userSchema } from "../schemas/users/users.schema";
 const userRoutes = Router();
 
 userRoutes.post(
   "",
   ensureDataIsValidMiddleware(userSchema),
+
   userCreateController
 );
 

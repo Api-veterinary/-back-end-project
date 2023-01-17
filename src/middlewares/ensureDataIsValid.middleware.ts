@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { AnySchema } from "yup";
 
-const ensureDataIsValidMiddleware =
+export const ensureDataIsValidMiddleware =
   (schema: AnySchema) =>
   async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -16,5 +16,3 @@ const ensureDataIsValidMiddleware =
       return res.status(400).json({ message: errors });
     }
   };
-
-export default ensureDataIsValidMiddleware;

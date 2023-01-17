@@ -15,7 +15,7 @@ import { AnimalSizes } from "../animalSizes/animal_sizes.entity";
 import { Animal_types } from "../animalTypes/animalTypes.entity";
 import { Consults } from "../consults/consults.entity";
 import { Users } from "../users/users.entity";
-import { VaccinesAplication } from "../vaccines_aplied/vaccinesAplied.entity";
+import { VaccinesAplication } from "../vaccinesAplied/vaccinesAplied.entity";
 
 @Entity("animals")
 export class Animals {
@@ -26,7 +26,7 @@ export class Animals {
   name: string;
 
   @Column()
-  weigth: string;
+  weight: string;
 
   @ManyToOne(() => AnimalSizes, (animal_sizes) => animal_sizes.animals)
   size: AnimalSizes;

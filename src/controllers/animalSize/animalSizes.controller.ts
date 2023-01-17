@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
-import { createAnimalSizeService } from "../../services/animals_size/createAnimals_size.service";
-import deleteAnimalSizeService from "../../services/animals_size/deleteAnimals_size.service";
+import { createAnimalSizeService } from "../../services/animalsSize/createAnimalsSize.service";
+import { deleteAnimalSizeService } from "../../services/animalsSize/deleteAnimalsSize.service";
+import { getAnimalSizeService } from "../../services/animalsSize/getAnimalsSize.service";
 
 export const createAnimalSizeController = async (
   request: Request,
@@ -19,6 +20,15 @@ export const deleteAnimalSizeController = async (
     request.body.size,
     request.params.id
   );
+
+  return response.status(201).json(data);
+};
+
+export const getAnimalSizeController = async (
+  request: Request,
+  response: Response
+) => {
+  const data = await getAnimalSizeService();
 
   return response.status(201).json(data);
 };

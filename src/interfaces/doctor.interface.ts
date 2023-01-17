@@ -1,6 +1,6 @@
 import { IAddressRequest, IAddressUpdate } from "./address.interface";
 
-export interface IDoctorRequest {
+interface IDoctorRequest {
   name: string;
   email: string;
   password: string;
@@ -8,7 +8,7 @@ export interface IDoctorRequest {
   address: IAddressRequest;
 }
 
-export interface IDoctorResponse {
+interface IDoctorResponse {
   name: string;
   email: string;
   createdAt: Date;
@@ -17,9 +17,12 @@ export interface IDoctorResponse {
   crmv: number;
 }
 
-export interface IDoctorUpdate {
+interface IDoctorUpdate {
   name?: string;
   email?: string;
   address?: IAddressUpdate;
   crmv?: number;
+  password?: string;
 }
+
+export { IDoctorRequest, IDoctorResponse, IDoctorUpdate };

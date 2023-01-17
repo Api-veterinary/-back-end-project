@@ -7,8 +7,8 @@ import {
 import { deleteAnimalsController } from "../controllers/animals/animals.controller";
 import { getAnimalsController } from "../controllers/animals/animals.controller";
 import { patchAnimalsController } from "../controllers/animals/animals.controller";
-import ensureAuthMiddleware from "../middlewares/ensureAuth.middleware";
-import ensureDoctorMiddleware from "../middlewares/ensureDoctor.middleware";
+import { ensureAuthMiddleware } from "../middlewares/ensureAuth.middleware";
+import { ensureDoctorMiddleware } from "../middlewares/ensureDoctor.middleware";
 import { ensureVaccinesAreUnique } from "../middlewares/ensureVaccinesAreUnique.middleware";
 
 export const animalsRoute = Router();
