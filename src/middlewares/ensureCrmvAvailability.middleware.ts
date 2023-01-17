@@ -1,9 +1,9 @@
 import { Request, Response, NextFunction } from "express";
 import "dotenv/config";
-import AppDataSource from "../data-source";
+import { AppDataSource } from "../data-source";
 import { Doctors } from "../entities/doctors/doctors.entity";
 
-const ensureCrmvAvailabilityMiddleware = async (
+export const ensureCrmvAvailabilityMiddleware = async (
   req: Request,
   res: Response,
   next: NextFunction
@@ -23,5 +23,3 @@ const ensureCrmvAvailabilityMiddleware = async (
   }
   next();
 };
-
-export default ensureCrmvAvailabilityMiddleware;

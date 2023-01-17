@@ -16,7 +16,7 @@ export class VaccinesAplication {
 
   @ManyToMany(() => Medicine)
   @JoinTable()
-  vaccine: Medicine[];
+  medicines: Medicine[];
 
   @ManyToOne(() => Animals, (animals) => animals.vaccines_aplications)
   animal: Animals;

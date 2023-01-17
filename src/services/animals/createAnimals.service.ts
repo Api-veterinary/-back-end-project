@@ -1,15 +1,15 @@
-import AppDataSource from "../../data-source";
+import { AppDataSource } from "../../data-source";
 import { Animals } from "../../entities/animals/animals.entity";
 import { AnimalSizes } from "../../entities/animalSizes/animal_sizes.entity";
 import { Animal_types } from "../../entities/animalTypes/animalTypes.entity";
 import { Medicine } from "../../entities/medicines/medicines.enttity";
 import { Users } from "../../entities/users/users.entity";
-import { VaccinesAplication } from "../../entities/vaccines_aplied/vaccinesAplied.entity";
-import AppError from "../../errors/appError";
+import { VaccinesAplication } from "../../entities/vaccinesAplied/vaccinesAplied.entity";
+import { AppError } from "../../errors/appError";
 import { IAnimalsRequest } from "../../interfaces/animals";
-import { createAnimalsSchema } from "../../schemas/animals/animals.schema";
+import { createAnimalsResponseSchema } from "../../schemas/animals/animals.schema";
 
-export const createAnimalsService = async (data) => {
+export const createAnimalsService = async (data: IAnimalsRequest) => {
   const vaccinesRepository = AppDataSource.getRepository(VaccinesAplication);
   const medicineRepository = AppDataSource.getRepository(Medicine);
   const sizeRepository = AppDataSource.getRepository(AnimalSizes);
@@ -19,7 +19,7 @@ export const createAnimalsService = async (data) => {
 
   let owner = null;
 
-  if (data.owner.length > 10) {
+  if (data.owner && data.owner.length > 10) {
     owner = await userRepository.findOneBy({ id: data.owner });
   }
   const size = await sizeRepository.findOneBy({ size: data.size });
@@ -39,16 +39,23 @@ export const createAnimalsService = async (data) => {
   }
 
   const aplicationsData = await Promise.all(
-    data.vaccines.map(async (vaccine: { id: Array<string>; date: string }) => {
+    data.vaccines.map(async (vaccine) => {
       const medicine = await Promise.all(
-        vaccine.id.map(async (id) => {
+        (
+          await vaccine
+        ).id.map(async (id) => {
           const res = await medicineRepository.findOneBy({ id: id });
+          if (res === null) {
+            throw new AppError("vaccine " + id + " not found, check id", 404);
+          }
           return res;
         })
       );
-      const res = { vaccine: medicine, date_aplied: vaccine.date };
-
-      return res;
+      if (medicine.length >= 1) {
+        const res = { vaccine: medicine, date_aplied: (await vaccine).date };
+        return res;
+      }
+      return;
     })
   );
 
@@ -80,9 +87,12 @@ export const createAnimalsService = async (data) => {
     aplications,
   });
 
-  const animalsWithoutPassord = await createAnimalsSchema.validate(newAnimal, {
-    stripUnknown: true,
-  });
+  const animalsWithoutPassord = await createAnimalsResponseSchema.validate(
+    newAnimal,
+    {
+      stripUnknown: true,
+    }
+  );
 
   return animalsWithoutPassord;
 };

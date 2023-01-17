@@ -1,9 +1,9 @@
-import AppDataSource from "../../data-source";
+import { AppDataSource } from "../../data-source";
 import { Medicine } from "../../entities/medicines/medicines.enttity";
-import AppError from "../../errors/appError";
+import { AppError } from "../../errors/appError";
 import { IMedicineUpdate } from "../../interfaces/medicines";
 
-const updateMedicineService = async (
+export const updateMedicineService = async (
   medicineData: IMedicineUpdate,
   id: string
 ) => {
@@ -26,5 +26,3 @@ const updateMedicineService = async (
 
   return updatedmedicine;
 };
-
-export default updateMedicineService;

@@ -1,11 +1,8 @@
-import AppDataSource from "../../data-source";
+import { AppDataSource } from "../../data-source";
 import { Doctors } from "../../entities/doctors/doctors.entity";
-import {
-  doctorWithoutPasswordSchema,
-  getDoctorsSchema,
-} from "../../schemas/doctors/doctors.schemas";
+import { getDoctorsSchema } from "../../schemas/doctors/doctors.schemas";
 
-const getDoctorsService = async () => {
+export const getDoctorsService = async () => {
   const doctorsRepo = AppDataSource.getRepository(Doctors);
 
   const doctors = await doctorsRepo.find({
@@ -20,5 +17,3 @@ const getDoctorsService = async () => {
 
   return doctorWithoutPassord;
 };
-
-export default getDoctorsService;

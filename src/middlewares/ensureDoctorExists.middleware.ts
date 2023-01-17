@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import AppDataSource from "../data-source";
+import { AppDataSource } from "../data-source";
 import { Doctors } from "../entities/doctors/doctors.entity";
 
 const ensureDoctorExists = async (

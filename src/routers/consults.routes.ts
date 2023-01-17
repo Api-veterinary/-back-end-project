@@ -6,8 +6,8 @@ import {
   listConsultsController,
   updateConsultsController,
 } from "../controllers/consults/consults.controller";
-import ensureAuthMiddleware from "../middlewares/ensureAuth.middleware";
-import validateSchemaMiddleware from "../middlewares/validadeschema.middleware";
+import { ensureAuthMiddleware } from "../middlewares/ensureAuth.middleware";
+import { validateSchemaMiddleware } from "../middlewares/validadeschema.middleware";
 import {
   createConsultsSchema,
   updateConsultsSchema,

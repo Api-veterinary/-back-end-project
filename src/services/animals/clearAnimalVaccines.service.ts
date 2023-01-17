@@ -1,7 +1,7 @@
-import AppDataSource from "../../data-source";
+import { AppDataSource } from "../../data-source";
 import { Animals } from "../../entities/animals/animals.entity";
-import { VaccinesAplication } from "../../entities/vaccines_aplied/vaccinesAplied.entity";
-import AppError from "../../errors/appError";
+import { VaccinesAplication } from "../../entities/vaccinesAplied/vaccinesAplied.entity";
+import { AppError } from "../../errors/appError";
 
 export const clearAllAnimalVaccinesService = async (animalID: string) => {
   const animalRepo = AppDataSource.getRepository(Animals);
@@ -40,4 +40,6 @@ export const removeAnimalVaccineService = async (
   vaccinesIDS.forEach((x) => {
     vaccineQuery.delete().where("id = :id", { id: x }).execute();
   });
+
+  return;
 };

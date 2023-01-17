@@ -1,16 +1,20 @@
-import AppDataSource from "../../data-source";
+import { AppDataSource } from "../../data-source";
 import { Animals } from "../../entities/animals/animals.entity";
 import { Consults } from "../../entities/consults/consults.entity";
 import { Doctors } from "../../entities/doctors/doctors.entity";
-import AppError from "../../errors/appError";
-import { responseGetConsultsSchema } from "../../schemas/consults/consults.schema";
+import { AppError } from "../../errors/appError";
+import { IConsultUpdate } from "../../interfaces/consults/index";
+import { responseUpdateConsults } from "../../schemas/consults/consults.schema";
 
-const updateConsultsService = async (data, id: string) => {
+export const updateConsultsService = async (
+  data: IConsultUpdate,
+  id: string
+) => {
   const consultsRepository = AppDataSource.getRepository(Consults);
   const animalRepository = AppDataSource.getRepository(Animals);
   const doctorRepository = AppDataSource.getRepository(Doctors);
 
-  let req = data;
+  let req: any = data;
 
   const findConsult = await consultsRepository.findOne({
     where: { id: id },
@@ -41,7 +45,7 @@ const updateConsultsService = async (data, id: string) => {
       throw new AppError("Animal not found", 404);
     }
 
-    req = { ...req, doctor: findAnimal };
+    req = { ...req, animal: findAnimal };
   }
 
   const updatedConsults = Object.assign(findConsult, req);
@@ -51,9 +55,10 @@ const updateConsultsService = async (data, id: string) => {
 
   const newConsult = await consultsRepository.save(createConsult);
 
-  const validatedData = await responseGetConsultsSchema.validate(newConsult, {
+  console.log(newConsult);
+
+  const validatedData = await responseUpdateConsults.validate(newConsult, {
     stripUnknown: true,
   });
   return validatedData;
 };
-export default updateConsultsService;

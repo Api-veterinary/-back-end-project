@@ -1,9 +1,11 @@
 import { UpdateResult } from "typeorm";
-import AppDataSource from "../../data-source";
+import { AppDataSource } from "../../data-source";
 import { Animals } from "../../entities/animals/animals.entity";
-import AppError from "../../errors/appError";
+import { AppError } from "../../errors/appError";
 
-export const deleteAnimalsService = async (animalID: string): Promise<UpdateResult> => {
+export const deleteAnimalsService = async (
+  animalID: string
+): Promise<UpdateResult> => {
   const animalsRepository = AppDataSource.getRepository(Animals);
 
   const exist = await animalsRepository.findOneBy({ id: animalID });

@@ -5,15 +5,16 @@ import {
   getDoctorController,
   updateDoctorController,
 } from "../controllers/doctors/doctors.controller";
-import ensureEmailAvailabilityMiddleware from "../middlewares/ensureEmailAvailability.middleware";
-import ensureCrmvAvailabilityMiddleware from "../middlewares/ensureCrmvAvailability.middleware";
-import ensureAuthMiddleware from "../middlewares/ensureAuth.middleware";
-import ensureDoctorMiddleware from "../middlewares/ensureDoctor.middleware";
-import ensureDataIsValidMiddleware from "../middlewares/ensureDataIsValid.middleware";
+import { ensureEmailAvailabilityMiddleware } from "../middlewares/ensureEmailAvailability.middleware";
+import { ensureCrmvAvailabilityMiddleware } from "../middlewares/ensureCrmvAvailability.middleware";
+import { ensureAuthMiddleware } from "../middlewares/ensureAuth.middleware";
+import { ensureDoctorMiddleware } from "../middlewares/ensureDoctor.middleware";
+
 import {
   doctorSchema,
   doctorUpdateSchema,
 } from "../schemas/doctors/doctors.schemas";
+import { ensureDataIsValidMiddleware } from "../middlewares/ensureDataIsValid.middleware";
 
 const doctorsRoutes = Router();
 

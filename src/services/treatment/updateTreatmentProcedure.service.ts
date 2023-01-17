@@ -1,7 +1,10 @@
-import AppDataSource from "../../data-source";
-import { ProcedureSchedule } from "../../entities/procedure_schedule/procedure_schedule.entity";
+import { AppDataSource } from "../../data-source";
+import { ProcedureSchedule } from "../../entities/procedureSchedule/procedureSchedule.entity";
 
-const updatetreatmentProcedureService = async (procedureId: string, data) => {
+export const updateTreatmentProcedureService = async (
+  procedureId: string,
+  data: { date: string; hour: string }
+) => {
   const proceduresScheduleRepository =
     AppDataSource.getRepository(ProcedureSchedule);
   const findScheduleProcedure = await proceduresScheduleRepository.findOneBy({
@@ -13,5 +16,3 @@ const updatetreatmentProcedureService = async (procedureId: string, data) => {
 
   return updatedProcedure;
 };
-
-export default updatetreatmentProcedureService;

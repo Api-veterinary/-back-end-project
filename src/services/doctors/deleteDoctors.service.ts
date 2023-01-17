@@ -1,7 +1,7 @@
-import AppDataSource from "../../data-source";
+import { AppDataSource } from "../../data-source";
 import { Doctors } from "../../entities/doctors/doctors.entity";
 
-const deleteDoctorService = async (doctorID: string) => {
+export const deleteDoctorService = async (doctorID: string) => {
   const doctorsRepo = AppDataSource.getRepository(Doctors);
 
   await doctorsRepo
@@ -10,5 +10,3 @@ const deleteDoctorService = async (doctorID: string) => {
     .where("id = :id", { id: doctorID })
     .execute();
 };
-
-export default deleteDoctorService;

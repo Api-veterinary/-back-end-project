@@ -1,8 +1,8 @@
-import AppDataSource from "../../data-source";
+import { AppDataSource } from "../../data-source";
 import { Medicine } from "../../entities/medicines/medicines.enttity";
-import AppError from "../../errors/appError";
+import { AppError } from "../../errors/appError";
 
-const deleteMedicineService = async (id): Promise<Medicine> => {
+export const deleteMedicineService = async (id: string): Promise<Medicine> => {
   const medicineRepository = AppDataSource.getRepository(Medicine);
 
   const medicine = await medicineRepository.findOneBy({
@@ -21,5 +21,3 @@ const deleteMedicineService = async (id): Promise<Medicine> => {
 
   return;
 };
-
-export default deleteMedicineService;

@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
-import createTreatmentService from "../../services/treatment/createTreatment.service";
-import deleteTreatmentService from "../../services/treatment/deleteTreatment.service";
-import updatetreatmentService from "../../services/treatment/updateTreatment.service";
-import updatetreatmentProcedureService from "../../services/treatment/updateTreatmentProcedure.service";
+import { createTreatmentService } from "../../services/treatment/createTreatment.service";
+import { deleteTreatmentService } from "../../services/treatment/deleteTreatment.service";
+import { updateTreatmentService } from "../../services/treatment/updateTreatment.service";
+import { updateTreatmentProcedureService } from "../../services/treatment/updateTreatmentProcedure.service";
 
 const createTreatmentController = async (
   request: Request,
@@ -17,9 +17,9 @@ const deleteTreatmentController = async (
   request: Request,
   response: Response
 ) => {
-  const treatmentId : string = request.params.id;
+  const treatmentId: string = request.params.id;
   await deleteTreatmentService(treatmentId);
-  return response.status(204).json({});
+  return response.status(200).send();
 };
 
 const updateTreatmentProcedureController = async (
@@ -27,8 +27,8 @@ const updateTreatmentProcedureController = async (
   response: Response
 ) => {
   const data = request.body;
-  const id : string = request.params.id;
-  const newTreatment = await updatetreatmentProcedureService(id, data);
+  const id: string = request.params.id;
+  const newTreatment = await updateTreatmentProcedureService(id, data);
   return response.status(201).json(newTreatment);
 };
 
@@ -37,8 +37,8 @@ const updatetreatmentController = async (
   response: Response
 ) => {
   const data = request.body;
-  const id : string = request.params.id;
-  const newTreatment = await updatetreatmentService(id, data);
+  const id: string = request.params.id;
+  const newTreatment = await updateTreatmentService(id, data);
   return response.status(201).json(newTreatment);
 };
 

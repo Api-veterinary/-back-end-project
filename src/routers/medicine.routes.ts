@@ -5,9 +5,9 @@ import {
   listMedicineController,
   updateMedicineController,
 } from "../controllers/medicine/medicine.controller";
-import ensureAuthMiddleware from "../middlewares/ensureAuth.middleware";
-import ensureDoctorMiddleware from "../middlewares/ensureDoctor.middleware";
-import updateMedicineService from "../services/medicine/updateMedicine.service";
+import { ensureAuthMiddleware } from "../middlewares/ensureAuth.middleware";
+import { ensureDoctorMiddleware } from "../middlewares/ensureDoctor.middleware";
+import { updateMedicineService } from "../services/medicine/updateMedicine.service";
 const medicineRoutes = Router();
 
 medicineRoutes.post(
