@@ -19,7 +19,6 @@ export const createAnimalsService = async (data: IAnimalsRequest) => {
 
   let owner = null;
 
-  console.log(data);
   if (data.owner && data.owner.length > 10) {
     owner = await userRepository.findOneBy({ id: data.owner });
   }
@@ -74,12 +73,10 @@ export const createAnimalsService = async (data: IAnimalsRequest) => {
       });
 
       const res = await vaccinesRepository.save(application);
-      console.log(res);
+
       return res;
     })
   );
-
-  console.log(aplications);
 
   const vaccinatedAnimal = await animalsRepository.findOne({
     where: { id: animal.id },
@@ -90,8 +87,6 @@ export const createAnimalsService = async (data: IAnimalsRequest) => {
     ...vaccinatedAnimal,
     aplications,
   });
-
-  console.log(newAnimal);
 
   const animalsValidated = await createAnimalsResponseSchema.validate(
     newAnimal,

@@ -18,7 +18,7 @@ export const deleteAnimalSizeController = async (
 ) => {
   const data = await deleteAnimalSizeService(request.params.id);
 
-  return response.status(201).json(data);
+  return response.status(200).json(data);
 };
 
 export const getAnimalSizeController = async (
@@ -27,5 +27,5 @@ export const getAnimalSizeController = async (
 ) => {
   const data = await getAnimalSizeService();
 
-  return response.status(201).json(data);
+  return response.status(200).json(data);
 };

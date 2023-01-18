@@ -63,21 +63,7 @@ describe("Testing animals size", () => {
       .get(sizeRoute)
       .set("Authorization", `Bearer ${doctorLoginResponse.body.token}`);
 
-    expect(response.body).toHaveProperty("size");
-    expect(response.status).toBe(200);
-  });
-
-  test("Should be able to patch a animal_size", async () => {
-    const doctorLoginResponse = await request(app)
-      .post("/login")
-      .send(mockedDoctorLogin);
-
-    const path = "/animals/" + size_id;
-    const response = await request(app)
-      .patch(path)
-      .set("Authorization", `Bearer ${doctorLoginResponse.body.token}`);
-
-    expect(response.body).toHaveProperty("size");
+    expect(response.body[0]).toHaveProperty("size");
     expect(response.status).toBe(200);
   });
 
@@ -86,10 +72,10 @@ describe("Testing animals size", () => {
       .post("/login")
       .send(mockedDoctorLogin);
 
-    const path = "/animals/" + size_id;
+    const path = "/animalSizes/" + size_id;
     const response = await request(app)
       .delete(path)
-      .set("Authorization", `Bearer ${doctorLoginResponse.body.token}`);
+      .set("Authorization", `Bearer ${doctor_token}`);
 
     expect(response.status).toBe(200);
   });

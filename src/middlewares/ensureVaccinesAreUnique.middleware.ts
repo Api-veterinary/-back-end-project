@@ -8,8 +8,6 @@ export const ensureVaccinesAreUnique = async (
 ) => {
   const vaccines = req.body.vaccines;
 
-  console.log(vaccines);
-
   if (vaccines != null && vaccines.length >= 1) {
     vaccines.forEach((application: { id: string; date: string }) => {
       const arrayIDS = application.id;
