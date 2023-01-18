@@ -1,6 +1,10 @@
 import * as yup from "yup";
 import { SchemaOf } from "yup";
-import { IUserRequest } from "../../interfaces/users.Interface";
+import {
+  IUserRequest,
+  IUserResponse,
+  IUserUpdateResponse,
+} from "../../interfaces/users.Interface";
 import { addressSchema } from "../address/addres.schema";
 
 export const userSchema: SchemaOf<IUserRequest> = yup.object().shape({
@@ -10,23 +14,29 @@ export const userSchema: SchemaOf<IUserRequest> = yup.object().shape({
   address: addressSchema,
 });
 
-export const userWithoutPasswordSchema = yup.object().shape({
-  address: addressSchema,
-  updatedAt: yup.date().notRequired(),
-  createdAt: yup.date().notRequired(),
-  email: yup.string().email().notRequired(),
-  name: yup.string().notRequired(),
-  id: yup.string().notRequired(),
-});
+export const userWithoutPasswordSchema: SchemaOf<IUserResponse> = yup
+  .object()
+  .shape({
+    address: addressSchema,
+    updatedAt: yup.date().notRequired(),
+    createdAt: yup.date().notRequired(),
+    email: yup.string().email().notRequired(),
+    name: yup.string().notRequired(),
+    id: yup.string().notRequired(),
+  });
 
-export const userUpdateSchema = yup.object().shape({
-  address: addressSchema,
-  delete_date: yup.string().nullable(),
-  updatedAt: yup.date().notRequired(),
-  createdAt: yup.date().notRequired(),
-  email: yup.string().email().notRequired(),
-  name: yup.string().notRequired(),
-  id: yup.string().notRequired(),
-});
+export const userUpdateSchema: SchemaOf<IUserUpdateResponse> = yup
+  .object()
+  .shape({
+    address: addressSchema,
+    delete_date: yup.string().nullable(),
+    updatedAt: yup.date().notRequired(),
+    createdAt: yup.date().notRequired(),
+    email: yup.string().email().notRequired(),
+    name: yup.string().notRequired(),
+    id: yup.string().notRequired(),
+  });
 
-export const getUsersSchema = yup.array(userWithoutPasswordSchema);
+export const getUsersSchema: SchemaOf<IUserResponse[]> = yup.array(
+  userWithoutPasswordSchema
+);

@@ -34,3 +34,13 @@ export interface IOwnerResponse {
   name: string;
   id: string;
 }
+
+export interface IUserUpdateResponse {
+  delete_date: string;
+  updatedAt: Date;
+  createdAt: Date;
+  email: string;
+  name: string;
+  id: string;
+  address?: object;
+}
