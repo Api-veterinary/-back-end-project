@@ -55,8 +55,6 @@ export const updateConsultsService = async (
 
   const newConsult = await consultsRepository.save(createConsult);
 
-  console.log(newConsult);
-
   const validatedData = await responseUpdateConsults.validate(newConsult, {
     stripUnknown: true,
   });

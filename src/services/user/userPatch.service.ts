@@ -17,7 +17,6 @@ export const updateUserService = async (
   let address = {};
 
   if (Object.keys(body).includes("address")) {
-    console.log("oi");
     if (!body.address.id) {
       throw new AppError("Imposible to update user address without address id");
     }
@@ -44,7 +43,6 @@ export const updateUserService = async (
     }
     body.password = hashSync(body.password, 10);
   }
-  console.log(body.password);
 
   await userRepo.save({ id: userID, ...body });
 

@@ -17,8 +17,6 @@ export const createTreatmentService = async (data) => {
   const doctorRepository = AppDataSource.getRepository(Doctors);
   const consultRepository = AppDataSource.getRepository(Consults);
 
-  console.log(data);
-
   const doctor = await doctorRepository.findOneBy({ id: data.doctor_id });
 
   if (!doctor) {

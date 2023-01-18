@@ -16,8 +16,6 @@ export const clearAllAnimalVaccinesService = async (animalID: string) => {
 
   const resAnimal = await animalRepo.save(animal);
 
-  console.log(resAnimal);
-
   return resAnimal;
 };
 
@@ -36,7 +34,6 @@ export const removeAnimalVaccineService = async (
   }
 
   vaccinesIDS.forEach((x) => {
-    console.log("Oi");
     vaccineQuery.delete().where("id = :id", { id: x }).execute();
   });
 

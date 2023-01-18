@@ -25,7 +25,6 @@ export const listConsultService = async () => {
     throw new AppError("Consults not exists", 404);
   }
 
-  console.log(findConsults);
   const validatedData = await responseGetAllConsultsSchema.validate(
     findConsults,
     {

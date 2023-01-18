@@ -19,7 +19,6 @@ const getDoctorController = async (request: Request, response: Response) => {
 };
 
 const updateDoctorController = async (request: Request, response: Response) => {
-  console.log(request.body);
   const dataDoctor: IDoctorUpdate = request.body;
   const doctorId: string = request.params.id;
   const updatedDoctor = await updateDoctorService(

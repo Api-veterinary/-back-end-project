@@ -16,8 +16,6 @@ export const getAnimalsService = async () => {
     },
   });
 
-  console.log(data[0]);
-
   const animalReturn = await getAnimalsSchema.validate(data, {
     stripUnknown: true,
   });

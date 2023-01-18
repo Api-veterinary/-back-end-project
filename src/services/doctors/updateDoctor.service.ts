@@ -67,7 +67,5 @@ export const updateDoctorService = async (
     }
   );
 
-  console.log(doctorWithoutPassord);
-
   return doctorWithoutPassord;
 };

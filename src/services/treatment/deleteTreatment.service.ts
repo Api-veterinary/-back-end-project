@@ -30,8 +30,6 @@ export const deleteTreatmentService = async (
     await scheduleRepository.save(schedule);
   });
 
-  console.log(findSchedules);
-
   if (!findTreatment) {
     throw new AppError("Treatment not found!", 404);
   }
