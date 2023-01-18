@@ -11,7 +11,7 @@ import { animalsRoute } from "../../routers/animals.routes";
 
 describe("Testing animals size", () => {
   let connection: DataSource;
-  const sizeRoute: string = "/animal_sizes";
+  const sizeRoute: string = "/animalSizes";
   let doctor_token = "";
   let size_id = "";
   let user_token = "";
@@ -47,6 +47,8 @@ describe("Testing animals size", () => {
       .post(sizeRoute)
       .set("Authorization", `Bearer ${doctor_token}`)
       .send(mockedAnimalSize);
+
+    size_id = response.body.id;
 
     expect(response.body).toHaveProperty("size");
     expect(response.status).toBe(201);

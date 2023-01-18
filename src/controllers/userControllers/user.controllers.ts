@@ -25,7 +25,11 @@ export const updateUserController = async (
   response: Response
 ) => {
   const userData: IUserUpdate = request.body;
-  const updatedUser = await updateUserService(userData, request.params.id);
+  const updatedUser = await updateUserService(
+    userData,
+    request.params.id,
+    request.user.id
+  );
 
   return response.status(201).json(updatedUser);
 };

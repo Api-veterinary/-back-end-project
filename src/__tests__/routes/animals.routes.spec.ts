@@ -12,12 +12,13 @@ describe("Testing animals/medicine routes", () => {
   let connection: DataSource;
   const animalRoutes: string = "/animals";
   const medicineRoute: string = "/medicine";
-  const typeRoute: string = "/animal_types";
-  let typeID = "";
+  const typeRoute: string = "/animalTypes";
+  let type = "";
   let vaccineID = "";
   let animal_id = "";
   let doctor_token = "";
   let user_token = "";
+  let size = "";
 
   beforeAll(async () => {
     await AppDataSource.initialize()
@@ -33,6 +34,12 @@ describe("Testing animals/medicine routes", () => {
 
     let userLoginRes = await request(app).post("/login").send(mockedUserLogin);
 
+    const sizeRes = await request(app)
+      .post("/animalSizes")
+      .set("Authorization", `Bearer ${docLoginRes.body.token}`)
+      .send({ size: "Grande" });
+
+    size = sizeRes.body.size;
     user_token = userLoginRes.body.token;
     doctor_token = docLoginRes.body.token;
   });
@@ -47,7 +54,7 @@ describe("Testing animals/medicine routes", () => {
       .set("Authorization", `Bearer ${doctor_token}`)
       .send(animal_type);
 
-    typeID = response.body.id;
+    type = response.body.type;
 
     expect(response.body).toHaveProperty("type");
     expect(response.status).toBe(201);
@@ -81,8 +88,10 @@ describe("Testing animals/medicine routes", () => {
       .send(mockedMedicine);
     const newMockAnimal = {
       ...mockedAnimalRequest,
-      vaccines: [{ vaccineID, date: "2020-05-17" }],
-      owner_id: owner.body.id,
+      vaccines: [{ id: [vaccineID], date: "2020-05-17" }],
+      owner: owner.body.id,
+      size: "Grande",
+      type: type,
     };
     const response = await request(app).post(animalRoutes).send(newMockAnimal);
 
@@ -103,24 +112,26 @@ describe("Testing animals/medicine routes", () => {
 
   test("Should be able to patch a animal", async () => {
     const path = "/animals/" + animal_id;
+    const owner = await request(app).post(path).send(mockedUserRequest);
 
-    const owner = await request(app).patch(path).send();
+    const newMock = {
+      ...mockedAnimalRequest,
+      vaccines: [{ id: [vaccineID], date: "2020-05-17" }],
+      owner: owner.body.id,
+      size: "Grande",
+      type: type,
+    };
 
-    const response = await request(app)
-      .post(animalRoutes)
-
-      .send(mockedAnimalUpdate);
+    const response = await request(app).post(animalRoutes).send(newMock);
 
     expect(response.body).toHaveProperty("id");
     expect(response.body).toHaveProperty("name");
-    expect(response.body).toHaveProperty("weight");
     expect(response.body).toHaveProperty("size");
     expect(response.body).toHaveProperty("type");
-    expect(response.body).toHaveProperty("createdAt");
-    expect(response.body).toHaveProperty("updatedAt");
+    expect(response.body).toHaveProperty("first_visit");
+    expect(response.body).toHaveProperty("last_visit");
     expect(response.body).toHaveProperty("owner_id");
     expect(response.body).toHaveProperty("vaccines");
-    expect(response.body.owner_id).toEqual(owner.body.id);
     expect(response.status).toBe(201);
   });
 

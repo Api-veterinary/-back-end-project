@@ -1,9 +1,13 @@
+import { hashSync } from "bcryptjs";
 import { AppDataSource } from "../../data-source";
 import { Address } from "../../entities/address/address.entity";
 import { Doctors } from "../../entities/doctors/doctors.entity";
 import { AppError } from "../../errors/appError";
 import { IDoctorUpdate } from "../../interfaces/doctor.interface";
-import { doctorUpdateSchema } from "../../schemas/doctors/doctors.schemas";
+import {
+  doctorUpdateSchema,
+  doctorWithoutPasswordSchema,
+} from "../../schemas/doctors/doctors.schemas";
 
 export const updateDoctorService = async (
   body: IDoctorUpdate,
@@ -43,11 +47,10 @@ export const updateDoctorService = async (
   }
 
   if (Object.keys(body).includes("password")) {
-    const doctor = await doctorRepo.findOneBy({ id: doctorID });
-
-    if (doctor !== null && doctor.id !== loggedUserId) {
+    if (doctorID !== loggedUserId) {
       throw new AppError("You don't own this user, can't change password", 400);
     }
+    body.password = hashSync(body.password, 10);
   }
 
   await doctorRepo.save({ id: doctorID, ...body });
@@ -57,9 +60,14 @@ export const updateDoctorService = async (
     relations: { address: true },
   });
 
-  const doctorWithoutPassord = await doctorUpdateSchema.validate(userToreturn, {
-    stripUnknown: true,
-  });
+  const doctorWithoutPassord = await doctorWithoutPasswordSchema.validate(
+    userToreturn,
+    {
+      stripUnknown: true,
+    }
+  );
+
+  console.log(doctorWithoutPassord);
 
   return doctorWithoutPassord;
 };

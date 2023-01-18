@@ -9,6 +9,8 @@ import { mockedConsult } from "../mocks/consults.mocks";
 import { mockedMedicine } from "../mocks/medicine.mocks";
 import { animal_type } from "../mocks/animal_type.mocks";
 
+import { mockedAnimalSize } from "../mocks/animalSize.mocks";
+
 describe("Testing consults routes", () => {
   let connection: DataSource;
   const baseUrl: string = "/consults";
@@ -17,6 +19,7 @@ describe("Testing consults routes", () => {
   let animal = null;
   let vaccine = null;
   let type = null;
+  let size = null;
 
   beforeAll(async () => {
     await AppDataSource.initialize()
@@ -35,16 +38,22 @@ describe("Testing consults routes", () => {
       .set("Authorization", `Bearer ${doctorLoginResponse.body.token}`)
       .send(mockedMedicine);
     type = await request(app)
-      .post("/animal_types")
+      .post("/animalTypes")
       .set("Authorization", `Bearer ${doctorLoginResponse.body.token}`)
       .send(animal_type);
+    size = await request(app)
+      .post("/animalSizes")
+      .set("Authorization", `Bearer ${doctorLoginResponse.body.token}`)
+      .send(mockedAnimalSize);
+
     animal = await request(app)
       .post("/animals")
       .send({
         ...mockedAnimalRequest,
-        vaccines_aplications: [vaccine.body.id],
-        consults: [],
+        vaccines: [{ id: [vaccine.body.id], date: "2022-05-10" }],
         owner: owner.body.id,
+        type: type.body.type,
+        size: size.body.size,
       });
     await request(app).post("/animals").send(mockedAnimalRequest);
   });
@@ -92,18 +101,8 @@ describe("Testing consults routes", () => {
         doctor_id: doctor.body.id,
       });
 
-    expect(response.body).toHaveProperty("id");
-    expect(response.body).toHaveProperty("date");
-    expect(response.body).toHaveProperty("hour");
-    expect(response.body).toHaveProperty("animal");
-    expect(response.body).toHaveProperty("doctor");
-    expect(response.body).toHaveProperty("treatment");
-    expect(response.body).toHaveProperty("owner_id");
-
-    expect(response.body.treatment).toHaveProperty("medicines");
-    expect(response.body.name).toEqual(mockedUserRequest.name);
-    expect(response.body.email).toEqual(mockedUserRequest.email);
-    expect(response.status).toBe(201);
+    expect(response.body).toHaveProperty("message");
+    expect(response.status).toBe(401);
   });
 
   test("Should not be able to register a consult without doctor", async () => {
@@ -118,17 +117,7 @@ describe("Testing consults routes", () => {
         animal_id: animal.body.id,
       });
 
-    expect(response.body).toHaveProperty("id");
-    expect(response.body).toHaveProperty("date");
-    expect(response.body).toHaveProperty("hour");
-    expect(response.body).toHaveProperty("animal");
-    expect(response.body).toHaveProperty("doctor");
-    expect(response.body).toHaveProperty("treatment");
-    expect(response.body).toHaveProperty("owner_id");
-
-    expect(response.body.treatment).toHaveProperty("medicines");
-    expect(response.body.name).toEqual(mockedUserRequest.name);
-    expect(response.body.email).toEqual(mockedUserRequest.email);
-    expect(response.status).toBe(201);
+    expect(response.body).toHaveProperty("message");
+    expect(response.status).toBe(401);
   });
 });

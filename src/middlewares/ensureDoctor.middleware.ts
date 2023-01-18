@@ -8,7 +8,6 @@ export const ensureDoctorMiddleware = async (
   res: Response,
   next: NextFunction
 ) => {
-  console.log(req.body);
   const doctorRepository = AppDataSource.getRepository(Doctors);
 
   const doctor = await doctorRepository.exist({

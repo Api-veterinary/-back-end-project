@@ -1,3 +1,4 @@
+import { hashSync } from "bcryptjs";
 import { AppDataSource } from "../../data-source";
 import { Address } from "../../entities/address/address.entity";
 import { Users } from "../../entities/users/users.entity";
@@ -5,7 +6,11 @@ import { AppError } from "../../errors/appError";
 import { IUserUpdate } from "../../interfaces/users.Interface";
 import { userUpdateSchema } from "../../schemas/users/users.schema";
 
-export const updateUserService = async (body: IUserUpdate, userID: string) => {
+export const updateUserService = async (
+  body: IUserUpdate,
+  userID: string,
+  loggedUserId: string
+) => {
   const userRepo = AppDataSource.getRepository(Users);
   const addressRepo = AppDataSource.getRepository(Address);
 
@@ -31,16 +36,15 @@ export const updateUserService = async (body: IUserUpdate, userID: string) => {
         throw new AppError("email already on use", 409);
       }
     }
-
-    if (Object.keys(body).includes("password")) {
-      if (user.id !== userID) {
-        throw new AppError(
-          "You don't own this user, can't change password",
-          400
-        );
-      }
-    }
   }
+
+  if (Object.keys(body).includes("password")) {
+    if (loggedUserId !== userID) {
+      throw new AppError("You don't own this user, can't change password", 400);
+    }
+    body.password = hashSync(body.password, 10);
+  }
+  console.log(body.password);
 
   await userRepo.save({ id: userID, ...body });
 

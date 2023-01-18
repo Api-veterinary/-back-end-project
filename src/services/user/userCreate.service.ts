@@ -12,6 +12,7 @@ export const userCreateService = async (userData: IUserRequest) => {
 
   const exists = await userRepository.exist({
     where: { email: userData.email },
+    withDeleted: true,
   });
 
   if (exists) {

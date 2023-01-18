@@ -19,6 +19,7 @@ export const createAnimalsService = async (data: IAnimalsRequest) => {
 
   let owner = null;
 
+  console.log(data);
   if (data.owner && data.owner.length > 10) {
     owner = await userRepository.findOneBy({ id: data.owner });
   }
@@ -33,8 +34,6 @@ export const createAnimalsService = async (data: IAnimalsRequest) => {
   if (type === null) {
     throw new AppError("animal type not registered", 400);
   }
-
-  console.log(data);
 
   const aplicationsData = await Promise.all(
     data.vaccines.map(async (vaccine) => {

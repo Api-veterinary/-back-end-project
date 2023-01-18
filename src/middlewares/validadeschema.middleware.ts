@@ -5,6 +5,7 @@ export const validateSchemaMiddleware =
   (serializer: AnySchema) =>
   async (req: Request, res: Response, next: NextFunction) => {
     try {
+      console.log(req.body);
       const validated = await serializer.validate(req.body, {
         stripUnknown: true,
         abortEarly: false,
