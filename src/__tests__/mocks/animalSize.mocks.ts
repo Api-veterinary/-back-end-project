@@ -1,5 +1,5 @@
-import { IAnimal_sizeRequest } from "../../interfaces/animals";
+import { IAnimalSizeRequest } from "../../interfaces/animals";
 
-export const mockedAnimalSize: IAnimal_sizeRequest = {
+export const mockedAnimalSize: IAnimalSizeRequest = {
   size: "small",
 };
