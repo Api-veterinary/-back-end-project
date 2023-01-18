@@ -64,8 +64,7 @@ export const doctorUpdateSchema: SchemaOf<IDoctorUpdateRequest> = yup
         state: yup.string().max(2).nullable(),
         id: yup.string().nullable(),
       })
-      .nullable()
-      .notRequired(),
+      .nullable(),
     delete_date: yup.string().nullable(),
     updatedAt: yup.date().notRequired(),
     createdAt: yup.date().notRequired(),

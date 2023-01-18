@@ -15,6 +15,7 @@ import {
   doctorUpdateSchema,
 } from "../schemas/doctors/doctors.schemas";
 import { ensureDataIsValidMiddleware } from "../middlewares/ensureDataIsValid.middleware";
+import { regexUuidValidation } from "../middlewares/regexValidation.middleware";
 
 const doctorsRoutes = Router();
 
@@ -28,9 +29,9 @@ doctorsRoutes.post(
 
 doctorsRoutes.patch(
   "/:id",
+  regexUuidValidation,
   ensureAuthMiddleware,
   ensureDoctorMiddleware,
-  ensureDataIsValidMiddleware(doctorUpdateSchema),
   updateDoctorController
 );
 
@@ -43,6 +44,7 @@ doctorsRoutes.get(
 
 doctorsRoutes.delete(
   "/:id",
+  regexUuidValidation,
   ensureAuthMiddleware,
   ensureDoctorMiddleware,
   deleteDoctorController

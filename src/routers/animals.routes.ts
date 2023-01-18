@@ -10,6 +10,7 @@ import { patchAnimalsController } from "../controllers/animals/animals.controlle
 import { ensureAuthMiddleware } from "../middlewares/ensureAuth.middleware";
 import { ensureDoctorMiddleware } from "../middlewares/ensureDoctor.middleware";
 import { ensureVaccinesAreUnique } from "../middlewares/ensureVaccinesAreUnique.middleware";
+import { regexUuidValidation } from "../middlewares/regexValidation.middleware";
 import { validateSchemaMiddleware } from "../middlewares/validadeschema.middleware";
 import { createAnimalsSchema } from "../schemas/animals/animals.schema";
 
@@ -26,10 +27,11 @@ animalsRoute.get("", ensureAuthMiddleware, getAnimalsController);
 
 animalsRoute.get("/:id", ensureAuthMiddleware, getAnimalsController);
 
-animalsRoute.delete("/:id", deleteAnimalsController);
+animalsRoute.delete("/:id", regexUuidValidation, deleteAnimalsController);
 
 animalsRoute.patch(
   "/:id",
+  regexUuidValidation,
   validateSchemaMiddleware(createAnimalsSchema),
   ensureAuthMiddleware,
   ensureVaccinesAreUnique,
@@ -38,9 +40,14 @@ animalsRoute.patch(
 
 animalsRoute.delete(
   "/vaccines_clear/:id",
+  regexUuidValidation,
   ensureAuthMiddleware,
   ensureDoctorMiddleware,
   clearAllAnimalVaccinesController
 );
 
-animalsRoute.delete("/vaccine_remove/:id", removeAnimalVaccineController);
+animalsRoute.delete(
+  "/vaccine_remove/:id",
+  regexUuidValidation,
+  removeAnimalVaccineController
+);

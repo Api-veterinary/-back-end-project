@@ -10,8 +10,6 @@ export const deleteAnimalsService = async (
 
   const exist = await animalsRepository.findOneBy({ id: animalID });
 
-  console.log(exist);
-
   if (exist === null) {
     throw new AppError("Animal não existe", 400);
   }
