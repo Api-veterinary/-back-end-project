@@ -1,9 +1,11 @@
 export interface IAddressRequest {
   district: string;
   zipCode: string;
-  number?: string;
+  number: string;
   city: string;
   state: string;
+  street: string;
+  complement: string;
 }
 
 export interface IDoctorRequest {
@@ -15,9 +17,24 @@ export interface IDoctorRequest {
 }
 
 export interface IDoctorResponse {
-  name: string;
-  email: string;
-  crmv: number;
+  delete_date?: string;
+  updatedAt?: Date;
+  createdAt?: Date;
+  crmv?: number;
+  email?: string;
+  name?: string;
   id: string;
   address?: IAddressRequest;
+}
+
+export interface IDoctorUpdateRequest {
+  delete_date?: string;
+  updatedAt?: Date;
+  createdAt?: Date;
+  crmv?: number;
+  email?: string;
+  name?: string;
+  id: string;
+  address?: IAddressRequest;
+  password?: string;
 }
