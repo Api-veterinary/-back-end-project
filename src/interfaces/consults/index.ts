@@ -19,8 +19,8 @@ export interface IConsultRequest {
 export interface IConsultResponse {
   date: string;
   hour: string;
-  doctor: IDoctorResponse;
-  animal: IAnimals;
+  doctor: object;
+  animal: object;
   id: string;
 }
 

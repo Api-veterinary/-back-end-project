@@ -112,10 +112,28 @@ const treatmentSchema = yup
 export const responseCreateConsultsSchema: SchemaOf<IConsultResponse> = yup
   .object()
   .shape({
+    doctor: yup.object().notRequired().shape({
+      crmv: yup.number().notRequired(),
+      email: yup.string().email().notRequired(),
+      name: yup.string().notRequired(),
+      id: yup.string().notRequired(),
+    }),
+    animal: yup
+      .object()
+      .notRequired()
+      .shape({
+        owner: yup
+          .object({
+            name: yup.string(),
+            email: yup.string(),
+            id: yup.string(),
+          })
+          .nullable(),
+        name: yup.string().nullable(),
+        id: yup.string().required(),
+      }),
     date: yup.string().notRequired(),
     hour: yup.string().notRequired(),
-    doctor: doctorWithoutPasswordSchema,
-    animal: animalsSchema,
     id: yup.string(),
   });
 
