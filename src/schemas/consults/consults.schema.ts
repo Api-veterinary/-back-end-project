@@ -1,6 +1,11 @@
 import * as yup from "yup";
 import { SchemaOf } from "yup";
-import { IConsultRequest } from "../../interfaces/consults";
+import {
+  IConsultRequest,
+  IConsultResponse,
+  IGetConsultResponse,
+  IUpdateConsultResponse,
+} from "../../interfaces/consults";
 import { IDoctorResponse } from "../../interfaces/doctor.interface";
 import { addressConsultsSchema, addressSchema } from "../address/addres.schema";
 import { doctorWithoutPasswordSchema } from "../doctors/doctors.schemas";
@@ -79,7 +84,7 @@ const medicineSchema: SchemaOf<IMedicineUpdate[]> = yup.array(
   })
 );
 
-const procedureSchema = yup.array(
+const procedureSchema: SchemaOf<IProcedureScheduleResponse[]> = yup.array(
   yup.object({
     procedure: yup.object({
       description: yup.string().nullable(),
@@ -104,41 +109,48 @@ const treatmentSchema = yup
   })
   .nullable();
 
-export const responseCreateConsultsSchema = yup.object().shape({
-  date: yup.string().notRequired(),
-  hour: yup.string().notRequired(),
-  doctor: doctorWithoutPasswordSchema,
-  animal: animalsSchema,
-  id: yup.string(),
-});
+export const responseCreateConsultsSchema: SchemaOf<IConsultResponse> = yup
+  .object()
+  .shape({
+    date: yup.string().notRequired(),
+    hour: yup.string().notRequired(),
+    doctor: doctorWithoutPasswordSchema,
+    animal: animalsSchema,
+    id: yup.string(),
+  });
 
-export const responseGetAllConsultsSchema = yup.array(
-  yup.object().shape({
+export const responseGetAllConsultsSchema: SchemaOf<IGetConsultResponse[]> =
+  yup.array(
+    yup.object().shape({
+      treatment: treatmentSchema,
+      animal: animalConsultsSchema,
+      medicines: medicineSchema,
+      doctor: doctorConsultsSchema,
+      hour: yup.string().notRequired(),
+      date: yup.string().notRequired(),
+      id: yup.string().notRequired(),
+    })
+  );
+
+export const responseGetConsultsSchema: SchemaOf<IGetConsultResponse> = yup
+  .object()
+  .shape({
     treatment: treatmentSchema,
-    animal: animalConsultsSchema,
     medicines: medicineSchema,
     doctor: doctorConsultsSchema,
+    animal: animalConsultsSchema,
     hour: yup.string().notRequired(),
     date: yup.string().notRequired(),
     id: yup.string().notRequired(),
-  })
-);
+  });
 
-export const responseGetConsultsSchema = yup.object().shape({
-  treatment: treatmentSchema,
-  medicines: medicineSchema,
-  doctor: doctorConsultsSchema,
-  animal: animalConsultsSchema,
-  hour: yup.string().notRequired(),
-  date: yup.string().notRequired(),
-  id: yup.string().notRequired(),
-});
-
-export const responseUpdateConsults = yup.object().shape({
-  medicines: medicineSchema,
-  doctor: doctorConsultsSchema,
-  animal: animalConsultsSchema,
-  hour: yup.string().notRequired(),
-  date: yup.string().notRequired(),
-  id: yup.string().notRequired(),
-});
+export const responseUpdateConsults: SchemaOf<IUpdateConsultResponse> = yup
+  .object()
+  .shape({
+    medicines: medicineSchema,
+    doctor: doctorConsultsSchema,
+    animal: animalConsultsSchema,
+    hour: yup.string().notRequired(),
+    date: yup.string().notRequired(),
+    id: yup.string().notRequired(),
+  });
