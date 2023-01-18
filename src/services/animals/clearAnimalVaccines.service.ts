@@ -35,9 +35,8 @@ export const removeAnimalVaccineService = async (
     throw new AppError("Animal não encontrado", 404);
   }
 
-  console.log(animal);
-
   vaccinesIDS.forEach((x) => {
+    console.log("Oi");
     vaccineQuery.delete().where("id = :id", { id: x }).execute();
   });
 

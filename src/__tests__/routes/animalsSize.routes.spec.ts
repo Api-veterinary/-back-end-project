@@ -3,7 +3,7 @@ import { mockedUserRequest } from "../mocks/user.mocks";
 import request from "supertest";
 import app from "../../app";
 import { DataSource } from "typeorm";
-import AppDataSource from "../../data-source";
+import { AppDataSource } from "../../data-source";
 import { mockedAnimalSize } from "../mocks/animalSize.mocks";
 import { mockedDoctorLogin } from "../mocks/doctor.mocks";
 import { mockedUserLogin } from "../mocks/user.mocks";

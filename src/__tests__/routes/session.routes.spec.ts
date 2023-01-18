@@ -1,6 +1,6 @@
 import { DataSource, Repository, TableForeignKey } from "typeorm";
 import app from "../../app";
-import AppDataSource from "../../data-source";
+import { AppDataSource } from "../../data-source";
 import request from "supertest";
 import { mockedDoctorLogin, mockedDoctorRequest } from "../mocks/doctor.mocks";
 import { mockedUserLogin, mockedUserRequest } from "../mocks/user.mocks";

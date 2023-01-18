@@ -26,8 +26,11 @@ export const ensureEmailAvailabilityMiddleware = async (
   }
   const userRepository = AppDataSource.getRepository(Users);
 
-  const userAlreadyExists = await userRepository.findOneBy({
-    email: email,
+  const userAlreadyExists = await userRepository.findOne({
+    where: {
+      email: email,
+    },
+    withDeleted: true,
   });
 
   if (userAlreadyExists) {

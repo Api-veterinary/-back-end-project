@@ -4,9 +4,12 @@ import { Users } from "../../entities/users/users.entity";
 export const deleteUserService = async (userID: string) => {
   const usersRepo = AppDataSource.getRepository(Users);
 
-  await usersRepo
+  console.log(userID);
+
+  const res = await usersRepo
     .createQueryBuilder()
-    .softDelete()
+    .delete()
     .where("id = :id", { id: userID })
     .execute();
+  console.log(res);
 };
