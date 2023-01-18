@@ -1,8 +1,12 @@
 import * as yup from "yup";
 import { SchemaOf } from "yup";
-import { IDoctorResponse } from "../../interfaces/doctors";
+import {
+  IDoctorRequest,
+  IDoctorResponse,
+  IDoctorUpdateRequest,
+} from "../../interfaces/doctors";
 
-export const doctorSchema = yup.object().shape({
+export const doctorSchema: SchemaOf<IDoctorRequest> = yup.object().shape({
   name: yup.string().required(),
   email: yup.string().email().required(),
   password: yup.string().required(),
@@ -46,28 +50,32 @@ export const doctorWithoutPasswordSchema: SchemaOf<IDoctorResponse> = yup
     id: yup.string().notRequired(),
   });
 
-export const doctorUpdateSchema = yup.object().shape({
-  address: yup
-    .object({
-      zipCode: yup.string().nullable(),
-      complement: yup.string().nullable(),
-      number: yup.string().nullable(),
-      street: yup.string().nullable(),
-      district: yup.string().nullable(),
-      city: yup.string().nullable(),
-      state: yup.string().max(2).nullable(),
-      id: yup.string().nullable(),
-    })
-    .nullable()
-    .notRequired(),
-  delete_date: yup.string().nullable(),
-  updatedAt: yup.date().notRequired(),
-  createdAt: yup.date().notRequired(),
-  email: yup.string().email().notRequired(),
-  password: yup.string().notRequired(),
-  name: yup.string().notRequired(),
-  crmv: yup.number().notRequired(),
-  id: yup.string().notRequired(),
-});
+export const doctorUpdateSchema: SchemaOf<IDoctorUpdateRequest> = yup
+  .object()
+  .shape({
+    address: yup
+      .object({
+        zipCode: yup.string().nullable(),
+        complement: yup.string().nullable(),
+        number: yup.string().nullable(),
+        street: yup.string().nullable(),
+        district: yup.string().nullable(),
+        city: yup.string().nullable(),
+        state: yup.string().max(2).nullable(),
+        id: yup.string().nullable(),
+      })
+      .nullable()
+      .notRequired(),
+    delete_date: yup.string().nullable(),
+    updatedAt: yup.date().notRequired(),
+    createdAt: yup.date().notRequired(),
+    email: yup.string().email().notRequired(),
+    password: yup.string().notRequired(),
+    name: yup.string().notRequired(),
+    crmv: yup.number().notRequired(),
+    id: yup.string().notRequired(),
+  });
 
-export const getDoctorsSchema = yup.array(doctorUpdateSchema);
+export const getDoctorsSchema: SchemaOf<IDoctorResponse[]> = yup.array(
+  doctorWithoutPasswordSchema
+);
