@@ -121,9 +121,7 @@ export const patchAnimalsService = async (
     vaccines_aplications: oldVaccines,
   });
 
-  console.log(updatedAnimal);
-
-  const res = animalsRepository.findOne({
+  const res = await animalsRepository.findOne({
     where: {
       id: exist.id,
     },
