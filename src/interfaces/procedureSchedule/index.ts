@@ -1,3 +1,5 @@
+import { IDoctorResponse } from "../doctors";
+
 export interface IProcedureScheduleRequest {
   date: string;
   hour: string;
@@ -32,4 +34,12 @@ export interface IProcedureScheduleResponse {
   date: string;
   id: string;
   procedure: IProcedureResponse;
+}
+
+export interface IProcedureScheduleTreatment {
+  doctor: IDoctorResponse;
+  procedure: IProcedureResponse;
+  id: string;
+  date: string;
+  hour: string;
 }

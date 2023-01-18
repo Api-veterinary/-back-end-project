@@ -42,3 +42,9 @@ export interface IUpdateConsultResponse {
   date: string;
   id: string;
 }
+
+export interface IConsult {
+  date: string;
+  hour: string;
+  id: string;
+}
