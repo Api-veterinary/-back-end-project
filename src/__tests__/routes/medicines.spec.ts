@@ -5,7 +5,7 @@ import {
   UsingJoinColumnOnlyOnOneSideAllowedError,
 } from "typeorm";
 import app from "../../app";
-import AppDataSource from "../../data-source";
+import { AppDataSource } from "../../data-source";
 import request from "supertest";
 import { mockedMedicine } from "../mocks/medicine.mocks";
 import { mockedDoctorLogin, mockedDoctorRequest } from "../mocks/doctor.mocks";

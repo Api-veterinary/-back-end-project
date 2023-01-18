@@ -3,7 +3,7 @@ import { IUserLogin, IUserResponse } from "../../interfaces/users.Interface";
 
 export const mockedDoctorRequest: IDoctorRequest = {
   name: "mockedName",
-  crmv: 65735283,
+  crmv: "65735283",
   email: "mockedDoctorEmail@MediaList.com",
   password: "string",
   address: {
@@ -19,7 +19,7 @@ export const mockedDoctorRequest: IDoctorRequest = {
 
 export const mockedDoctorRequestCrmv: IDoctorRequest = {
   name: "mockedName",
-  crmv: 65735283,
+  crmv: "65735283",
   email: "mockedDoctorEmailCrmv@MediaList.com",
   password: "string",
   address: {

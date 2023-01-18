@@ -1,6 +1,6 @@
 import { DataSource } from "typeorm";
 import app from "../../app";
-import AppDataSource from "../../data-source";
+import { AppDataSource } from "../../data-source";
 import request from "supertest";
 import { mockedUserRequest } from "../mocks/user.mocks";
 import { mockedDoctorLogin, mockedDoctorRequest } from "../mocks/doctor.mocks";
