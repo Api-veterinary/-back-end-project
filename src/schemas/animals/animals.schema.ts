@@ -2,26 +2,28 @@ import * as yup from "yup";
 import { SchemaOf } from "yup";
 import { IAnimalsRequest } from "../../interfaces/animals";
 
-const vaccinesAplicationsSchema = yup.array(
-  yup
-    .object({
-      date: yup.string().required(),
-      id: yup.array(yup.string()).required(),
-      vaccine: yup
-        .array(
-          yup
-            .object({
-              id: yup.string(),
-              name: yup.string(),
-              class: yup.string(),
-              description: yup.string(),
-            })
-            .nullable()
-        )
-        .nullable(),
-    })
-    .nullable()
-);
+const vaccinesAplicationsSchema = yup
+  .array(
+    yup
+      .object({
+        date: yup.string().nullable(),
+        id: yup.array(yup.string().nullable()).nullable(),
+        vaccine: yup
+          .array(
+            yup
+              .object({
+                id: yup.string(),
+                name: yup.string(),
+                class: yup.string(),
+                description: yup.string(),
+              })
+              .nullable()
+          )
+          .nullable(),
+      })
+      .nullable()
+  )
+  .nullable();
 
 export const animalsSchema = yup.object().shape({
   vaccines_aplications: vaccinesAplicationsSchema.nullable(),
@@ -43,7 +45,20 @@ export const animalsSchema = yup.object().shape({
 });
 
 export const createAnimalsResponseSchema = yup.object().shape({
-  aplications: vaccinesAplicationsSchema.nullable(),
+  aplications: yup.array(
+    yup.object({
+      medicine: yup.array(
+        yup
+          .object({
+            id: yup.string(),
+            name: yup.string(),
+            class: yup.string(),
+            description: yup.string(),
+          })
+          .nullable()
+      ),
+    })
+  ),
   last_visit: yup.date().required(),
   weigth: yup.string().nullable(),
   size: yup.object({ id: yup.string(), size: yup.string() }).nullable(),
@@ -61,14 +76,16 @@ export const createAnimalsResponseSchema = yup.object().shape({
   id: yup.string().required(),
 });
 
-const vaccinesOnCreateAnimalsSchema = yup.array(
-  yup
-    .object({
-      date: yup.string().required(),
-      id: yup.array(yup.string()).required(),
-    })
-    .nullable()
-);
+const vaccinesOnCreateAnimalsSchema = yup
+  .array(
+    yup
+      .object({
+        date: yup.string().nullable(),
+        id: yup.array(yup.string().nullable()).nullable(),
+      })
+      .nullable()
+  )
+  .required();
 
 export const createAnimalsSchema: SchemaOf<IAnimalsRequest> = yup
   .object()
