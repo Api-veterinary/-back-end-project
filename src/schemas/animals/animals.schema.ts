@@ -8,12 +8,12 @@ import {
 import { IVaccinesAplications } from "../../interfaces/vaccines";
 import { ICreateVaccines } from "../../interfaces/animals/index";
 
-export const vaccinesAplicationsSchema: SchemaOf<IVaccinesAplications[]> =
-  yup.array(
+export const vaccinesAplicationsSchema: SchemaOf<IVaccinesAplications[]> = yup
+  .array(
     yup
       .object({
-        date: yup.string().required(),
-        id: yup.array(yup.string()).required(),
+        date: yup.string().nullable(),
+        id: yup.array(yup.string().nullable()).nullable(),
         vaccine: yup
           .array(
             yup
@@ -28,7 +28,8 @@ export const vaccinesAplicationsSchema: SchemaOf<IVaccinesAplications[]> =
           .nullable(),
       })
       .nullable()
-  );
+  )
+  .nullable();
 
 export const animalsSchema: SchemaOf<IAnimals> = yup.object().shape({
   vaccines_aplications: vaccinesAplicationsSchema.nullable(),
@@ -73,8 +74,8 @@ export const createAnimalsResponseSchema: SchemaOf<IAnimalsResponse> = yup
 const vaccinesOnCreateAnimalsSchema: SchemaOf<ICreateVaccines[]> = yup.array(
   yup
     .object({
-      date: yup.string().required(),
-      id: yup.array(yup.string()).required(),
+      date: yup.string().nullable(),
+      id: yup.array(yup.string().nullable()).nullable(),
     })
     .nullable()
 );

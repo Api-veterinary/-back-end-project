@@ -24,19 +24,17 @@ export const createAnimalsService = async (data: IAnimalsRequest) => {
   }
   const size = await sizeRepository.findOneBy({ size: data.size });
 
-  console.log(data.size);
   const type: any = await typeRepository.findOneBy({ type: data.type });
 
   if (size === null) {
-    throw new AppError("Porte: Pequeno, Médio, Grande", 400);
+    throw new AppError("size not registered", 400);
   }
 
   if (type === null) {
-    throw new AppError(
-      "Tipo de animal inválido, tente: Cachorro, Gato, Ave, Tartaruga....",
-      400
-    );
+    throw new AppError("animal type not registered", 400);
   }
+
+  console.log(data);
 
   const aplicationsData = await Promise.all(
     data.vaccines.map(async (vaccine) => {
@@ -66,10 +64,15 @@ export const createAnimalsService = async (data: IAnimalsRequest) => {
     owner: owner,
   });
 
+  if (aplicationsData.includes(undefined)) {
+    throw new AppError("cant send empyt ids array");
+  }
+
   const aplications = await Promise.all(
     aplicationsData.map(async (aplication) => {
+      console.log(aplication);
       const res = vaccinesRepository.save({
-        vaccine: aplication.vaccine,
+        medicine: aplication.vaccine,
         date_aplied: aplication.date_aplied,
         animal: animal,
       });
@@ -87,12 +90,14 @@ export const createAnimalsService = async (data: IAnimalsRequest) => {
     aplications,
   });
 
-  const animalsWithoutPassord = await createAnimalsResponseSchema.validate(
+  console.log(newAnimal);
+
+  const animalsValidated = await createAnimalsResponseSchema.validate(
     newAnimal,
     {
       stripUnknown: true,
     }
   );
 
-  return animalsWithoutPassord;
+  return animalsValidated;
 };
