@@ -1,7 +1,7 @@
 import * as yup from "yup";
 import { SchemaOf } from "yup";
 import { IUserRequest } from "../../interfaces/users.Interface";
-import { addressSchema } from "../address/addres.schema";
+import { addressResponseSchema, addressSchema } from "../address/addres.schema";
 
 export const userSchema: SchemaOf<IUserRequest> = yup.object().shape({
   name: yup.string().required().max(70),
@@ -11,7 +11,7 @@ export const userSchema: SchemaOf<IUserRequest> = yup.object().shape({
 });
 
 export const userWithoutPasswordSchema = yup.object().shape({
-  address: addressSchema,
+  address: addressResponseSchema,
   updatedAt: yup.date().notRequired(),
   createdAt: yup.date().notRequired(),
   email: yup.string().email().notRequired(),
@@ -20,7 +20,7 @@ export const userWithoutPasswordSchema = yup.object().shape({
 });
 
 export const userUpdateSchema = yup.object().shape({
-  address: addressSchema,
+  address: addressResponseSchema,
   delete_date: yup.string().nullable(),
   updatedAt: yup.date().notRequired(),
   createdAt: yup.date().notRequired(),

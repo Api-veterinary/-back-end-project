@@ -14,7 +14,6 @@ const userRoutes = Router();
 userRoutes.post(
   "",
   ensureDataIsValidMiddleware(userSchema),
-
   userCreateController
 );
 

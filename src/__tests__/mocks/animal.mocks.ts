@@ -10,6 +10,5 @@ export const mockedAnimalRequest = {
 export const mockedAnimalUpdate = {
   name: "mockedAnimalNameUpdate",
   weight: "12kg",
-  size: "Grande",
   breed: "breed",
 };
