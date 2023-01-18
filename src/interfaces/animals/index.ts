@@ -1,5 +1,6 @@
 import { FindOperator } from "typeorm";
 import { Users } from "../../entities/users/users.entity";
+import { IVaccinesAplications } from "../vaccines";
 
 export interface IAnimalsRequest {
   owner: string;
@@ -23,7 +24,7 @@ export interface IAnimalUpdate {
   vaccines?: [ICreateVaccines];
 }
 
-interface ICreateVaccines {
+export interface ICreateVaccines {
   id: Array<string>;
   date: string;
 }
@@ -38,4 +39,40 @@ export interface IAnimalTypesRequest {
 
 export interface IAnimalSizeRequest {
   size: string;
+}
+
+export interface IAnimalSizeResponse {
+  id: string;
+  size: string;
+}
+
+export interface IAnimalTypeResponse {
+  id: string;
+  type: string;
+}
+
+export interface IAnimalsResponse {
+  aplications: IVaccinesAplications[];
+  last_visit: Date;
+  weigth: string;
+  size: IAnimalSizeRequest;
+  breed: string;
+  type: IAnimalTypeResponse;
+  birth_date: Date;
+  owner: object;
+  name: string;
+  id: string;
+}
+
+export interface IAnimals {
+  vaccines_aplications: IVaccinesAplications[];
+  last_visit: Date;
+  weigth: string;
+  size: IAnimalSizeRequest;
+  breed: string;
+  type: IAnimalTypeResponse;
+  birth_date: Date;
+  owner: object;
+  name: string;
+  id: string;
 }

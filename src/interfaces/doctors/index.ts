@@ -13,3 +13,11 @@ export interface IDoctorRequest {
   crmv: number;
   address: IAddressRequest;
 }
+
+export interface IDoctorResponse {
+  name: string;
+  email: string;
+  crmv: number;
+  id: string;
+  address?: IAddressRequest;
+}

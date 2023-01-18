@@ -60,7 +60,7 @@ export const createSessionService = async ({
       process.env.SECRET_KEY,
       {
         subject: doctor.id,
-        expiresIn: "24h",
+        expiresIn:  process.env.EXPIRES_IN,
       }
     );
 
