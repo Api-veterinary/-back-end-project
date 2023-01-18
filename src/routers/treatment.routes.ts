@@ -4,13 +4,11 @@ import {
   deleteTreatmentController,
   updatetreatmentController,
   updateTreatmentProcedureController,
-} from "../controllers/treatment/treatment.controller";
-import ensureAuthMiddleware from "../middlewares/ensureAuth.middleware";
-import ensureDataIsValidMiddleware from "../middlewares/ensureDataIsValid.middleware";
-import ensureDoctorMiddleware from "../middlewares/ensureDoctor.middleware";
+} from "../controllers/treatments/treatment.controller";
+import { ensureAuthMiddleware } from "../middlewares/ensureAuth.middleware";
+import { ensureDataIsValidMiddleware } from "../middlewares/ensureDataIsValid.middleware";
+import { ensureDoctorMiddleware } from "../middlewares/ensureDoctor.middleware";
 import { createTreatmentSchema } from "../schemas/treatment/treatment.schema";
-import updatetreatmentProcedureService from "../services/treatment/updateTreatmentProcedure.service";
-
 
 const treatmentRoutes = Router();
 

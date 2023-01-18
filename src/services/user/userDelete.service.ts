@@ -1,7 +1,7 @@
-import AppDataSource from "../../data-source";
+import { AppDataSource } from "../../data-source";
 import { Users } from "../../entities/users/users.entity";
 
-const deleteUserService = async (userID: string) => {
+export const deleteUserService = async (userID: string) => {
   const usersRepo = AppDataSource.getRepository(Users);
 
   await usersRepo
@@ -10,5 +10,3 @@ const deleteUserService = async (userID: string) => {
     .where("id = :id", { id: userID })
     .execute();
 };
-
-export default deleteUserService;

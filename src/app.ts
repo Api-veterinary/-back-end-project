@@ -6,14 +6,15 @@ import handleError from "./errors/handleError";
 import { animalsRoute } from "./routers/animals.routes";
 import medicineRoutes from "./routers/medicine.routes";
 import consultsRoutes from "./routers/consults.routes";
-import animalTypesRoutes from "./routers/animals_types.routes";
+import animalTypesRoutes from "./routers/animalsTypes.routes";
 import loginRoutes from "./routers/login.routes";
-import { animalSizesRoutes } from "./routers/animals_sizes.routes";
+import { animalSizesRoutes } from "./routers/animalsSizes.routes";
 
 import treatmentRoutes from "./routers/treatment.routes";
+import { proceduresRoutes } from "./routers/procedures.routes";
+import { proceduresSchedulesRoutes } from "./routers/procedureSchedule.routes";
 
-
-const app = express();
+export const app = express();
 app.use(express.json());
 
 app.use("/doctors", doctorsRoutes);
@@ -21,11 +22,12 @@ app.use("/users", userRoutes);
 app.use("/animals", animalsRoute);
 app.use("/medicine", medicineRoutes);
 app.use("/consults", consultsRoutes);
-app.use("/animal_types", animalTypesRoutes);
+app.use("/animalTypes", animalTypesRoutes);
 app.use("/login", loginRoutes);
-app.use("/animal_sizes", animalSizesRoutes);
+app.use("/animalSizes", animalSizesRoutes);
 app.use("/treatment", treatmentRoutes);
-
+app.use("/procedures", proceduresRoutes);
+app.use("/proceduresSchedules", proceduresSchedulesRoutes);
 
 app.use(handleError);
 

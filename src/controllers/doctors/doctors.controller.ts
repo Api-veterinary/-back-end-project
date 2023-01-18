@@ -2,10 +2,10 @@ import { Request, response, Response } from "express";
 //import { instanceToPlain } from "class-transformer";
 import { IDoctorUpdate } from "../../interfaces/doctor.interface";
 import { IDoctorRequest } from "../../interfaces/doctors";
-import createDoctorService from "../../services/doctors/createDoctor.service";
-import deleteDoctorService from "../../services/doctors/deleteDoctors.service";
-import getDoctorsService from "../../services/doctors/getDoctors.service";
-import updateDoctorService from "../../services/doctors/updateDoctor.service";
+import { createDoctorService } from "../../services/doctors/createDoctor.service";
+import { deleteDoctorService } from "../../services/doctors/deleteDoctors.service";
+import { getDoctorsService } from "../../services/doctors/getDoctors.service";
+import { updateDoctorService } from "../../services/doctors/updateDoctor.service";
 
 const createDoctorController = async (request: Request, response: Response) => {
   const dataDoctor: IDoctorRequest = request.body;
@@ -19,16 +19,19 @@ const getDoctorController = async (request: Request, response: Response) => {
 };
 
 const updateDoctorController = async (request: Request, response: Response) => {
+  console.log(request.body);
   const dataDoctor: IDoctorUpdate = request.body;
+  const doctorId: string = request.params.id;
   const updatedDoctor = await updateDoctorService(
     dataDoctor,
-    request.params.id
+    doctorId,
+    request.user.id
   );
   return response.status(201).json(updatedDoctor);
 };
 
 const deleteDoctorController = async (request: Request, response: Response) => {
-  const doctorId = request.params.id;
+  const doctorId: string = request.params.id;
   const deletedDoctor = await deleteDoctorService(doctorId);
 
   return response.status(204).json(deletedDoctor);

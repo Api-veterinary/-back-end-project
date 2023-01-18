@@ -1,17 +1,12 @@
-import AppDataSource from "../../data-source";
+import { AppDataSource } from "../../data-source";
 import { Animals } from "../../entities/animals/animals.entity";
 import { Consults } from "../../entities/consults/consults.entity";
 import { Doctors } from "../../entities/doctors/doctors.entity";
-import { Medicine } from "../../entities/medicines/medicines.enttity";
-import { Procedure } from "../../entities/procedure/procedure.entity";
-import { Treatment } from "../../entities/treatment/treatment.entity";
-import AppError from "../../errors/appError";
-import { IConsultsRequest } from "../../interfaces/consults.interface";
+import { AppError } from "../../errors/appError";
+import { responseCreateConsultsSchema } from "../../schemas/consults/consults.schema";
 
-const createConsultsService = async (consultsData) => {
+export const createConsultsService = async (consultsData) => {
   const consultsRepository = AppDataSource.getRepository(Consults);
-  const treatmentRepository = AppDataSource.getRepository(Treatment);
-  const proceduresRepository = AppDataSource.getRepository(Procedure);
   const doctorsRepository = AppDataSource.getRepository(Doctors);
   const animalRepository = AppDataSource.getRepository(Animals);
 
@@ -39,6 +34,11 @@ const createConsultsService = async (consultsData) => {
     doctor: doctor,
   });
 
-  return newConsults;
+  const validatedData = await responseCreateConsultsSchema.validate(
+    newConsults,
+    {
+      stripUnknown: true,
+    }
+  );
+  return validatedData;
 };
-export default createConsultsService;

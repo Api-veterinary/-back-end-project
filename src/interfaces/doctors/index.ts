@@ -10,7 +10,14 @@ export interface IDoctorRequest {
   name: string;
   email: string;
   password: string;
-  crmmv: number;
+  crmv: number;
   address: IAddressRequest;
 }
 
+export interface IDoctorResponse {
+  name: string;
+  email: string;
+  crmv: number;
+  id: string;
+  address?: IAddressRequest;
+}

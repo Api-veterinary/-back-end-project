@@ -8,6 +8,7 @@ export interface IUserRequest {
 }
 
 export interface IUserResponse {
+  id?: string;
   name: string;
   email: string;
   createdAt: Date;
@@ -25,4 +26,11 @@ export interface IUserUpdate {
   email?: string;
   password?: string;
   address?: IAddressUpdate;
+}
+
+export interface IOwnerResponse {
+  address?: IAddressRequest;
+  email: string;
+  name: string;
+  id: string;
 }

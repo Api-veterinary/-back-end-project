@@ -1,4 +1,4 @@
-import createSessionController from "../controllers/login/login.controller";
+import { createSessionController } from "../controllers/login/login.controller";
 
 const { Router } = require("express");
 

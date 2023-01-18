@@ -11,3 +11,15 @@ export const addressSchema: SchemaOf<IAddressRequest> = yup.object().shape({
   number: yup.string().required(),
   street: yup.string().required(),
 });
+
+export const addressConsultsSchema: SchemaOf<IAddressRequest> = yup
+  .object()
+  .shape({
+    zipCode: yup.string().nullable(),
+    complement: yup.string().nullable(),
+    state: yup.string().nullable(),
+    district: yup.string().nullable(),
+    city: yup.string().nullable(),
+    number: yup.string().nullable(),
+    street: yup.string().nullable(),
+  });

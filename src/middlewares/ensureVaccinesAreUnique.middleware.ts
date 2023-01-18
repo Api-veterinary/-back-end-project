@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import AppError from "../errors/appError";
+import { AppError } from "../errors/appError";
 
 export const ensureVaccinesAreUnique = async (
   req: Request,
@@ -8,7 +8,9 @@ export const ensureVaccinesAreUnique = async (
 ) => {
   const vaccines = req.body.vaccines;
 
-  if (vaccines.length >= 1) {
+  console.log(vaccines);
+
+  if (vaccines != null && vaccines.length >= 1) {
     vaccines.forEach((application: { id: string; date: string }) => {
       const arrayIDS = application.id;
 

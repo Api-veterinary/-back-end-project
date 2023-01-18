@@ -115,7 +115,7 @@ describe("Testing medicine routes", () => {
       .send(mockedDoctorLogin);
 
     const response = await request(app)
-      .delete(`/users/13970660-5dbe-423a-9a9d-5c23b37943cf`)
+      .delete(`/medicine/13970660-5dbe-423a-9a9d-5c23b37943cf`)
       .set("Authorization", `Bearer ${doctorLoginResponse.body.token}`);
     expect(response.status).toBe(404);
   });

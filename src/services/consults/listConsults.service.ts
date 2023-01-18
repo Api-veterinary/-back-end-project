@@ -1,16 +1,37 @@
-import AppDataSource from "../../data-source";
+import { AppDataSource } from "../../data-source";
 import { Consults } from "../../entities/consults/consults.entity";
-import AppError from "../../errors/appError";
+import { AppError } from "../../errors/appError";
+import { responseGetAllConsultsSchema } from "../../schemas/consults/consults.schema";
 
-const listConsultService = async () => {
+export const listConsultService = async () => {
   const consultsRepository = AppDataSource.getRepository(Consults);
   const findConsults = await consultsRepository.find({
-    relations: { animal: true, doctor: true },
+    relations: {
+      animal: {
+        owner: true,
+        vaccines_aplications: true,
+      },
+      doctor: true,
+      treatment: {
+        medicines: true,
+        procedures: {
+          procedure: true,
+        },
+      },
+    },
   });
+
   if (!findConsults.length) {
     throw new AppError("Consults not exists", 404);
   }
-  return findConsults;
-};
 
-export default listConsultService;
+  console.log(findConsults);
+  const validatedData = await responseGetAllConsultsSchema.validate(
+    findConsults,
+    {
+      stripUnknown: true,
+    }
+  );
+
+  return validatedData;
+};

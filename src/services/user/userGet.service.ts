@@ -1,16 +1,19 @@
-import AppDataSource from "../../data-source";
+import { AppDataSource } from "../../data-source";
 import { Users } from "../../entities/users/users.entity";
+import { getUsersSchema } from "../../schemas/users/users.schema";
 
-const getUserService = async () => {
+export const getUserService = async () => {
   const usersRepo = AppDataSource.getRepository(Users);
 
-  const doctors = await usersRepo.find({
+  const users = await usersRepo.find({
     relations: {
       address: true,
     },
   });
 
-  return doctors;
-};
+  const usersWithoutPassord = await getUsersSchema.validate(users, {
+    stripUnknown: true,
+  });
 
-export default getUserService;
+  return usersWithoutPassord;
+};

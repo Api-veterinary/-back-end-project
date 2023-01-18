@@ -1,41 +1,63 @@
-import { application } from "express";
-import AppDataSource from "../../data-source";
+import { AppDataSource } from "../../data-source";
 import { Animals } from "../../entities/animals/animals.entity";
 import { AnimalSizes } from "../../entities/animalSizes/animal_sizes.entity";
 import { Animal_types } from "../../entities/animalTypes/animalTypes.entity";
 import { Medicine } from "../../entities/medicines/medicines.enttity";
-import { VaccinesAplication } from "../../entities/vaccines_aplied/vaccinesAplied.entity";
-import AppError from "../../errors/appError";
-import { animal_type } from "../../__tests__/mocks/animal_type.mocks";
+import { Users } from "../../entities/users/users.entity";
+import { VaccinesAplication } from "../../entities/vaccinesAplied/vaccinesAplied.entity";
+import { AppError } from "../../errors/appError";
+import { IAnimalUpdate } from "../../interfaces/animals";
 
-export const patchAnimalsService = async (newAnimalData, animalID: string) => {
+export const patchAnimalsService = async (
+  newAnimalData: IAnimalUpdate,
+  animalID: string
+) => {
   const animalsRepository = AppDataSource.getRepository(Animals);
   const vaccinesRepository = AppDataSource.getRepository(VaccinesAplication);
   const medicineRepository = AppDataSource.getRepository(Medicine);
+  const userRepo = AppDataSource.getRepository(Users);
+
+  if (Object.keys(newAnimalData).includes("owner")) {
+    const regexExp =
+      /^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/gi;
+
+    const isValid = regexExp.test(newAnimalData.owner);
+    if (isValid) {
+      const user = await userRepo.findOneBy({ id: newAnimalData.owner });
+
+      if (user === null) {
+        throw new AppError("user not registered");
+      }
+
+      newAnimalData.owner = user;
+    } else {
+      throw new AppError("invalid owner uuid");
+    }
+  }
+
   const exist = await animalsRepository.findOne({
     where: { id: animalID },
     relations: {
       size: true,
       type: true,
       vaccines_aplications: {
-        vaccine: true,
+        medicines: true,
       },
     },
   });
 
+  if (exist === null) {
+    throw new AppError("animal not registered", 400);
+  }
 
   const oldVaccines = exist.vaccines_aplications;
-
-  if (exist === null) {
-    throw new AppError("Animal não existe", 400);
-  }
 
   if (Object.keys(newAnimalData).includes("size")) {
     const sizeRepo = AppDataSource.getRepository(AnimalSizes);
     const exists = await sizeRepo.findOneBy({ size: newAnimalData.size });
 
     if (exist === null) {
-      throw new AppError("Opções de tamanho: Pequeno, Médio, Grande");
+      throw new AppError("size not registered");
     } else {
       newAnimalData.size = exists;
     }
@@ -46,9 +68,7 @@ export const patchAnimalsService = async (newAnimalData, animalID: string) => {
     const exists = await typeRepo.findOneBy({ type: newAnimalData.type });
 
     if (exist === null) {
-      throw new AppError(
-        "Tipo de animal indisponível, tente: Cachorro, Gato, Ave...."
-      );
+      throw new AppError("animal type not registered.");
     } else {
       newAnimalData.type = exists;
     }
@@ -59,19 +79,19 @@ export const patchAnimalsService = async (newAnimalData, animalID: string) => {
     newAnimalData.vaccines.length >= 1
   ) {
     const aplicationsData = await Promise.all(
-      newAnimalData.vaccines.map(
-        async (vaccine: { id: Array<string>; date: string }) => {
-          const medicine = await Promise.all(
-            vaccine.id.map(async (id) => {
-              const res = await medicineRepository.findOneBy({ id: id });
-              return res;
-            })
-          );
-          const res = { vaccine: medicine, date_aplied: vaccine.date };
+      newAnimalData.vaccines.map(async (vaccine) => {
+        const medicine = await Promise.all(
+          (
+            await vaccine
+          ).id.map(async (id) => {
+            const res = await medicineRepository.findOneBy({ id: id });
+            return res;
+          })
+        );
+        const res = { vaccine: medicine, date_aplied: (await vaccine).date };
 
-          return res;
-        }
-      )
+        return res;
+      })
     );
 
     const aplications = await Promise.all(
@@ -94,7 +114,7 @@ export const patchAnimalsService = async (newAnimalData, animalID: string) => {
     exist.vaccines_aplications = oldVaccines;
   }
 
-  const updatedAnimal = animalsRepository.save({
+  const updatedAnimal = await animalsRepository.save({
     ...exist,
     ...newAnimalData,
     vaccines_aplications: oldVaccines,
@@ -109,7 +129,7 @@ export const patchAnimalsService = async (newAnimalData, animalID: string) => {
       size: true,
       type: true,
       vaccines_aplications: {
-        vaccine: true,
+        medicines: true,
       },
     },
   });

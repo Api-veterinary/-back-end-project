@@ -14,7 +14,7 @@ import {
 } from "typeorm";
 import { Address } from "../address/address.entity";
 import { Consults } from "../consults/consults.entity";
-import { ProcedureSchedule } from "../procedure_schedule/procedure_schedule.entity";
+import { ProcedureSchedule } from "../procedureSchedule/procedureSchedule.entity";
 
 @Entity("doctors")
 export class Doctors {

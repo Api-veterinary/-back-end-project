@@ -1,6 +1,6 @@
 import * as yup from "yup";
 import { SchemaOf } from "yup";
-import { IUserRequest, IUserUpdate } from "../../interfaces/users.Interface";
+import { IUserRequest } from "../../interfaces/users.Interface";
 import { addressSchema } from "../address/addres.schema";
 
 export const userSchema: SchemaOf<IUserRequest> = yup.object().shape({
@@ -28,3 +28,5 @@ export const userUpdateSchema = yup.object().shape({
   name: yup.string().notRequired(),
   id: yup.string().notRequired(),
 });
+
+export const getUsersSchema = yup.array(userWithoutPasswordSchema);

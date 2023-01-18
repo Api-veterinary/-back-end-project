@@ -1,14 +1,11 @@
-import AppDataSource from "../../data-source";
+import { AppDataSource } from "../../data-source";
 import { Address } from "../../entities/address/address.entity";
-
 import { Users } from "../../entities/users/users.entity";
-import AppError from "../../errors/appError";
-
+import { AppError } from "../../errors/appError";
 import { IUserUpdate } from "../../interfaces/users.Interface";
-
 import { userUpdateSchema } from "../../schemas/users/users.schema";
 
-const updateUserService = async (body: IUserUpdate, userID: string) => {
+export const updateUserService = async (body: IUserUpdate, userID: string) => {
   const userRepo = AppDataSource.getRepository(Users);
   const addressRepo = AppDataSource.getRepository(Address);
 
@@ -21,8 +18,6 @@ const updateUserService = async (body: IUserUpdate, userID: string) => {
     }
     const addressFind = await addressRepo.findOneBy({ id: body.address.id });
 
-    console.log(addressFind);
-
     address = await addressRepo.save({ ...addressFind, ...body.address });
 
     delete body.address;
@@ -30,8 +25,11 @@ const updateUserService = async (body: IUserUpdate, userID: string) => {
 
   if (Object.keys(body).includes("email")) {
     const user = await userRepo.findOneBy({ email: body.email });
-    if (user.id !== userID) {
-      throw new AppError("email already on use", 409);
+
+    if (user !== null) {
+      if (user.id !== userID) {
+        throw new AppError("email already on use", 409);
+      }
     }
 
     if (Object.keys(body).includes("password")) {
@@ -43,6 +41,7 @@ const updateUserService = async (body: IUserUpdate, userID: string) => {
       }
     }
   }
+
   await userRepo.save({ id: userID, ...body });
 
   const userToReturn = await userRepo.findOne({
@@ -56,5 +55,3 @@ const updateUserService = async (body: IUserUpdate, userID: string) => {
 
   return userWithoutPassord;
 };
-
-export default updateUserService;

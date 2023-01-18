@@ -1,7 +1,7 @@
 import { AnySchema } from "yup";
-
 import { Request, Response, NextFunction } from "express";
-const validateSchemaMiddleware =
+
+export const validateSchemaMiddleware =
   (serializer: AnySchema) =>
   async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -23,5 +23,3 @@ const validateSchemaMiddleware =
       return res.status(401).json({ message: error.errors });
     }
   };
-
-export default validateSchemaMiddleware;

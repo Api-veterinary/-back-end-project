@@ -1,13 +1,13 @@
 import jwt from "jsonwebtoken";
 import { compare } from "bcryptjs";
-import AppDataSource from "../../data-source";
+import { AppDataSource } from "../../data-source";
 import "dotenv/config";
-import AppError from "../../errors/appError";
+import { AppError } from "../../errors/appError";
 import { Users } from "../../entities/users/users.entity";
 import { IUserRequest } from "../../interfaces/users.Interface";
 import { Doctors } from "../../entities/doctors/doctors.entity";
 
-const createSessionService = async ({
+export const createSessionService = async ({
   email,
   password,
 }: IUserRequest): Promise<string> => {
@@ -71,5 +71,3 @@ const createSessionService = async ({
     throw new AppError("User or password invalid", 403);
   }
 };
-
-export default createSessionService;
