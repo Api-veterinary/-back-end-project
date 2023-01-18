@@ -1,6 +1,6 @@
 import { FindOperator } from "typeorm";
 import { Users } from "../../entities/users/users.entity";
-import { IVaccinesAplications } from "../vaccines";
+import { IVaccinesAplications, IVaccinesAplicationsGet } from "../vaccines";
 
 export interface IAnimalsRequest {
   owner: string;
@@ -66,6 +66,19 @@ export interface IAnimalsResponse {
 
 export interface IAnimals {
   vaccines_aplications: IVaccinesAplications[];
+  last_visit: Date;
+  weigth: string;
+  size: IAnimalSizeRequest;
+  breed: string;
+  type: IAnimalTypeResponse;
+  birth_date: Date;
+  owner: object;
+  name: string;
+  id: string;
+}
+
+export interface IAnimalsGet {
+  vaccines_aplications: IVaccinesAplicationsGet[];
   last_visit: Date;
   weigth: string;
   size: IAnimalSizeRequest;

@@ -39,9 +39,7 @@ export const createAnimalsService = async (data: IAnimalsRequest) => {
   const aplicationsData = await Promise.all(
     data.vaccines.map(async (vaccine) => {
       const medicine = await Promise.all(
-        (
-          await vaccine
-        ).id.map(async (id) => {
+        vaccine.id.map(async (id) => {
           const res = await medicineRepository.findOneBy({ id: id });
           if (res === null) {
             throw new AppError("vaccine " + id + " not found, check id", 404);
@@ -50,7 +48,7 @@ export const createAnimalsService = async (data: IAnimalsRequest) => {
         })
       );
       if (medicine.length >= 1) {
-        const res = { vaccine: medicine, date_aplied: (await vaccine).date };
+        const res = { medicine: medicine, date_aplied: vaccine.date };
         return res;
       }
       return;
@@ -70,15 +68,19 @@ export const createAnimalsService = async (data: IAnimalsRequest) => {
 
   const aplications = await Promise.all(
     aplicationsData.map(async (aplication) => {
-      console.log(aplication);
-      const res = vaccinesRepository.save({
-        medicine: aplication.vaccine,
+      const application = vaccinesRepository.create({
+        medicines: aplication.medicine,
         date_aplied: aplication.date_aplied,
         animal: animal,
       });
+
+      const res = await vaccinesRepository.save(application);
+      console.log(res);
       return res;
     })
   );
+
+  console.log(aplications);
 
   const vaccinatedAnimal = await animalsRepository.findOne({
     where: { id: animal.id },

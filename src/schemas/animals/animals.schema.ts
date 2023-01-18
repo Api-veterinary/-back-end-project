@@ -12,9 +12,7 @@ export const vaccinesAplicationsSchema: SchemaOf<IVaccinesAplications[]> = yup
   .array(
     yup
       .object({
-        date: yup.string().nullable(),
-        id: yup.array(yup.string().nullable()).nullable(),
-        vaccine: yup
+        medicines: yup
           .array(
             yup
               .object({
@@ -26,6 +24,8 @@ export const vaccinesAplicationsSchema: SchemaOf<IVaccinesAplications[]> = yup
               .nullable()
           )
           .nullable(),
+        date_aplied: yup.string().nullable(),
+        id: yup.string().nullable(),
       })
       .nullable()
   )

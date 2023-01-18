@@ -81,9 +81,7 @@ export const patchAnimalsService = async (
     const aplicationsData = await Promise.all(
       newAnimalData.vaccines.map(async (vaccine) => {
         const medicine = await Promise.all(
-          (
-            await vaccine
-          ).id.map(async (id) => {
+          vaccine.id.map(async (id) => {
             const res = await medicineRepository.findOneBy({ id: id });
             return res;
           })
@@ -95,12 +93,15 @@ export const patchAnimalsService = async (
     );
 
     const aplications = await Promise.all(
-      aplicationsData.map(async (aplication) => {
-        const res = vaccinesRepository.save({
-          vaccine: aplication.vaccine,
-          date_aplied: aplication.date_aplied,
+      aplicationsData.map(async (application) => {
+        const applicationCreation = vaccinesRepository.create({
+          medicines: application.vaccine,
+          date_aplied: application.date_aplied,
           animal: exist,
         });
+
+        const res = await vaccinesRepository.save(applicationCreation);
+
         return res;
       })
     );
@@ -119,6 +120,8 @@ export const patchAnimalsService = async (
     ...newAnimalData,
     vaccines_aplications: oldVaccines,
   });
+
+  console.log(updatedAnimal);
 
   const res = animalsRepository.findOne({
     where: {
