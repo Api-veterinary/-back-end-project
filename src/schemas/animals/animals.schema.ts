@@ -55,6 +55,7 @@ export const createAnimalsResponseSchema: SchemaOf<IAnimalsResponse> = yup
   .shape({
     aplications: vaccinesAplicationsSchema.nullable(),
     last_visit: yup.date().required(),
+    first_visit: yup.date().required(),
     weigth: yup.string().nullable(),
     size: yup.object({ id: yup.string(), size: yup.string() }).nullable(),
     breed: yup.string().nullable(),

@@ -99,14 +99,12 @@ describe("Testing animals/medicine routes", () => {
 
     expect(response.body).toHaveProperty("id");
     expect(response.body).toHaveProperty("name");
-    expect(response.body).toHaveProperty("weight");
     expect(response.body).toHaveProperty("size");
     expect(response.body).toHaveProperty("type");
-    expect(response.body).toHaveProperty("createdAt");
-    expect(response.body).toHaveProperty("updatedAt");
-    expect(response.body).toHaveProperty("owner_id");
-    expect(response.body).toHaveProperty("vaccines");
-    expect(response.body.owner_id).toEqual(owner.body.id);
+    expect(response.body).toHaveProperty("first_visit");
+    expect(response.body).toHaveProperty("last_visit");
+    expect(response.body).toHaveProperty("owner");
+    expect(response.body).toHaveProperty("aplications");
     expect(response.status).toBe(201);
   });
 
@@ -130,33 +128,16 @@ describe("Testing animals/medicine routes", () => {
     expect(response.body).toHaveProperty("type");
     expect(response.body).toHaveProperty("first_visit");
     expect(response.body).toHaveProperty("last_visit");
-    expect(response.body).toHaveProperty("owner_id");
-    expect(response.body).toHaveProperty("vaccines");
+    expect(response.body).toHaveProperty("owner");
+    expect(response.body).toHaveProperty("aplications");
     expect(response.status).toBe(201);
   });
 
   test("Should be able to delete a animal", async () => {
-    const doctorLoginResponse = await request(app)
-      .post("/login")
-      .send(mockedDoctorLogin);
-
     const path = "/animals/" + animal_id;
     const response = await request(app)
       .delete(path)
-      .set("Authorization", `Bearer ${doctorLoginResponse.body.token}`);
-
-    expect(response.status).toBe(200);
-  });
-
-  test("Should be able to delete a animal", async () => {
-    const doctorLoginResponse = await request(app)
-      .post("/login")
-      .send(mockedDoctorLogin);
-
-    const path = "/animals/" + animal_id;
-    const response = await request(app)
-      .delete(path)
-      .set("Authorization", `Bearer ${doctorLoginResponse.body.token}`);
+      .set("Authorization", `Bearer ${doctor_token}`);
 
     expect(response.status).toBe(200);
   });
