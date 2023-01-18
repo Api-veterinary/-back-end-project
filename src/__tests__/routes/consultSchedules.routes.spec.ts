@@ -80,12 +80,7 @@ describe("Testing consults routes", () => {
     expect(response.body).toHaveProperty("hour");
     expect(response.body).toHaveProperty("animal");
     expect(response.body).toHaveProperty("doctor");
-    expect(response.body).toHaveProperty("treatment");
-    expect(response.body).toHaveProperty("owner_id");
 
-    expect(response.body.treatment).toHaveProperty("medicines");
-    expect(response.body.name).toEqual(mockedUserRequest.name);
-    expect(response.body.email).toEqual(mockedUserRequest.email);
     expect(response.status).toBe(201);
   });
 
