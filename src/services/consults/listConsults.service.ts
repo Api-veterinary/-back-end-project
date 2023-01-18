@@ -9,6 +9,7 @@ export const listConsultService = async () => {
     relations: {
       animal: {
         owner: true,
+        vaccines_aplications: true,
       },
       doctor: true,
       treatment: {
